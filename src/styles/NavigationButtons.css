@@ -1,0 +1,38 @@
+@font-face {
+   font-family: 'Yatra One';
+   src: url('../../public/assets/fonts/YatraOne-Regular.ttf') format('truetype');
+   font-weight: normal;
+   font-style: normal;
+}
+
+.navigation-buttons {
+   display: flex;
+   flex-direction: column;
+   gap: 10px;
+}
+
+.mesh-button-text {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   width: 100%;
+   height: 100%;
+}
+
+.navigation-button {
+   padding: 10px 20px;
+   background-color: #4CAF50;
+   color: white;
+   border: none;
+   border-radius: 5px;
+   cursor: pointer;
+}
+
+.button-text {
+   font-family: 'Yatra One', cursive;
+   font-size: 30px;
+   color: white;
+   text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+   white-space: nowrap;
+   text-align: center;
+}
