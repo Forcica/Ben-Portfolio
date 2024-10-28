@@ -1,0 +1,164 @@
+/* Container principal */
+.webdev-container {
+   width: 100%;
+   min-height: 100vh;
+   padding: 50px 20px;
+   background: linear-gradient(to bottom, #f9f6f0, #e8d3c7);
+   overflow: hidden;
+   position: relative;
+}
+
+/* Style japonais pour le titre */
+.webdev-title {
+   font-family: 'Noto Serif JP', serif;
+   font-size: 2.25rem;
+   font-weight: bold;
+   color: #2c1810;
+   text-align: center;
+   margin-bottom: 2rem;
+   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+   position: relative;
+}
+
+.webdev-title::after {
+   content: '';
+   position: absolute;
+   bottom: -10px;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 100px;
+   height: 3px;
+   /* Dégradé rouge traditionnel japonais */
+   background: linear-gradient(to right, #9b2c2c, #e53e3e, #9b2c2c);
+}
+
+@keyframes titleAnimation {
+   0% {
+      transform: translateY(0);
+   }
+
+   100% {
+      transform: translateY(-10px);
+   }
+}
+
+@media (min-width: 768px) {
+   .webdev-title {
+      font-size: 3.75rem;
+   }
+}
+
+.petals-container {
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   z-index: 0;
+   pointer-events: none;
+}
+
+/* Grille de projets */
+.projects-grid {
+   display: grid;
+   gap: 2rem;
+   max-width: 72rem;
+   margin: 3rem auto 0;
+   position: relative;
+}
+
+@media (min-width: 768px) {
+   .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+   }
+}
+
+/* Style japonais pour les cartes */
+.project-card {
+   background-color: rgba(255, 255, 255, 0.9);
+   border-radius: 0;
+   overflow: hidden;
+   border: 1px solid rgba(0, 0, 0, 0.1);
+   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+   transition: all 0.3s ease;
+   position: relative;
+}
+
+.project-card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.project-image {
+   height: 12rem;
+   overflow: hidden;
+}
+
+.project-image img {
+   width: 100%;
+   height: 100%;
+   object-fit: cover;
+   transition: transform 0.7s ease;
+}
+
+.project-card:hover .project-image img {
+   transform: scale(1.1);
+}
+
+/* Ajout d'un motif japonais en arrière-plan */
+.project-content {
+   padding: 1.5rem;
+   position: relative;
+   background-image:
+      linear-gradient(45deg, #f9f6f0 25%, transparent 25%),
+      linear-gradient(-45deg, #f9f6f0 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #f9f6f0 75%),
+      linear-gradient(-45deg, transparent 75%, #f9f6f0 75%);
+   background-size: 20px 20px;
+   background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+.project-title {
+   font-size: 1.5rem;
+   font-weight: 600;
+   color: #1a202c;
+   margin-bottom: 0.5rem;
+}
+
+.project-description {
+   color: #4a5568;
+   margin-bottom: 1rem;
+}
+
+.project-tags {
+   display: flex;
+   flex-wrap: wrap;
+   gap: 0.5rem;
+   margin-bottom: 1rem;
+}
+
+/* Style pour les tags */
+.project-tag {
+   background-color: #f3ece7;
+   color: #2c1810;
+   font-size: 0.875rem;
+   padding: 0.25rem 0.75rem;
+   border-radius: 0;
+   /* Bordure style japonais */
+   border: 1px solid #2c1810;
+}
+
+/* Style pour les liens */
+.project-link {
+   color: #9b2c2c;
+   font-weight: 500;
+   padding: 0.5rem 1rem;
+   border: 1px solid #9b2c2c;
+   transition: all 0.3s ease;
+}
+
+.project-link:hover {
+   background-color: #9b2c2c;
+   color: white;
+   text-decoration: none;
+}

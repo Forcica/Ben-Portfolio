@@ -1,6 +1,6 @@
 import React, { Suspense, useEffect, useState } from 'react';
 import { Canvas, useThree } from '@react-three/fiber';
-import { OrbitControls, useGLTF, PerspectiveCamera } from '@react-three/drei';
+import { OrbitControls, useGLTF, PerspectiveCamera, SpotLight } from '@react-three/drei';
 import gsap from 'gsap';
 import { useAnimations } from '@react-three/drei';
 import * as THREE from 'three';
@@ -21,20 +21,62 @@ function NavigationButtons() {
  
    return (
       <>
-         <mesh position={[1.2, -0.2, 4.5]} onClick={() => navigate('/level-design')}>
+         <mesh 
+            position={[1.2, -0.2, 4.5]} 
+            onClick={() => navigate('/level-design')}
+            castShadow
+            receiveShadow
+         >
             <boxGeometry args={[1, 0.5, 0.1]} />
-            <meshStandardMaterial color="green" transparent opacity={opacity} />
+            <meshStandardMaterial 
+               color="blue" 
+               transparent 
+               opacity={opacity} 
+               roughness={0.5}
+               metalness={0.5}
+               emissive="darkblue"
+               emissiveIntensity={0.1}
+            />
             <Html center className="mesh-button-text">
                <div className="button-text" style={{ opacity }}>Level Design</div>
             </Html>
          </mesh>
-         <mesh position={[-1.5, -0.2, 4.5]} onClick={() => navigate('/web-dev')}>
+         <SpotLight
+            position={[1.2, 1, 5]}
+            angle={0.3}
+            penumbra={1}
+            intensity={2}
+            castShadow
+            shadow-mapSize={[512, 512]}
+         />
+         <mesh 
+            position={[-1.5, -0.2, 4.5]} 
+            onClick={() => navigate('/web-dev')}
+            castShadow
+            receiveShadow
+         >
             <boxGeometry args={[1, 0.5, 0.1]} />
-            <meshStandardMaterial color="#5f5b87" transparent opacity={opacity} />
+            <meshStandardMaterial 
+               color="#5f5b87" 
+               transparent 
+               opacity={opacity} 
+               roughness={0.5}
+               metalness={0.5}
+               emissive="purple"
+               emissiveIntensity={0.4}
+            />
             <Html center className="mesh-button-text">
                <div className="button-text" style={{ opacity }}>Web Dev</div>
             </Html>
          </mesh>
+         <SpotLight
+            position={[-1.5, 1, 5]}
+            angle={0.3}
+            penumbra={1}
+            intensity={2}
+            castShadow
+            shadow-mapSize={[512, 512]}
+         />
       </>
    );
 }
@@ -43,17 +85,17 @@ const Model = () => {
    const { scene, animations } = useGLTF('/assets/models/scene.gltf');
    const { actions } = useAnimations(animations, scene);
  
-   React.useEffect(() => {
+   useEffect(() => {
       if (scene) {
-         Object.values(actions).forEach(action => {
-            if (action) {
-            action.play();
-            action.setLoop(THREE.LoopRepeat);
-            }
-         });
+         for (const action of Object.values(actions)) {
+           if (action) {
+             action.play();
+             action.setLoop(THREE.LoopRepeat);
+           }
+         }
       }
-   }, [scene, animations, actions]);
- 
+   }, [scene, actions]);
+
    if (!scene) {
       return null;
    }
@@ -98,11 +140,16 @@ function Canvas3D() {
    };
  
    return (
-      <Canvas>
+      <Canvas shadows>
          <CameraAnimation onAnimationComplete={handleAnimationComplete} />
          <PerspectiveCamera makeDefault position={[0, 0, 20]} />
          <ambientLight intensity={1} />
-         <directionalLight position={[0, 10, 5]} intensity={2.5} />
+         <directionalLight 
+            position={[0, 10, 5]} 
+            intensity={2.5} 
+            castShadow
+            shadow-mapSize={[1024, 1024]}
+         />
          <Suspense fallback={null}>
             <Model />
          </Suspense>
@@ -113,6 +160,14 @@ function Canvas3D() {
             enabled={false}
          />
          {showButtons && <NavigationButtons />}
+         <mesh 
+            position={[0, -1.5, 0]} 
+            rotation={[-Math.PI / 2, 0, 0]} 
+            receiveShadow
+         >
+            <planeGeometry args={[100, 100]} />
+            <shadowMaterial opacity={0.4} />
+         </mesh>
       </Canvas>
    );
 }

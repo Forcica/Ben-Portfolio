@@ -9,13 +9,16 @@ function App() {
    return (
       <Router>
          <div className="App">
-         <div className="canvas-container">
-            <Canvas3D />
-         </div>
          <Routes>
+            <Route path="/" element={
+               <div className="canvas-container">
+                  <Canvas3D />
+               </div>
+            } />
             <Route path="/level-design" element={<LevelDesign />} />
             <Route path="/web-dev" element={<WebDev />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<div>404 - Page non trouvée</div>} />
          </Routes>
          </div>
       </Router>
