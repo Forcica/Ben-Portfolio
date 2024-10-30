@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft } from 'lucide-react';
 
+import '../styles/Caroussel.css';
+
 const ProjectCarousel = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -18,34 +20,24 @@ const ProjectCarousel = ({ images }) => {
   };
 
   return (
-    <div className="relative w-full h-96">
-      <AnimatePresence initial={false} mode='wait'>
+    <div className="relative">
+      <AnimatePresence>
         <motion.img
           key={currentIndex}
           src={images[currentIndex]}
-          initial={{ opacity: 0, x: 100 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -100 }}
-          transition={{ duration: 0.3 }}
-          className="w-full h-full object-cover rounded-lg"
-          alt={`Slide ${currentIndex + 1}`}
+          alt={`Project image ${currentIndex + 1}`}
+          className="w-full h-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         />
       </AnimatePresence>
-
-      <button
-        onClick={prev}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white hover:bg-black/75 transition-colors"
-      >
-        <ChevronLeft size={24} />
+      <button onClick={prev} className="absolute left-2 top-1/2 transform -translate-y-1/2">
+        <ChevronLeft />
       </button>
-
-      <button
-        onClick={next}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full text-white hover:bg-black/75 transition-colors"
-      >
-        <ChevronRight size={24} />
+      <button onClick={next} className="absolute right-2 top-1/2 transform -translate-y-1/2">
+        <ChevronRight />
       </button>
-
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
         {images.map((_, idx) => (
           <button

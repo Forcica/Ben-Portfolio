@@ -1,0 +1,31 @@
+.cursor-dot {
+   width: 6px;
+   height: 6px;
+   background-color: rgba(155, 44, 44, 0.5);
+   mix-blend-mode: difference;
+   border-radius: 50%;
+   position: fixed;
+   pointer-events: none;
+   z-index: 9999;
+   will-change: transform;
+   transform: translate3d(0, 0, 0);
+}
+
+.cursor-outline {
+   width: 32px;
+   height: 32px;
+   border: 1.5px solid rgba(155, 44, 44, 0.2);
+   border-radius: 50%;
+   position: fixed;
+   pointer-events: none;
+   z-index: 9998;
+   will-change: transform;
+   transform: translate3d(0, 0, 0);
+   transition: all 0.2s ease-out;
+}
+
+.cursor-hover {
+   transform: scale(1.5);
+   background-color: rgba(155, 44, 44, 0.1);
+   border-color: rgba(155, 44, 44, 0);
+}

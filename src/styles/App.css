@@ -2,6 +2,7 @@
    margin: 0;
    padding: 0;
    box-sizing: border-box;
+   cursor: none !important;
 }
  
 body, html {
@@ -54,5 +55,16 @@ body, html {
    }
    to {
       transform: rotate(360deg);
+   }
+}
+
+@media (max-width: 768px) {
+   * {
+      cursor: auto !important;
+   }
+
+   .cursor-dot,
+   .cursor-outline {
+      display: none;
    }
 }
