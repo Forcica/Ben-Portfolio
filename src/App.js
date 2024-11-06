@@ -1,10 +1,8 @@
-import './styles/App.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Canvas3D from './components/Canvas3d';
-import LevelDesign from './sections/LevelDesign';
-import WebDev from './sections/WebDev';
-import Contact from './sections/Contact';
-import Cursor from './components/Cursor';
+import LevelDesign from './pages/LevelDesign/LevelDesign';
+import WebDev from './pages/WebDev/WebDev';
+import Home from './pages/Home/Home';
+import Cursor from './components/common/Cursor/Cursor';
 
 function App() {
    return (
@@ -12,14 +10,9 @@ function App() {
          <div className="App">
             <Cursor />
             <Routes>
-               <Route path="/" element={
-                  <div className="canvas-container">
-                     <Canvas3D />
-                  </div>
-               } />
+               <Route path="/" element={<Home />} />
                <Route path="/level-design" element={<LevelDesign />} />
                <Route path="/web-dev" element={<WebDev />} />
-               <Route path="/contact" element={<Contact />} />
                <Route path="*" element={<div>404 - Page non trouvée</div>} />
             </Routes>
          </div>

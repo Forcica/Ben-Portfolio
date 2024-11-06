@@ -11,21 +11,12 @@ body, html {
 }
 
 .App {
-   background-color: #acacac;
+   background-color: #ffffff;
 }
 
 .App-logo {
    height: 40vmin;
    pointer-events: none;
-}
-
-.canvas-container {
-   width: 100vw;
-   height: 100vh;
-   position: fixed;
-   top: 0;
-   left: 0;
-   z-index: 0;
 }
 
 @media (prefers-reduced-motion: no-preference) {

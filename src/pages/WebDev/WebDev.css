@@ -1,0 +1,119 @@
+/* Container principal */
+.webdev-container {
+   isolation: isolate;
+   width: 100%;
+   min-height: 100vh;
+   padding: 0;
+   margin: 0;
+   background: linear-gradient(135deg, #f9f6f0 0%, #e8d3c7 100%);
+   overflow-x: hidden;
+   position: relative;
+}
+
+.webdev-title {
+   font-size: 4rem;
+   font-weight: 800;
+   color: #2c1810;
+   text-align: center;
+   margin-bottom: 6rem;
+   font-family: 'Noto Serif JP', serif;
+   position: relative;
+}
+
+.webdev-title::after {
+   content: '';
+   position: absolute;
+   bottom: -1rem;
+   left: 50%;
+   transform: translateX(-50%);
+   width: 100px;
+   height: 3px;
+   background: linear-gradient(90deg, transparent, #9b2c2c, transparent);
+}
+
+.webdev-title::before {
+   content: 'PROJECTS';
+   position: absolute;
+   top: -1rem;
+   left: 50%;
+   transform: translateX(-50%);
+   font-size: 8rem;
+   color: rgba(155, 44, 44, 0.03);
+   z-index: -1;
+   font-weight: 900;
+   letter-spacing: 0.4em;
+   white-space: nowrap;
+}
+
+/* Grille de projets */
+.projects-grid {
+   display: flex;
+   flex-direction: column;
+   gap: 8rem;
+   max-width: 1200px;
+   margin: 0 auto;
+   padding: 4rem 2rem;
+}
+
+.project-card:nth-child(odd) {
+   align-self: flex-start;
+   width: 65%;
+   transform: perspective(1000px) rotateY(-2deg);
+}
+
+.project-card:nth-child(even) {
+   align-self: flex-end;
+   width: 65%;
+   transform: perspective(1000px) rotateY(2deg);
+   margin-top: -4rem;
+}
+
+@media (max-width: 768px) {
+   .project-card:nth-child(n) {
+      width: 100%;
+      transform: none;
+   }
+
+   .projects-section {
+      padding: 4rem 2rem;
+      clip-path: polygon(0 4%, 100% 0, 100% 100%, 0 96%);
+   }
+}
+
+.projects-section {
+   position: relative;
+   padding: 12rem 4rem;
+   margin-top: 8rem;
+   background: rgba(255, 255, 255, 0.9);
+   backdrop-filter: blur(10px);
+   clip-path: polygon(0 10%, 100% 0, 100% 90%, 0 100%);
+   transform-style: preserve-3d;
+   perspective: 1000px;
+}
+
+.projects-grid.visible {
+   opacity: 1;
+   transform: translateY(0);
+   transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+   .projects-grid {
+      transition: opacity 0.8s ease;
+   }
+}
+
+@media (max-width: 768px) {
+   .hero-section {
+      min-height: 60vh;
+      padding: 4rem 1rem;
+   }
+
+   .projects-section {
+      padding: 2rem 1rem;
+   }
+
+   .projects-grid {
+      gap: 2rem;
+   }
+}
