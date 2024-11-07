@@ -55,3 +55,46 @@
    font-family: "Noto Serif JP", serif;
    font-size: 1.2rem;
 }
+
+.lantern-text {
+   color: #2c1810;
+   font-family: 'Noto Serif JP', serif;
+   font-size: 1.2rem;
+   text-align: center;
+   background: rgba(255, 255, 255, 0.1);
+   backdrop-filter: blur(8px);
+   padding: 0.5rem 1rem;
+   border-radius: 4px;
+   transition: transform 0.3s ease;
+   cursor: pointer;
+}
+
+.lantern-text:hover {
+   transform: scale(1.1);
+}
+
+.panel-text {
+   color: white;
+   font-family: 'Noto Serif JP', serif;
+   text-align: center;
+   opacity: 0.95;
+   transition: opacity 0.3s ease;
+   cursor: pointer;
+}
+
+.panel-title {
+   font-size: 1.4rem;
+   letter-spacing: 0.2em;
+   margin-bottom: 0.3rem;
+   font-weight: 300;
+}
+
+.panel-subtitle {
+   font-size: 1.2rem;
+   letter-spacing: 0.15em;
+   opacity: 0.9;
+}
+
+.panel-text:hover {
+   opacity: 1;
+}
