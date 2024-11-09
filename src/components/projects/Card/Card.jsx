@@ -6,18 +6,17 @@ import "./Card.css";
 const cardVariants = {
 	hidden: {
 		opacity: 0,
-		y: 100,
-		rotateX: -15,
+		y: 50,
+		rotateX: -5,
 	},
 	visible: (i) => ({
 		opacity: 1,
 		y: 0,
 		rotateX: 0,
 		transition: {
-			delay: i * 0.2,
-			duration: 0.8,
-			type: "spring",
-			stiffness: 50,
+			delay: i * 0.1,
+			duration: 1,
+			ease: [0.43, 0.13, 0.23, 0.96],
 		},
 	}),
 };

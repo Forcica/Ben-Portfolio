@@ -1,157 +1,212 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Canvas3D from "../../components/common/Canvas3D/Canvas3d";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import "./Home.css";
-import gsap from "gsap";
+import { throttle } from "lodash";
+import LoadingScreen from "../../components/common/LoadingScreen/LoadingScreen";
+import { preloadAssets } from "../../utils/preloader";
+
+const ANIMATION_SEQUENCES = [
+	["Bienvenue dans mon univers", 9000],
+	["ようこそ私の世界へ", 3000],
+	["Welcome to my world", 6000],
+];
 
 const Home = () => {
 	const navigate = useNavigate();
+	const [loadingState, setLoadingState] = useState({
+		progress: 0,
+		isLoading: true,
+		assetsLoaded: false,
+		stage: 0,
+	});
 
-	const pageVariants = {
-		initial: { opacity: 0 },
-		animate: {
-			opacity: 1,
-			transition: {
-				duration: 1.5,
-				staggerChildren: 0.3,
-			},
+	const handleNavigation = useCallback(
+		(path) => {
+			navigate(path);
 		},
-		exit: {
-			opacity: 0,
-			transition: { duration: 0.5 },
+		[navigate]
+	);
+
+	const handleKeyPress = useCallback(
+		(e, path) => {
+			if (e.key === "Enter") {
+				handleNavigation(path);
+			}
 		},
-	};
+		[handleNavigation]
+	);
+
+	const handleParallax = useCallback(() => {
+		const scrolled = window.pageYOffset;
+		document.querySelectorAll(".parallax").forEach((element) => {
+			const speed = parseFloat(element.dataset.speed) || 0.5; // Fallback speed if not defined
+			element.style.transform = `translateY(${scrolled * speed}px)`;
+		});
+	}, []);
+
+	const throttledHandleParallax = throttle(handleParallax, 100);
 
 	useEffect(() => {
-		const handleMouseMove = (e) => {
-			const { clientX, clientY } = e;
-			const moveX = clientX - window.innerWidth / 2;
-			const moveY = clientY - window.innerHeight / 2;
-			const offset = 15;
+		window.addEventListener("scroll", throttledHandleParallax);
+		return () =>
+			window.removeEventListener("scroll", throttledHandleParallax);
+	}, [throttledHandleParallax]);
 
-			gsap.to(".title-container", {
-				x: moveX / offset,
-				y: moveY / offset,
-				duration: 1,
-				ease: "power2.out",
-			});
+	useEffect(() => {
+		const loadAssets = async () => {
+			try {
+				setLoadingState((prev) => ({ ...prev, stage: 1 }));
+				await preloadAssets((progress) => {
+					setLoadingState((prev) => ({ ...prev, progress }));
+				});
+
+				setLoadingState((prev) => ({
+					...prev,
+					stage: 2,
+					assetsLoaded: true,
+				}));
+
+				setTimeout(() => {
+					setLoadingState((prev) => ({
+						...prev,
+						stage: 3,
+						isLoading: false,
+					}));
+				}, 1000);
+			} catch (error) {
+				console.error("Erreur de chargement:", error);
+			}
 		};
 
-		window.addEventListener("mousemove", handleMouseMove);
-		return () => window.removeEventListener("mousemove", handleMouseMove);
+		loadAssets();
 	}, []);
+
+	const renderNavigationButton = (
+		path,
+		icon,
+		title,
+		subtitle,
+		isWebDev = false
+	) => (
+		<motion.div
+			className={`nav-button ${isWebDev ? "web-dev" : "level-design"}`}
+			role="button"
+			aria-label={`Naviguer vers ${title}`}
+			tabIndex={0}
+			onKeyPress={(e) => handleKeyPress(e, path)}
+			initial={{ opacity: 0, y: 30 }}
+			animate={{ opacity: 1, y: 0 }}
+			transition={{
+				duration: 0.6,
+				ease: [0.23, 1, 0.32, 1],
+			}}
+			whileHover={{
+				scale: 1.02,
+				transition: { duration: 0.3 },
+			}}
+			onClick={() => handleNavigation(path)}
+		>
+			<div className="button-content">
+				<span className="button-icon">{icon}</span>
+				<div className="button-text">
+					<span className="button-title">{title}</span>
+					<span className="button-subtitle">{subtitle}</span>
+				</div>
+			</div>
+		</motion.div>
+	);
+
+	const { isLoading, assetsLoaded, progress } = loadingState;
 
 	return (
 		<motion.div
 			className="home-container"
-			variants={pageVariants}
-			initial="initial"
-			animate="animate"
-			exit="exit"
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 0.8 }}
 		>
-			<div className="canvas-container">
-				<Canvas3D />
-			</div>
-
-			<motion.div
-				className="home-content"
-				initial={{ opacity: 0 }}
-				animate={{ opacity: 1 }}
-				transition={{ duration: 1.5 }}
-			>
-				<div className="name-container">
-					<motion.h2
-						className="author-name"
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ delay: 2 }}
-					>
-						Benoît B.
-					</motion.h2>
-				</div>
-
-				<motion.div
-					className="title-container"
-					initial={{ y: -50 }}
-					animate={{ y: 0 }}
-					transition={{ duration: 1 }}
-				>
-					<TypeAnimation
-						sequence={[
-							"Bienvenue dans mon univers",
-							() => {
-								const element = document.querySelector(".title-text");
-								if (element) {
-									element.style.borderRight = "none";
-								}
-							},
-						]}
-						wrapper="h1"
-						speed={50}
-						className="title-text"
-						cursor={true}
-						repeat={0}
-					/>
-				</motion.div>
-			</motion.div>
-
-			<motion.div
-				className="navigation-buttons"
-				initial={{ opacity: 0, y: 50 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 1, delay: 2.5 }}
-			>
-				<motion.div
-					className="nav-button web-dev"
-					whileHover={{ scale: 1.05, y: -5 }}
-					onClick={() => navigate("/web-dev")}
-				>
-					<div className="button-content">
-						<span className="button-icon">⟨/⟩</span>
-						<div className="button-text">
-							<span className="button-title">Web Dev</span>
-							<span className="button-subtitle">
-								Projets & Expériences
-							</span>
+			<div className="fog-overlay" />
+			<AnimatePresence mode="wait">
+				{isLoading || !assetsLoaded ? (
+					<LoadingScreen progress={progress} />
+				) : (
+					<div className="content-wrapper">
+						<div className="canvas-container">
+							<Canvas3D />
 						</div>
-					</div>
-				</motion.div>
 
-				<motion.div
-					className="nav-button level-design"
-					whileHover={{ scale: 1.05, y: -5 }}
-					onClick={() => navigate("/level-design")}
-				>
-					<div className="button-content">
-						<span className="button-icon">◇</span>
-						<div className="button-text">
-							<span className="button-title">Level Design</span>
-							<span className="button-subtitle">Créations & Design</span>
-						</div>
-					</div>
-				</motion.div>
-			</motion.div>
+						<motion.div
+							className="home-content"
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 1.5 }}
+						>
+							<motion.div
+								className="title-container"
+								initial={{ y: -50 }}
+								animate={{ y: 0 }}
+								transition={{ duration: 1 }}
+							>
+								<motion.h2
+									className="author-name"
+									initial={{ opacity: 0 }}
+									animate={{ opacity: 1 }}
+									transition={{ delay: 2 }}
+								>
+									Benoît B.
+								</motion.h2>
+								<TypeAnimation
+									sequence={ANIMATION_SEQUENCES.flat()}
+									wrapper="h1"
+									speed={60}
+									className="title-text"
+									cursor={false}
+									repeat={Infinity}
+								/>
+							</motion.div>
+						</motion.div>
 
-			<motion.div
-				className="navigation-hint"
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 1, delay: 3 }}
-			>
-				<div className="destination-text">Choisis ta destination</div>
-				<div className="arrows-container">
-					<div className="direction-arrow">
-						<span className="arrow-icon">↑</span>
-						<span className="direction-text">Web Dev</span>
+						<motion.div
+							className="choose-text-container"
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 1, delay: 2.4 }}
+						>
+							<span className="choose-text">Choisis ta destination</span>
+							<div className="arrows-container">
+								<div className="arrow"></div>
+								<div className="arrow"></div>
+								<div className="arrow"></div>
+							</div>
+						</motion.div>
+
+						<motion.div
+							className="navigation-buttons"
+							initial={{ opacity: 0, y: 50 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 1, delay: 2.5 }}
+						>
+							{renderNavigationButton(
+								"/web-dev",
+								"⟨/⟩",
+								"Web Dev",
+								"Projets & Expériences",
+								true
+							)}
+							{renderNavigationButton(
+								"/level-design",
+								"◇",
+								"Level Design",
+								"Créations & Design"
+							)}
+						</motion.div>
 					</div>
-					<div className="direction-arrow">
-						<span className="arrow-icon">↑</span>
-						<span className="direction-text">Level Design</span>
-					</div>
-				</div>
-			</motion.div>
+				)}
+			</AnimatePresence>
 		</motion.div>
 	);
 };

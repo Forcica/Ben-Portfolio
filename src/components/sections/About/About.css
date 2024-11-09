@@ -1,90 +1,205 @@
 .about-section {
+   width: min(100%, 1400px);
+   margin: 0 auto;
    padding: 8rem 2rem;
-   background: linear-gradient(135deg, #fff 0%, #f9f6f0 100%);
    position: relative;
    overflow: hidden;
-}
-
-.about-section::before {
-   content: '';
-   position: absolute;
-   top: 0;
-   left: 0;
-   right: 0;
-   height: 1px;
-   background: linear-gradient(90deg, transparent, rgba(155, 44, 44, 0.2), transparent);
-}
-
-.about-content {
-   max-width: 1200px;
-   margin: 0 auto;
-   position: relative;
-}
-
-.about-title {
-   font-size: 3rem;
-   color: #2c1810;
-   margin-bottom: 3rem;
-   text-align: center;
-   font-family: 'Noto Serif JP', serif;
+   display: grid;
+   gap: 4rem;
 }
 
 .about-grid {
    display: grid;
    grid-template-columns: 1fr 1fr;
    gap: 4rem;
-   align-items: start;
+   position: relative;
 }
 
-.about-text p {
-   font-size: 1.1rem;
-   line-height: 1.8;
-   color: #4a5568;
-   margin-bottom: 1.5rem;
-}
-
-.about-skills {
-   background: rgba(155, 44, 44, 0.03);
-   padding: 2rem;
-   border-radius: 12px;
+.about-text-container {
+   position: relative;
+   padding: 3rem;
+   background: rgba(255, 255, 255, 0.7);
+   backdrop-filter: blur(10px);
+   border-radius: 2px;
    border: 1px solid rgba(155, 44, 44, 0.1);
+   overflow: hidden;
 }
 
-.about-skills h3 {
+.about-text-container::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 2px;
+   height: 100%;
+   background: linear-gradient(
+      to bottom,
+      transparent,
+      var(--accent),
+      transparent
+   );
+   opacity: 0.2;
+}
+
+.about-paragraph {
+   font-size: 1.1rem;
+   line-height: 2;
    color: #2c1810;
-   font-size: 1.5rem;
-   margin-bottom: 1.5rem;
+   margin-bottom: 2.5rem;
+   position: relative;
+   padding-left: 2rem;
+   transform-origin: left;
+}
+
+.emphasis {
    font-family: 'Noto Serif JP', serif;
+   color: var(--accent);
+   opacity: 0.8;
+   display: block;
+   font-size: 1.2rem;
+   margin-bottom: 0.5rem;
+}
+
+.japanese-quote {
+   display: block;
+   font-family: 'Noto Serif JP', serif;
+   font-size: 1.5rem;
+   color: var(--accent);
+   margin-bottom: 1rem;
+   opacity: 0.9;
+}
+
+.quote-translation {
+   font-style: italic;
+   color: #4a5568;
 }
 
 .skills-grid {
    display: grid;
-   grid-template-columns: repeat(3, 1fr);
+   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+   gap: 2rem;
+}
+
+.skill-category {
+   background: rgba(255, 255, 255, 0.8);
+   padding: 2.5rem;
+   border-radius: 2px;
+   border: 1px solid rgba(155, 44, 44, 0.1);
+   transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+   position: relative;
+   overflow: hidden;
+   backdrop-filter: blur(10px);
+}
+
+.skill-category::after {
+   content: '';
+   position: absolute;
+   bottom: 0;
+   left: 0;
+   width: 100%;
+   height: 2px;
+   background: linear-gradient(
+      to right,
+      transparent,
+      var(--accent),
+      transparent
+   );
+   opacity: 0;
+   transition: opacity 0.5s ease;
+}
+
+.skill-category:hover {
+   background: rgba(255, 255, 255, 0.95);
+   transform: translateY(-5px) scale(1.02);
+}
+
+.skill-category:hover::after {
+   opacity: 0.2;
+}
+
+.category-title {
+   font-family: 'Noto Serif JP', serif;
+   color: var(--primary);
+   font-size: 1.3rem;
+   margin-bottom: 1.5rem;
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+}
+
+.category-decoration {
+   color: var(--accent);
+   opacity: 0.5;
+}
+
+.skill-tags {
+   display: flex;
+   flex-wrap: wrap;
    gap: 1rem;
 }
 
-.skills-grid span {
-   background: rgba(155, 44, 44, 0.1);
-   color: #9b2c2c;
-   padding: 0.5rem 1rem;
-   border-radius: 4px;
-   text-align: center;
-   transition: all 0.3s ease;
+.skill-tag {
+   background: rgba(155, 44, 44, 0.05);
+   color: var(--accent);
+   padding: 0.8rem 1.5rem;
+   border-radius: 2px;
+   font-size: 0.9rem;
+   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+   border: 1px solid rgba(155, 44, 44, 0.1);
+   position: relative;
+   overflow: hidden;
+   cursor: pointer;
 }
 
-.skills-grid span:hover {
+.skill-tag::after {
+   content: '';
+   position: absolute;
+   inset: 0;
+   background: linear-gradient(
+      45deg,
+      transparent,
+      rgba(155, 44, 44, 0.1),
+      transparent
+   );
+   opacity: 0;
+   transition: opacity 0.3s ease;
+}
+
+.skill-tag:hover::after {
+   opacity: 1;
+}
+
+.skill-tag::before {
+   content: '';
+   position: absolute;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: rgba(155, 44, 44, 0.1);
+   transform: translateX(-100%);
+   transition: transform 0.4s ease;
+}
+
+.skill-tag:hover {
    transform: translateY(-2px);
-   background: rgba(155, 44, 44, 0.15);
-   box-shadow: 0 2px 8px rgba(155, 44, 44, 0.1);
+}
+
+.skill-tag:hover::before {
+   transform: translateX(0);
 }
 
 @media (max-width: 768px) {
-   .about-grid {
-      grid-template-columns: 1fr;
-      gap: 2rem;
-   }
-
    .about-section {
       padding: 4rem 1rem;
+   }
+   
+   .about-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+   }
+   
+   .skills-grid {
+      grid-template-columns: 1fr;
    }
 }
