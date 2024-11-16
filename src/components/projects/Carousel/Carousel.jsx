@@ -1,60 +1,56 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronRight, ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import "./Carousel.css";
 
 const ProjectCarousel = ({ images }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
-	const next = () => {
-		setCurrentIndex((current) =>
-			current === images.length - 1 ? 0 : current + 1
+	const handlePrevious = () => {
+		setCurrentIndex((prevIndex) =>
+			prevIndex === 0 ? images.length - 1 : prevIndex - 1
 		);
 	};
 
-	const prev = () => {
-		setCurrentIndex((current) =>
-			current === 0 ? images.length - 1 : current - 1
+	const handleNext = () => {
+		setCurrentIndex((prevIndex) =>
+			prevIndex === images.length - 1 ? 0 : prevIndex + 1
 		);
 	};
 
 	return (
-		<div className="relative">
-			<AnimatePresence>
+		<div className="carousel-container">
+			<AnimatePresence mode="wait">
 				<motion.img
 					key={currentIndex}
 					src={images[currentIndex]}
-					alt={`Project image ${currentIndex + 1}`}
-					className="w-full h-auto"
-					initial={{ opacity: 0 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0 }}
+					initial={{ opacity: 0, x: 100 }}
+					animate={{ opacity: 1, x: 0 }}
+					exit={{ opacity: 0, x: -100 }}
+					transition={{ duration: 0.3 }}
+					className="carousel-image"
 				/>
 			</AnimatePresence>
-			<button
-				onClick={prev}
-				className="absolute left-2 top-1/2 transform -translate-y-1/2"
-			>
-				<ChevronLeft />
-			</button>
-			<button
-				onClick={next}
-				className="absolute right-2 top-1/2 transform -translate-y-1/2"
-			>
-				<ChevronRight />
-			</button>
-			<div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-				{images.map((_, idx) => (
+
+			{images.length > 1 && (
+				<>
 					<button
-						key={idx}
-						onClick={() => setCurrentIndex(idx)}
-						className={`w-2 h-2 rounded-full transition-colors ${
-							idx === currentIndex ? "bg-white" : "bg-white/50"
-						}`}
-					/>
-				))}
-			</div>
+						className="carousel-button prev"
+						onClick={handlePrevious}
+						aria-label="Image précédente"
+					>
+						<ChevronLeft color="white" size={24} />
+					</button>
+					<button
+						className="carousel-button next"
+						onClick={handleNext}
+						aria-label="Image suivante"
+					>
+						<ChevronRight color="white" size={24} />
+					</button>
+				</>
+			)}
 		</div>
 	);
 };

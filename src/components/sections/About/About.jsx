@@ -4,7 +4,17 @@ import "./About.css";
 
 const skillsData = [
 	{
-		category: "3D & Creative Development",
+		category: "React Expertise",
+		skills: [
+			"React.js",
+			"Next.js",
+			"TypeScript",
+			"Redux Toolkit",
+			"React Query",
+		],
+	},
+	{
+		category: "3D & Creative",
 		skills: [
 			"Three.js",
 			"React Three Fiber",
@@ -14,34 +24,18 @@ const skillsData = [
 		],
 	},
 	{
-		category: "Frontend Expertise",
+		category: "E-commerce & SEO",
 		skills: [
-			"React.js",
-			"Next.js",
-			"TypeScript",
-			"Framer Motion",
-			"State Management",
-		],
-	},
-	{
-		category: "Creative Tools",
-		skills: [
-			"GSAP",
-			"Blender",
-			"WebGL Shaders",
-			"Creative Coding",
-			"Motion Design",
+			"Shopify",
+			"WooCommerce",
+			"SEO Technique",
+			"Performance Web",
+			"Analytics",
 		],
 	},
 	{
 		category: "Development Tools",
-		skills: [
-			"Git",
-			"Performance",
-			"Clean Code",
-			"Testing",
-			"Responsive Design",
-		],
+		skills: ["Git", "Testing", "CI/CD", "Clean Code", "Responsive Design"],
 	},
 ];
 
@@ -49,15 +43,15 @@ const About = () => {
 	const aboutTexts = [
 		{
 			kanji: "開発者",
-			text: "Développeur frontend spécialisé dans la création d'expériences web immersives. Je combine expertise technique et créativité pour transformer des concepts complexes en interfaces intuitives et engageantes. Mon approche est centrée sur l'innovation et l'expérience utilisateur.",
+			text: "Développeur React passionné par la création d'expériences web innovantes. De la landing page percutante aux applications complexes, je transforme vos besoins en interfaces élégantes et performantes, optimisées pour le SEO et la conversion.",
 		},
 		{
 			kanji: "専門家",
-			text: "Expert en développement 3D et WebGL avec 5 ans d'expérience. Maîtrisant React, Three.js et les shaders GLSL, je crée des expériences web uniques qui repoussent les limites du web moderne. Spécialisé dans l'optimisation des performances et l'accessibilité.",
+			text: "Spécialiste Three.js et WebGL, je repousse les limites du web moderne en créant des expériences 3D immersives. Mon expertise technique en React et Next.js garantit des applications robustes et évolutives, du site vitrine à l'e-commerce.",
 		},
 		{
 			kanji: "創造者",
-			text: "Passionné par le creative coding et l'innovation, je développe des solutions sur mesure qui allient performance technique et design innovant. Mon expertise en motion design et en animations 3D permet de créer des interfaces mémorables qui captivent les utilisateurs.",
+			text: "Créatif et pragmatique, je conçois des solutions e-commerce qui allient design innovant et performance. Maîtrisant SEO et optimisation, je développe des expériences d'achat fluides qui engagent vos utilisateurs et boostent vos conversions.",
 		},
 	];
 

@@ -1,16 +1,15 @@
 /* Hero Section */
 .hero-section {
+   min-height: 85vh;
+   padding-top: 2rem;
    position: relative;
-   width: 100%;
-   height: 100vh;
    display: flex;
-   align-items: center;
+   flex-direction: column;
    justify-content: center;
-   padding: 0;
-   overflow: hidden;
 }
 
 .hero-content {
+   margin-top: -5vh;
    max-width: var(--container-width);
    width: 100%;
    z-index: 1;
@@ -41,30 +40,87 @@
    margin-bottom: 8rem;
 }
 
+.wave-container {
+   position: absolute;
+   inset: -30%;
+   pointer-events: none;
+   z-index: -1;
+}
+
+.wave {
+   position: absolute;
+   inset: 0;
+   border: 4px solid var(--accent);
+   mix-blend-mode: soft-light;
+   transform-origin: center;
+}
+
+.wave:nth-child(1) {
+   border-color: rgba(155, 44, 44, 0.5);
+   transform: rotate(0deg) scale(0.95);
+}
+
+.wave:nth-child(2) {
+   border-color: rgba(155, 44, 44, 0.4);
+   transform: rotate(120deg) scale(0.9);
+}
+
+.wave:nth-child(3) {
+   border-color: rgba(155, 44, 44, 0.3);
+   transform: rotate(240deg) scale(0.85);
+}
+
 .skills-container {
-   display: flex;
-   gap: 2rem;
-   flex-wrap: wrap;
-   justify-content: center;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+   gap: 1.5rem;
+   margin-top: 2rem;
+   padding: 0 1rem;
+   max-width: 1200px;
+   margin-left: auto;
+   margin-right: auto;
 }
 
 .skill-badge {
-   padding: 1.2rem 2.4rem;
-   border-radius: 50px;
    background: rgba(255, 255, 255, 0.8);
    backdrop-filter: blur(10px);
-   font-size: 1.2rem;
+   border-radius: 16px;
+   padding: 1.2rem;
+   cursor: pointer;
+   border: 1px solid rgba(155, 44, 44, 0.1);
    display: flex;
    align-items: center;
    gap: 1rem;
+   transition: all 0.3s ease;
+}
+
+.skill-badge:hover {
+   transform: translateY(-5px);
+   background: rgba(255, 255, 255, 0.9);
+   border-color: rgba(155, 44, 44, 0.2);
+   box-shadow: 
+     0 10px 20px rgba(155, 44, 44, 0.1),
+     0 15px 30px rgba(155, 44, 44, 0.05);
 }
 
 .skill-icon {
-   font-size: 1.2em;
+   font-size: 1.8rem;
+}
+
+.skill-content {
+   display: flex;
+   flex-direction: column;
+   gap: 0.3rem;
 }
 
 .skill-name {
-   font-size: 0.9rem;
    font-weight: 500;
    color: var(--primary);
+   font-size: 1.1rem;
+}
+
+.skill-description {
+   font-size: 0.9rem;
+   color: var(--secondary);
+   opacity: 0.8;
 }

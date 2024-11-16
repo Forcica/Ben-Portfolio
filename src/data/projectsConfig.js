@@ -1,24 +1,24 @@
 export const projects = [
    {
       id: 1,
-      title: 'Projet 1: Application E-commerce',
-      description: 'Une application e-commerce avec paiement sécurisé.',
-      categories: ['Frontend', 'Full-Stack'],
-      longDescription: `Une plateforme e-commerce complète développée avec React et Node.js. 
+      title: 'OhMyFood - Site de restaurant',
+      description: 'Site de restaurant avec menu dynamique.',
+      categories: ['Frontend'],
+      longDescription: `Site de restaurant avec menu dynamique.
       Caractéristiques principales:
-      • Système de panier avancé
-      • Paiement sécurisé via Stripe
-      • Gestion des stocks en temps réel
-      • Interface administrateur complète`,
-      link: '/web-dev/projects/ecommerce',
-      github: 'https://github.com/username/ecommerce',
-      live: 'https://demo-ecommerce.com',
-      tags: ['React', 'Node.js', 'Stripe', 'MongoDB'],
-      technologies: ['React', 'Node.js', 'Express', 'MongoDB', 'Stripe API', 'Docker'],
+      • Menu dynamique
+      • Animation CSS
+      • Responsive
+      • Accessible`,
+      link: '/web-dev/projects/ohmyfood',
+      github: 'https://github.com/Forcica/OhMyFood-Paris',
+      live: 'https://forcica.github.io/OhMyFood-Paris/',
+      tags: ['HTML', 'CSS'],
+      technologies: ['HTML', 'CSS'],
       images: [
-         'https://via.placeholder.com/800x600',
-         'https://via.placeholder.com/800x600',
-         'https://via.placeholder.com/800x600'
+         'assets/images/ohmyfood1.png',
+         'assets/images/ohmyfood2.png',
+         'assets/images/ohmyfood3.png'
       ]
    },
    {

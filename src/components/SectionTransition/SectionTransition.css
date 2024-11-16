@@ -1,7 +1,8 @@
 .section-transition {
   position: relative;
   width: 100%;
-  padding: 6rem 0;
+  padding: 8rem 0;
+  overflow: hidden;
 }
 
 .section-content {
@@ -15,27 +16,35 @@
 .decorative-line {
   position: absolute;
   height: 1px;
-  width: 30%;
+  width: 40%;
   background: linear-gradient(90deg, 
     transparent,
+    rgba(155, 44, 44, 0.08),
     rgba(155, 44, 44, 0.15),
-    rgba(155, 44, 44, 0.3),
-    rgba(155, 44, 44, 0.15),
+    rgba(155, 44, 44, 0.08),
     transparent
   );
   z-index: 1;
+  transform-origin: center;
+  transition: width 0.8s var(--transition-bezier),
+              opacity 0.8s var(--transition-bezier);
+}
+
+.section-transition:hover .decorative-line {
+  width: 50%;
+  opacity: 0.8;
 }
 
 .decorative-line.left {
   top: 0;
   left: 0;
-  transform-origin: left;
+  transform: rotate(-2deg);
 }
 
 .decorative-line.right {
   bottom: 0;
   right: 0;
-  transform-origin: right;
+  transform: rotate(2deg);
 }
 
 .section-transition::before {
@@ -45,18 +54,41 @@
   left: 50%;
   transform: translate(-50%, -50%);
   width: 1px;
-  height: 80%;
+  height: 60%;
   background: linear-gradient(
     to bottom,
     transparent,
-    rgba(155, 44, 44, 0.08),
+    rgba(155, 44, 44, 0.12),
+    rgba(155, 44, 44, 0.15),
+    rgba(155, 44, 44, 0.12),
     transparent
   );
   opacity: 0;
-  transition: opacity 1s ease;
+  transition: opacity 1.2s var(--transition-bezier),
+              height 1.2s var(--transition-bezier);
 }
 
 .section-transition.visible::before {
+  opacity: 1;
+  height: 80%;
+}
+
+.section-transition::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle at 2px 2px,
+    rgba(155, 44, 44, 0.03) 1px,
+    transparent 0
+  );
+  background-size: 24px 24px;
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  pointer-events: none;
+}
+
+.section-transition.visible::after {
   opacity: 1;
 }
 
@@ -66,6 +98,6 @@
   }
   
   .decorative-line {
-    width: 40%;
+    width: 60%;
   }
 } 

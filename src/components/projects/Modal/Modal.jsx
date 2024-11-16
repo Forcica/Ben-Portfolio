@@ -1,18 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { motion } from "framer-motion";
 import { X, ExternalLink } from "lucide-react";
 import ProjectCarousel from "../Carousel/Carousel";
 import "./Modal.css";
 
 const ProjectModal = ({ project, isOpen, onClose }) => {
-	useEffect(() => {
-		const handleEsc = (e) => {
-			if (e.key === "Escape") onClose();
-		};
-		window.addEventListener("keydown", handleEsc);
-		return () => window.removeEventListener("keydown", handleEsc);
-	}, [onClose]);
-
 	if (!isOpen) return null;
 
 	return (
@@ -33,10 +25,40 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
 				<button onClick={onClose} className="modal-close-button">
 					<X size={20} />
 				</button>
+
 				<ProjectCarousel images={project.images} />
+
 				<div className="modal-body">
 					<h2 className="modal-title">{project.title}</h2>
-					<p className="modal-description">{project.longDescription}</p>
+					<p className="modal-subtitle">{project.description}</p>
+
+					<div className="modal-categories">
+						{project.categories.map((category, index) => (
+							<span key={index} className="category-tag">
+								{category}
+							</span>
+						))}
+					</div>
+
+					<div className="modal-section">
+						<h3 className="section-title">Technologies</h3>
+						<div className="modal-tags">
+							{project.technologies.map((tech, index) => (
+								<span key={index} className="tag">
+									{tech}
+								</span>
+							))}
+						</div>
+					</div>
+
+					<div className="modal-description">
+						{project.longDescription
+							.split("\n")
+							.map((paragraph, index) => (
+								<p key={index}>{paragraph}</p>
+							))}
+					</div>
+
 					<div className="modal-links">
 						{project.github && (
 							<a
