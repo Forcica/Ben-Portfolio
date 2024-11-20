@@ -29,58 +29,80 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
 				<ProjectCarousel images={project.images} />
 
 				<div className="modal-body">
-					<h2 className="modal-title">{project.title}</h2>
-					<p className="modal-subtitle">{project.description}</p>
+					<div className="modal-main-content">
+						<h2 className="modal-title">{project.title}</h2>
+						<p className="modal-subtitle">{project.description}</p>
 
-					<div className="modal-categories">
-						{project.categories.map((category, index) => (
-							<span key={index} className="category-tag">
-								{category}
-							</span>
-						))}
-					</div>
-
-					<div className="modal-section">
-						<h3 className="section-title">Technologies</h3>
-						<div className="modal-tags">
-							{project.technologies.map((tech, index) => (
-								<span key={index} className="tag">
-									{tech}
-								</span>
-							))}
+						<div className="results-section">
+							{project.longDescription
+								.split("\n")
+								.map((paragraph, index) => {
+									if (paragraph.includes("•")) {
+										const [title, ...items] = paragraph.split("•");
+										return (
+											<div key={index}>
+												<h3>{title.trim()}</h3>
+												<ul className="results-list">
+													{items.map((item, i) => (
+														<li key={i}>{item.trim()}</li>
+													))}
+												</ul>
+											</div>
+										);
+									}
+									return <p key={index}>{paragraph.trim()}</p>;
+								})}
 						</div>
 					</div>
 
-					<div className="modal-description">
-						{project.longDescription
-							.split("\n")
-							.map((paragraph, index) => (
-								<p key={index}>{paragraph}</p>
-							))}
-					</div>
+					<div className="modal-sidebar">
+						<div className="technologies-section">
+							<h3>Technologies</h3>
+							<div className="technologies-container">
+								{project.technologies.map((tech, index) => (
+									<span key={index} className="technology-tag">
+										{tech}
+									</span>
+								))}
+							</div>
+						</div>
 
-					<div className="modal-links">
-						{project.github && (
-							<a
-								href={project.github}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="modal-link"
-							>
-								GitHub
-								<ExternalLink size={16} />
-							</a>
-						)}
-						{project.live && (
-							<a
-								href={project.live}
-								target="_blank"
-								rel="noopener noreferrer"
-								className="modal-link modal-link-live"
-							>
-								Voir le site
-								<ExternalLink size={16} />
-							</a>
+						<div className="category-section">
+							<h3>Catégorie</h3>
+							<div className="category-tags">
+								{project.categories.map((category, index) => (
+									<span key={index} className="category-tag">
+										{category}
+									</span>
+								))}
+							</div>
+						</div>
+
+						{(project.github || project.live) && (
+							<div className="modal-links">
+								{project.github && (
+									<a
+										href={project.github}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="modal-link"
+									>
+										GitHub
+										<ExternalLink size={16} />
+									</a>
+								)}
+								{project.live && (
+									<a
+										href={project.live}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="modal-link modal-link-live"
+									>
+										Voir le site
+										<ExternalLink size={16} />
+									</a>
+								)}
+							</div>
 						)}
 					</div>
 				</div>

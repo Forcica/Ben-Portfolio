@@ -1,32 +1,12 @@
-.project-carousel {
+.carousel-container {
    position: relative;
    width: 100%;
-   height: 500px;
+   height: 100%;
    overflow: hidden;
-   border-radius: 12px 12px 0 0;
 }
 
-.project-carousel img {
+.carousel-image {
    width: 100%;
    height: 100%;
    object-fit: cover;
-}
-
-.project-carousel button {
-   background: rgba(255, 255, 255, 0.9);
-   border: none;
-   width: 40px;
-   height: 40px;
-   border-radius: 50%;
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   cursor: pointer;
-   transition: all 0.3s ease;
-   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.project-carousel button:hover {
-   background: white;
-   transform: scale(1.1);
 }

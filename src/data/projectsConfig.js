@@ -4,8 +4,7 @@ export const projects = [
       title: 'OhMyFood - Site de restaurant',
       description: 'Site de restaurant avec menu dynamique.',
       categories: ['Frontend'],
-      longDescription: `Site de restaurant avec menu dynamique.
-      Caractéristiques principales:
+      longDescription: `Caractéristiques principales:
       • Menu dynamique
       • Animation CSS
       • Responsive

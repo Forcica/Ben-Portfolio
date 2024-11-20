@@ -17,16 +17,19 @@
 
 .sections-wrapper {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   min-height: 100vh;
   overflow: visible;
 }
 
 .sections-container {
-  width: 100%;
-  max-width: var(--container-width);
-  margin: 0 auto;
-  padding: 0 2rem;
+   width: 100%;
+   max-width: var(--container-width);
+   padding: 0 2rem;
 }
 
 .section {
@@ -153,14 +156,18 @@
 }
 
 .projects-section {
-  padding: 8rem 0;
+   display: flex;
+   align-items: center;
+   justify-content: center;
 }
 
 .projects-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 3rem;
-  margin-top: 4rem;
+   display: grid;
+   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+   gap: 3rem;
+   width: 100%;
+   max-width: 100%;
+   margin-top: 4rem;
 }
 
 .projects-filters {

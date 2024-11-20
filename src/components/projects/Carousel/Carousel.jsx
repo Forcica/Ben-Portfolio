@@ -40,14 +40,14 @@ const ProjectCarousel = ({ images }) => {
 						onClick={handlePrevious}
 						aria-label="Image précédente"
 					>
-						<ChevronLeft color="white" size={24} />
+						<ChevronLeft size={24} color="#2c1810" />
 					</button>
 					<button
 						className="carousel-button next"
 						onClick={handleNext}
 						aria-label="Image suivante"
 					>
-						<ChevronRight color="white" size={24} />
+						<ChevronRight size={24} color="#2c1810" />
 					</button>
 				</>
 			)}

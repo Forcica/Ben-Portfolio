@@ -34,42 +34,15 @@ const skills = [
 	},
 ];
 
-const scrollTexts = [
-	"applications performantes",
-	"expériences 3D",
-	"sites e-commerce",
-	"interfaces créatives",
-	"solutions sur mesure",
-];
-
 const WaveAnimation = () => (
 	<motion.div className="wave-container">
-		{[...Array(3)].map((_, i) => (
-			<motion.div
-				key={i}
-				className="wave"
-				initial={{
-					scale: 0.8,
-					opacity: 0.2,
-					borderRadius: "40% 60% 60% 40% / 40% 40% 60% 60%",
-				}}
-				animate={{
-					scale: [0.8, 1.1, 0.8],
-					opacity: [0.2, 0.4, 0.2],
-					borderRadius: [
-						"40% 60% 60% 40% / 40% 40% 60% 60%",
-						"60% 40% 40% 60% / 60% 60% 40% 40%",
-						"40% 60% 60% 40% / 40% 40% 60% 60%",
-					],
-				}}
-				transition={{
-					duration: 6,
-					delay: i * 2,
-					repeat: Infinity,
-					ease: "easeInOut",
-				}}
-			/>
-		))}
+		<motion.div
+			className="wave"
+			style={{
+				opacity: 0.03,
+				transform: "scale(0.8)",
+			}}
+		/>
 	</motion.div>
 );
 
@@ -98,7 +71,18 @@ export const HeroSection = () => {
 
 				<div className="hero-subtitle">
 					<TypeAnimation
-						sequence={scrollTexts}
+						sequence={[
+							"applications performantes",
+							4000,
+							"expériences 3D",
+							4000,
+							"sites e-commerce",
+							4000,
+							"interfaces créatives",
+							4000,
+							"solutions sur mesure",
+							4000,
+						]}
 						wrapper="span"
 						speed={50}
 						className="animated-text"

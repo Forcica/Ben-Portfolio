@@ -43,15 +43,15 @@ const About = () => {
 	const aboutTexts = [
 		{
 			kanji: "開発者",
-			text: "Développeur React passionné par la création d'expériences web innovantes. De la landing page percutante aux applications complexes, je transforme vos besoins en interfaces élégantes et performantes, optimisées pour le SEO et la conversion.",
+			text: "Je m'appelle Benoît, j'ai 24 ans et je vis en France. Développeur web, je travaille sur des projets variés en fonction des besoins.",
 		},
 		{
 			kanji: "専門家",
-			text: "Spécialiste Three.js et WebGL, je repousse les limites du web moderne en créant des expériences 3D immersives. Mon expertise technique en React et Next.js garantit des applications robustes et évolutives, du site vitrine à l'e-commerce.",
+			text: "Je réalise des sites vitrines, des boutiques en ligne, et des applications interactives. J'ai aussi de l'expérience dans la création de contenus 3D immersifs avec Three.js et WebGL.",
 		},
 		{
 			kanji: "創造者",
-			text: "Créatif et pragmatique, je conçois des solutions e-commerce qui allient design innovant et performance. Maîtrisant SEO et optimisation, je développe des expériences d'achat fluides qui engagent vos utilisateurs et boostent vos conversions.",
+			text: "Mon objectif est de livrer des solutions fiables et performantes, avec une navigation fluide et un design soigné pour une meilleure expérience utilisateur.",
 		},
 	];
 
