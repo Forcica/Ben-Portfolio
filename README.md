@@ -1,6 +1,6 @@
 # 🎨 Portfolio de Développeur Frontend & Level Designer | Benoît B.  
 
-Bienvenue dans mon univers, où **créativité artistique** et **technologie moderne** s’unissent pour donner vie à des expériences numériques et interactives inoubliables. Mon approche mêle **rigueur technique** et **sens du détail**, le tout inspiré par l'esthétique japonaise.
+Bienvenue dans mon univers, où **créativité artistique** et **technologie moderne** s’unissent pour donner vie à des expériences numériques et interactives inoubliables. Mon approche mêle **rigueur technique** et **sens du détail**.
 
 ---
 
@@ -68,8 +68,8 @@ Application pour la gestion de comptes avec authentification sécurisée.
 ## 🎮 Contributions au Level Design  
 
 ### **Garry’s Mod** - **Maps Personnalisées & Systèmes de Jeu**  
-- Création de maps immersives inspirées par des univers comme **Bleach**.  
-- Développement de mécaniques de jeu uniques (e.g., **Shunpo**, combats personnalisés).  
+- Création d'environnements immersifs inspirées par des univers comme **Bleach**, **Star Wars** ou **Realiste**.  
+- Développement de mécaniques de jeu uniques.  
 
 ### **Unreal Engine** - Prototypage et Environnements 3D  
 - Création de mondes interactifs, équilibrant esthétique et gameplay.  
@@ -79,9 +79,9 @@ Application pour la gestion de comptes avec authentification sécurisée.
 ## 📬 Contactez-moi  
 
 Prêt à collaborer ? Parlons-en !  
-- **Email** : [votre.email@example.com]  
-- **LinkedIn** : [Votre profil LinkedIn]  
-- **GitHub** : [Votre profil GitHub]  
+- **Email** : [contact@shinseidigital.fr]  
+- **LinkedIn** : [[Votre profil LinkedIn](https://www.linkedin.com/in/beno%C3%AEt-bchini-927985267/)]  
+- **GitHub** : [[Votre profil GitHub](https://github.com/Forcica)]  
 
 ---
 
