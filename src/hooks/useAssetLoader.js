@@ -9,20 +9,27 @@ const useAssetLoader = () => {
 
    useEffect(() => {
       const loadEverything = async () => {
-         // Simuler un chargement progressif
-         for (let i = 0; i <= 100; i += 1) {
-            await new Promise(resolve => setTimeout(resolve, 20));
-            setLoadingState(prev => ({ ...prev, progress: i }));
+         try {
+            // Simuler un chargement progressif plus court
+            for (let i = 0; i <= 100; i += 2) {
+               await new Promise(resolve => setTimeout(resolve, 10));
+               setLoadingState(prev => ({ ...prev, progress: i }));
+            }
+            
+            setLoadingState({
+               progress: 100,
+               isLoading: false,
+               assetsLoaded: true
+            });
+         } catch (error) {
+            console.error("Erreur de chargement:", error);
+            // En cas d'erreur, on continue quand même
+            setLoadingState({
+               progress: 100,
+               isLoading: false,
+               assetsLoaded: true
+            });
          }
-
-         // Attendre que le canvas soit initialisé
-         await new Promise(resolve => setTimeout(resolve, 1000));
-         
-         setLoadingState({
-            progress: 100,
-            isLoading: false,
-            assetsLoaded: true
-         });
       };
 
       loadEverything();

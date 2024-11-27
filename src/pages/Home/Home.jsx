@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, Suspense } from "react";
 import { useNavigate } from "react-router-dom";
 import Canvas3D from "../../components/common/Canvas3D/Canvas3d";
 import { motion, AnimatePresence } from "framer-motion";
@@ -7,6 +7,7 @@ import "./Home.css";
 import { throttle } from "lodash";
 import LoadingScreen from "../../components/common/LoadingScreen/LoadingScreen";
 import useAssetLoader from "../../hooks/useAssetLoader";
+import { ErrorBoundary } from "react-error-boundary";
 
 const ANIMATION_SEQUENCES = [
 	["Bienvenue dans mon univers", 9000],
@@ -100,14 +101,23 @@ const Home = () => {
 				) : (
 					<div className="content-wrapper">
 						<div className="canvas-container">
-							<Canvas3D />
+							<ErrorBoundary
+								FallbackComponent={({ error }) => (
+									<div>
+										Erreur de chargement du canvas: {error.message}
+									</div>
+								)}
+							>
+								<Suspense fallback={<div>Chargement du canvas...</div>}>
+									<Canvas3D />
+								</Suspense>
+							</ErrorBoundary>
 						</div>
 
 						<motion.div
 							className="home-content"
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
-							transition={{ duration: 1.5, delay: 1 }}
 						>
 							<motion.div
 								className="title-container"
