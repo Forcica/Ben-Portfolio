@@ -1,27 +1,16 @@
 import React, { Suspense, useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
-import { OrbitControls, useGLTF, useAnimations } from "@react-three/drei";
+import { OrbitControls, useGLTF } from "@react-three/drei";
 import gsap from "gsap";
+import { useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 
 const Model = () => {
-	const modelPath = process.env.PUBLIC_URL + "/assets/models/scene.gltf";
-	const { scene, animations } = useGLTF(modelPath);
+	const { scene, animations } = useGLTF("/assets/models/scene.gltf");
 	const { actions } = useAnimations(animations, scene);
 
 	useEffect(() => {
 		if (scene) {
-			scene.traverse((child) => {
-				if (child.isMesh) {
-					child.castShadow = true;
-					child.receiveShadow = true;
-					if (child.material) {
-						child.material.needsUpdate = true;
-						child.material.side = THREE.DoubleSide;
-					}
-				}
-			});
-
 			for (const action of Object.values(actions)) {
 				if (action) {
 					action.play();
@@ -37,8 +26,6 @@ const Model = () => {
 			scale={[0.04, 0.04, 0.04]}
 			position={[-0.8, -1.1, 2]}
 			rotation={[0, 4.9, 0]}
-			castShadow
-			receiveShadow
 		/>
 	);
 };
@@ -65,11 +52,6 @@ const Canvas3D = () => {
 			shadows
 			camera={{ position: [0, 2, 8], fov: 60 }}
 			style={{ background: "transparent" }}
-			gl={{
-				antialias: true,
-				alpha: true,
-				powerPreference: "high-performance",
-			}}
 		>
 			<Suspense fallback={null}>
 				<ambientLight intensity={0.5} />
