@@ -85,10 +85,10 @@ export const projects = [
       tags: ['Bug Fixing', 'Application', 'Responsive Design', 'React'],
       technologies: ['HTML5', 'CSS3', 'JavaScript', 'React'],
       images: [
-         'assets/images/kasa1.png',
-         'assets/images/kasa2.png',
-         'assets/images/kasa3.png',
-         'assets/images/kasa4.png'
+         './assets/images/kasa1.png',
+         './assets/images/kasa2.png',
+         './assets/images/kasa3.png',
+         './assets/images/kasa4.png'
       ]
    },
    {
