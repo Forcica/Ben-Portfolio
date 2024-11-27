@@ -1,59 +1,32 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { Suspense, useEffect } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF, useAnimations } from "@react-three/drei";
 import gsap from "gsap";
 import * as THREE from "three";
 
-// Préchargement du modèle
-useGLTF.preload(process.env.PUBLIC_URL + "/assets/models/scene.gltf");
-
 const Model = () => {
-	const [modelError, setModelError] = useState(false);
-	const [isLoading, setIsLoading] = useState(true);
-
 	const { scene, animations } = useGLTF(
-		process.env.PUBLIC_URL + "/assets/models/scene.gltf",
-		true, // Activer le chargement progressif
-		(error) => {
-			console.error("Erreur de chargement du modèle:", error);
-			setModelError(true);
-		}
+		process.env.PUBLIC_URL + "/assets/models/scene.gltf"
 	);
-
 	const { actions } = useAnimations(animations, scene);
 
 	useEffect(() => {
-		if (scene && !modelError) {
-			try {
-				scene.traverse((child) => {
-					if (child.isMesh) {
-						child.castShadow = true;
-						child.receiveShadow = true;
-					}
-				});
-
-				for (const action of Object.values(actions)) {
-					if (action) {
-						action.reset().play();
-						action.setLoop(THREE.LoopRepeat);
-					}
+		if (scene) {
+			scene.traverse((child) => {
+				if (child.isMesh) {
+					child.castShadow = true;
+					child.receiveShadow = true;
 				}
-				setIsLoading(false);
-			} catch (error) {
-				console.error("Erreur d'animation:", error);
-				setModelError(true);
+			});
+
+			for (const action of Object.values(actions)) {
+				if (action) {
+					action.play();
+					action.setLoop(THREE.LoopRepeat);
+				}
 			}
 		}
-	}, [scene, actions, modelError]);
-
-	if (modelError || isLoading) {
-		return (
-			<mesh>
-				<boxGeometry args={[1, 1, 1]} />
-				<meshStandardMaterial color={modelError ? "red" : "blue"} />
-			</mesh>
-		);
-	}
+	}, [scene, actions]);
 
 	return (
 		<primitive
@@ -71,15 +44,13 @@ function CameraAnimation() {
 	const { camera } = useThree();
 
 	useEffect(() => {
-		const animation = gsap.to(camera.position, {
+		gsap.to(camera.position, {
 			duration: 2,
 			x: 0,
 			y: 1,
 			z: 8,
 			ease: "power2.out",
 		});
-
-		return () => animation.kill();
 	}, [camera]);
 
 	return null;
@@ -98,37 +69,9 @@ const Canvas3D = () => {
 			}}
 		>
 			<Suspense fallback={null}>
-				<ambientLight intensity={0.2} />
-				<directionalLight
-					position={[5, 5, 5]}
-					intensity={1.2}
-					castShadow
-					shadow-mapSize={[2048, 2048]}
-					shadow-camera-far={50}
-					shadow-camera-left={-10}
-					shadow-camera-right={10}
-					shadow-camera-top={10}
-					shadow-camera-bottom={-10}
-				/>
-				<spotLight
-					position={[-5, 5, 0]}
-					intensity={0.5}
-					angle={0.3}
-					penumbra={1}
-					castShadow
-				/>
-				<pointLight
-					position={[0, 2, 0]}
-					intensity={0.3}
-					color="#ff9dba"
-					distance={10}
-					decay={2}
-				/>
-				<hemisphereLight
-					intensity={0.2}
-					groundColor="#b9b9b9"
-					color="#ffeeff"
-				/>
+				<ambientLight intensity={0.5} />
+				<directionalLight position={[5, 5, 5]} intensity={1} castShadow />
+				<pointLight position={[0, 2, 0]} intensity={0.9} color="#ff9dba" />
 				<Model />
 				<CameraAnimation />
 				<OrbitControls
