@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Ben-Portfolio/static/css/main.59b26cbf.css",
+    "main.js": "/Ben-Portfolio/static/js/main.f955f447.js",
+    "index.html": "/Ben-Portfolio/index.html",
+    "main.59b26cbf.css.map": "/Ben-Portfolio/static/css/main.59b26cbf.css.map",
+    "main.f955f447.js.map": "/Ben-Portfolio/static/js/main.f955f447.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.59b26cbf.css",
+    "static/js/main.f955f447.js"
+  ]
+}

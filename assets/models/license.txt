@@ -1,0 +1,11 @@
+Model Information:
+* title:	Japanese Pond Diorama
+* source:	https://sketchfab.com/3d-models/japanese-pond-diorama-85c2c68dcb6c4b5b8cbbcdfe34a6f7c6
+* author:	CrypticKoi (https://sketchfab.com/CrypticKoi)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Japanese Pond Diorama" (https://sketchfab.com/3d-models/japanese-pond-diorama-85c2c68dcb6c4b5b8cbbcdfe34a6f7c6) by CrypticKoi (https://sketchfab.com/CrypticKoi) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
