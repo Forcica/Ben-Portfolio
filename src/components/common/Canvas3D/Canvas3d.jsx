@@ -5,9 +5,8 @@ import gsap from "gsap";
 import * as THREE from "three";
 
 const Model = () => {
-	const { scene, animations } = useGLTF(
-		process.env.PUBLIC_URL + "/assets/models/scene.gltf"
-	);
+	const modelPath = process.env.PUBLIC_URL + "/assets/models/scene.gltf";
+	const { scene, animations } = useGLTF(modelPath);
 	const { actions } = useAnimations(animations, scene);
 
 	useEffect(() => {
@@ -16,6 +15,10 @@ const Model = () => {
 				if (child.isMesh) {
 					child.castShadow = true;
 					child.receiveShadow = true;
+					if (child.material) {
+						child.material.needsUpdate = true;
+						child.material.side = THREE.DoubleSide;
+					}
 				}
 			});
 
