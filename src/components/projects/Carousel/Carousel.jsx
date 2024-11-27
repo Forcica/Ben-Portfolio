@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 
 import "./Carousel.css";
 
 const ProjectCarousel = ({ images }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
+	const [isImageModalOpen, setImageModalOpen] = useState(false);
 
 	const handlePrevious = () => {
 		setCurrentIndex((prevIndex) =>
@@ -19,6 +20,11 @@ const ProjectCarousel = ({ images }) => {
 		);
 	};
 
+	const handleImageClick = (e) => {
+		e.stopPropagation();
+		setImageModalOpen(true);
+	};
+
 	return (
 		<div className="carousel-container">
 			<AnimatePresence mode="wait">
@@ -30,8 +36,27 @@ const ProjectCarousel = ({ images }) => {
 					exit={{ opacity: 0, x: -100 }}
 					transition={{ duration: 0.3 }}
 					className="carousel-image"
+					onClick={handleImageClick}
 				/>
 			</AnimatePresence>
+
+			<div className="zoom-indicator" onClick={handleImageClick}>
+				<Maximize2 size={16} />
+				Voir
+			</div>
+
+			{isImageModalOpen && (
+				<div
+					className="image-modal"
+					onClick={() => setImageModalOpen(false)}
+				>
+					<img
+						src={images[currentIndex]}
+						alt="Large view"
+						className="large-image"
+					/>
+				</div>
+			)}
 
 			{images.length > 1 && (
 				<>

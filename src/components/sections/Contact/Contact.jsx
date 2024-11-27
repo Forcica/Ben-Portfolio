@@ -1,33 +1,16 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import "./Contact.css";
-
-// Service d'envoi d'email
-const sendEmail = async (data) => {
-	try {
-		const response = await fetch("/api/contact", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify(data),
-		});
-
-		if (!response.ok) {
-			throw new Error("Erreur lors de l'envoi");
-		}
-
-		return await response.json();
-	} catch (error) {
-		throw new Error("Erreur de communication avec le serveur");
-	}
-};
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
 	const [formData, setFormData] = useState({
 		name: "",
 		email: "",
 		message: "",
+		project: "",
+		budget: "",
+		deadline: "",
 	});
 	const [status, setStatus] = useState("");
 	const [error, setError] = useState("");
@@ -38,12 +21,32 @@ const Contact = () => {
 		setError("");
 
 		try {
-			await sendEmail(formData);
+			await emailjs.send(
+				"service_kdhoe87",
+				"template_d0wjxzt",
+				{
+					from_name: formData.name,
+					from_email: formData.email,
+					message: formData.message,
+					project_type: formData.project,
+					budget: formData.budget,
+					deadline: formData.deadline,
+				},
+				"DLHiNKLJE8bsBTyC4"
+			);
+
 			setStatus("success");
-			setFormData({ name: "", email: "", message: "" });
+			setFormData({
+				name: "",
+				email: "",
+				message: "",
+				project: "",
+				budget: "",
+				deadline: "",
+			});
 		} catch (error) {
+			console.error("Erreur:", error);
 			setStatus("error");
-			setError(error.message);
 		}
 	};
 
@@ -59,6 +62,11 @@ const Contact = () => {
 					連絡
 					<span className="title-translation">Contact</span>
 				</h2>
+				<p className="contact-intro">
+					Vous avez un projet web ? Je serai ravi d'en discuter avec vous.
+					Décrivez brièvement votre besoin et je vous répondrai dans les
+					24h.
+				</p>
 				<form onSubmit={handleSubmit} className="contact-form">
 					<div className="form-group">
 						<input
@@ -92,12 +100,54 @@ const Contact = () => {
 							required
 						/>
 					</div>
+					<div className="form-group">
+						<select
+							value={formData.project}
+							onChange={(e) =>
+								setFormData({ ...formData, project: e.target.value })
+							}
+							required
+						>
+							<option value="">Type de projet</option>
+							<option value="site-vitrine">Site vitrine</option>
+							<option value="e-commerce">Site e-commerce</option>
+							<option value="application">Application web</option>
+							<option value="autre">Autre</option>
+						</select>
+					</div>
+					<div className="form-group">
+						<select
+							value={formData.budget}
+							onChange={(e) =>
+								setFormData({ ...formData, budget: e.target.value })
+							}
+							required
+						>
+							<option value="">Budget envisagé</option>
+							<option value="< 5k">Moins de 5 000 €</option>
+							<option value="5k-10k">5 000 € - 10 000 €</option>
+							<option value="10k+">Plus de 10 000 €</option>
+							<option value="à définir">À définir ensemble</option>
+						</select>
+					</div>
+					<div className="form-group">
+						<input
+							type="text"
+							placeholder="Délai souhaité (optionnel)"
+							value={formData.deadline}
+							onChange={(e) =>
+								setFormData({ ...formData, deadline: e.target.value })
+							}
+						/>
+					</div>
 					<button
 						type="submit"
 						className={`submit-button ${status}`}
 						disabled={status === "sending"}
 					>
-						{status === "sending" ? "Envoi en cours..." : "Envoyer"}
+						{status === "sending"
+							? "Envoi en cours..."
+							: "Discuter de votre projet"}
 					</button>
 					{status === "success" && (
 						<p className="success-message">

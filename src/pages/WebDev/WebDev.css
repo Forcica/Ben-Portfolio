@@ -197,3 +197,25 @@
   color: white;
   transform: scale(1.05);
 }
+
+.home-return-button {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  padding: 0.8rem 1.5rem;
+  background: rgba(155, 44, 44, 0.1);
+  border: 1px solid rgba(155, 44, 44, 0.2);
+  color: #9b2c2c;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1rem;
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+.home-return-button:hover {
+  background: rgba(155, 44, 44, 0.2);
+  border-color: rgba(155, 44, 44, 0.3);
+}

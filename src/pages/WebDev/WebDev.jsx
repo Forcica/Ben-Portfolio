@@ -14,6 +14,7 @@ import Contact from "../../components/sections/Contact/Contact";
 import "./WebDev.css";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import { SectionTransition } from "../../components/SectionTransition/SectionTransition";
+import { useNavigate } from "react-router-dom";
 
 const WebDev = () => {
 	const [selectedProject, setSelectedProject] = useState(null);
@@ -40,8 +41,20 @@ const WebDev = () => {
 		setActiveFilter(filter);
 	};
 
+	const navigate = useNavigate();
+
 	return (
 		<div className="webdev-container">
+			<motion.button
+				className="home-return-button"
+				onClick={() => navigate("/")}
+				initial={{ opacity: 0, x: -20 }}
+				animate={{ opacity: 1, x: 0 }}
+				whileHover={{ scale: 1.05 }}
+				whileTap={{ scale: 0.95 }}
+			>
+				← Accueil
+			</motion.button>
 			<div className="sections-wrapper">
 				<motion.div
 					className="decorative-elements"
@@ -80,7 +93,7 @@ const WebDev = () => {
 								>
 									Tous
 								</motion.button>
-								{["Frontend", "3D", "Creative", "Full-Stack"].map(
+								{["Frontend", "3D", "Creative", "Landing Page"].map(
 									(filter) => (
 										<motion.button
 											key={filter}

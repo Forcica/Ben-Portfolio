@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import Canvas3D from "../../components/common/Canvas3D/Canvas3d";
 import { motion, AnimatePresence } from "framer-motion";
@@ -6,7 +6,7 @@ import { TypeAnimation } from "react-type-animation";
 import "./Home.css";
 import { throttle } from "lodash";
 import LoadingScreen from "../../components/common/LoadingScreen/LoadingScreen";
-import { preloadAssets } from "../../utils/preloader";
+import useAssetLoader from "../../hooks/useAssetLoader";
 
 const ANIMATION_SEQUENCES = [
 	["Bienvenue dans mon univers", 9000],
@@ -16,12 +16,7 @@ const ANIMATION_SEQUENCES = [
 
 const Home = () => {
 	const navigate = useNavigate();
-	const [loadingState, setLoadingState] = useState({
-		progress: 0,
-		isLoading: true,
-		assetsLoaded: false,
-		stage: 0,
-	});
+	const { progress, isLoading, assetsLoaded } = useAssetLoader();
 
 	const handleNavigation = useCallback(
 		(path) => {
@@ -54,35 +49,6 @@ const Home = () => {
 		return () =>
 			window.removeEventListener("scroll", throttledHandleParallax);
 	}, [throttledHandleParallax]);
-
-	useEffect(() => {
-		const loadAssets = async () => {
-			try {
-				setLoadingState((prev) => ({ ...prev, stage: 1 }));
-				await preloadAssets((progress) => {
-					setLoadingState((prev) => ({ ...prev, progress }));
-				});
-
-				setLoadingState((prev) => ({
-					...prev,
-					stage: 2,
-					assetsLoaded: true,
-				}));
-
-				setTimeout(() => {
-					setLoadingState((prev) => ({
-						...prev,
-						stage: 3,
-						isLoading: false,
-					}));
-				}, 1000);
-			} catch (error) {
-				console.error("Erreur de chargement:", error);
-			}
-		};
-
-		loadAssets();
-	}, []);
 
 	const renderNavigationButton = (
 		path,
@@ -119,8 +85,6 @@ const Home = () => {
 		</motion.div>
 	);
 
-	const { isLoading, assetsLoaded, progress } = loadingState;
-
 	return (
 		<motion.div
 			className="home-container"
@@ -143,29 +107,30 @@ const Home = () => {
 							className="home-content"
 							initial={{ opacity: 0 }}
 							animate={{ opacity: 1 }}
-							transition={{ duration: 1.5 }}
+							transition={{ duration: 1.5, delay: 1 }}
 						>
 							<motion.div
 								className="title-container"
 								initial={{ y: -50 }}
 								animate={{ y: 0 }}
-								transition={{ duration: 1 }}
+								transition={{ duration: 1, delay: 1.5 }}
 							>
 								<motion.h2
 									className="author-name"
 									initial={{ opacity: 0 }}
 									animate={{ opacity: 1 }}
-									transition={{ delay: 2 }}
+									transition={{ delay: 2, duration: 0.8 }}
 								>
 									Benoît B.
 								</motion.h2>
 								<TypeAnimation
 									sequence={ANIMATION_SEQUENCES.flat()}
 									wrapper="h1"
-									speed={60}
+									speed={40}
 									className="title-text"
 									cursor={false}
 									repeat={Infinity}
+									delay={2500}
 								/>
 							</motion.div>
 						</motion.div>
@@ -174,7 +139,7 @@ const Home = () => {
 							className="choose-text-container"
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 1, delay: 2.4 }}
+							transition={{ duration: 1, delay: 3 }}
 						>
 							<span className="choose-text">Choisis ta destination</span>
 							<div className="arrows-container">
