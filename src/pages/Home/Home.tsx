@@ -23,10 +23,7 @@ const Home = () => {
 
 	useEffect(() => {
 		if (assetsLoaded) {
-			const timer = setTimeout(() => {
-				setShowContent(true);
-			}, 800); // Délai pour la transition
-			return () => clearTimeout(timer);
+			setShowContent(true);
 		}
 	}, [assetsLoaded]);
 
