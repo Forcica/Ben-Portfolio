@@ -55,12 +55,12 @@
 }
 
 .author-name {
-   font-size: 1.4rem;
-   color: #fff8f5;
+   font-size: 1.6rem;
+   color: #ffffff;
    font-family: 'Noto Sans JP', sans-serif;
-   font-weight: 300;
+   font-weight: 400;
+   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
    letter-spacing: 0.4em;
-   opacity: 0.85;
    padding-left: 2rem;
    position: relative;
 }

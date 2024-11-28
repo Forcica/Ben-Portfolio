@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion } from "framer-motion";
 import "./Contact.css";
 import emailjs from "@emailjs/browser";
@@ -15,7 +15,7 @@ const Contact = () => {
 	const [status, setStatus] = useState("");
 	const [error, setError] = useState("");
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		setStatus("sending");
 		setError("");
@@ -51,12 +51,27 @@ const Contact = () => {
 	};
 
 	return (
-		<section id="contact" className="contact-section">
+		<motion.section className="contact-section">
+			<div className="contact-background">
+				<motion.div
+					className="zen-pattern"
+					initial={{ opacity: 0, scale: 0.95 }}
+					animate={{ opacity: 0.03, scale: 1 }}
+					transition={{ duration: 1.5 }}
+				/>
+				<motion.div 
+					className="wave-animation"
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 0.04 }}
+					transition={{ duration: 2 }}
+				/>
+			</div>
+
 			<motion.div
 				className="contact-content"
-				initial={{ opacity: 0 }}
-				whileInView={{ opacity: 1 }}
-				viewport={{ once: true }}
+				initial={{ opacity: 0, y: 30 }}
+				animate={{ opacity: 1, y: 0 }}
+				transition={{ duration: 1, delay: 0.3 }}
 			>
 				<h2 className="contact-title">
 					連絡
@@ -161,7 +176,7 @@ const Contact = () => {
 					)}
 				</form>
 			</motion.div>
-		</section>
+		</motion.section>
 	);
 };
 

@@ -11,7 +11,7 @@ const useAssetLoader = () => {
    useEffect(() => {
       const loadEverything = async () => {
          try {
-            await preloadAssets((progress) => {
+            await preloadAssets((progress: number) => {
                setLoadingState(prev => ({
                   ...prev,
                   progress: Math.floor(progress)

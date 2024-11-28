@@ -1,10 +1,28 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { X, ExternalLink } from "lucide-react";
 import ProjectCarousel from "../Carousel/Carousel";
 import "./Modal.css";
 
-const ProjectModal = ({ project, isOpen, onClose }) => {
+// Définition de l'interface pour les props du projet
+interface Project {
+	title: string;
+	description: string;
+	longDescription: string;
+	images: string[];
+	technologies: string[];
+	categories: string[];
+	github?: string;
+	live?: string;
+}
+
+// Props du composant Modal
+interface ProjectModalProps {
+	project: Project;
+	isOpen: boolean;
+	onClose: () => void;
+}
+
+const ProjectModal = ({ project, isOpen, onClose }: ProjectModalProps) => {
 	if (!isOpen) return null;
 
 	return (
@@ -36,7 +54,7 @@ const ProjectModal = ({ project, isOpen, onClose }) => {
 						<div className="results-section">
 							{project.longDescription
 								.split("\n")
-								.map((paragraph, index) => {
+								.map((paragraph: string, index) => {
 									if (paragraph.includes("•")) {
 										const [title, ...items] = paragraph.split("•");
 										return (

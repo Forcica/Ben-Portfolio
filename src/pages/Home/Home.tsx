@@ -66,6 +66,7 @@ const Home = () => {
 			aria-label={`Naviguer vers ${title}`}
 			tabIndex={0}
 			onKeyPress={(e) => handleKeyPress(e, path)}
+			
 			initial={{ opacity: 0, y: 30 }}
 			animate={{ opacity: 1, y: 0 }}
 			transition={{

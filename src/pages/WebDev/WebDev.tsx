@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import { useState, useRef } from "react";
 import {
 	motion,
 	AnimatePresence,
@@ -16,8 +16,20 @@ import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import { SectionTransition } from "../../components/SectionTransition/SectionTransition";
 import { useNavigate } from "react-router-dom";
 
+export interface Project {
+	id: number;
+	title: string;
+	categories: string[];
+	images: string[];
+	description: string;
+	tags: string[];
+	longDescription: string;
+	technologies: string[];
+	// ... autres propriétés
+}
+
 const WebDev = () => {
-	const [selectedProject, setSelectedProject] = useState(null);
+	const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 	const [activeFilter, setActiveFilter] = useState("Tous");
 	const { scrollYProgress } = useScroll();
 	const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
@@ -37,7 +49,7 @@ const WebDev = () => {
 		return project.categories.includes(activeFilter);
 	});
 
-	const handleFilterClick = (filter) => {
+	const handleFilterClick = (filter: string) => {
 		setActiveFilter(filter);
 	};
 
@@ -115,7 +127,7 @@ const WebDev = () => {
 									<ProjectCard
 										key={project.id}
 										project={project}
-										onSelect={setSelectedProject}
+										onSelect={(project: Project) => setSelectedProject(project)}
 										index={index}
 									/>
 								))}

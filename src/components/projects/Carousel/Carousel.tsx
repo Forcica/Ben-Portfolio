@@ -1,10 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
 
 import "./Carousel.css";
 
-const ProjectCarousel = ({ images }) => {
+interface CarouselProps {
+	images: string[];
+}
+
+const ProjectCarousel = ({ images }: CarouselProps) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [isImageModalOpen, setImageModalOpen] = useState(false);
 
@@ -20,7 +24,7 @@ const ProjectCarousel = ({ images }) => {
 		);
 	};
 
-	const handleImageClick = (e) => {
+	const handleImageClick = (e: React.MouseEvent) => {
 		e.stopPropagation();
 		setImageModalOpen(true);
 	};

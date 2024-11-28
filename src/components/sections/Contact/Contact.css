@@ -1,8 +1,96 @@
 .contact-section {
+   position: relative;
    width: min(100%, 1400px);
    margin: 0 auto;
    padding: 8rem 2rem;
    box-sizing: border-box;
+   overflow: hidden;
+}
+
+.decorative-elements {
+   position: absolute;
+   inset: 0;
+   pointer-events: none;
+   z-index: 0;
+}
+
+.zen-pattern {
+   position: absolute;
+   inset: 0;
+   background-image: 
+     linear-gradient(45deg, var(--accent) 1px, transparent 1px),
+     linear-gradient(-45deg, var(--accent) 1px, transparent 1px);
+   background-size: 50px 50px;
+   opacity: 0.02;
+   transform-origin: center;
+   animation: patternFloat 30s linear infinite;
+}
+
+.kanji-background {
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   font-family: 'Noto Serif JP', serif;
+   font-size: 20rem;
+   color: var(--accent);
+   opacity: 0.02;
+   writing-mode: vertical-rl;
+   white-space: nowrap;
+   animation: kanjiFloat 8s ease-in-out infinite;
+}
+
+@keyframes patternFloat {
+   0% {
+     transform: rotate(0deg) scale(1);
+   }
+   50% {
+     transform: rotate(180deg) scale(1.1);
+   }
+   100% {
+     transform: rotate(360deg) scale(1);
+   }
+}
+
+@keyframes kanjiFloat {
+   0%, 100% {
+     transform: translate(-50%, -50%) scale(1);
+     opacity: 0.02;
+   }
+   50% {
+     transform: translate(-50%, -50%) scale(1.1);
+     opacity: 0.03;
+   }
+}
+
+.vertical-line {
+   position: absolute;
+   width: 1px;
+   height: 80%;
+   top: 10%;
+   background: linear-gradient(
+      to bottom,
+      transparent,
+      rgba(155, 44, 44, 0.1),
+      rgba(155, 44, 44, 0.15),
+      rgba(155, 44, 44, 0.1),
+      transparent
+   );
+}
+
+.vertical-line.left {
+   left: 2rem;
+}
+
+.vertical-line.right {
+   right: 2rem;
+}
+
+/* Ajustement pour mobile */
+@media (max-width: 768px) {
+   .vertical-line {
+      display: none;
+   }
 }
 
 .contact-content {
@@ -20,12 +108,25 @@
 }
 
 .contact-form {
+   position: relative;
+   z-index: 1;
    background: rgba(255, 255, 255, 0.95);
+   backdrop-filter: blur(10px);
+   border: 1px solid rgba(155, 44, 44, 0.1);
+   transition: all 0.3s ease;
    padding: 3rem;
    border-radius: 16px;
    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
    max-width: 600px;
    margin: 0 auto;
+}
+
+.contact-form:hover {
+   transform: translateY(-5px);
+   box-shadow: 
+     0 20px 40px rgba(155, 44, 44, 0.05),
+     0 10px 20px rgba(155, 44, 44, 0.08);
+   border-color: rgba(155, 44, 44, 0.2);
 }
 
 .form-group {
@@ -101,15 +202,92 @@
 }
 
 .contact-intro {
-  text-align: center;
-  margin-bottom: 2rem;
-  color: #666;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+   text-align: center;
+   margin-bottom: 2rem;
+   font-size: 1.1rem;
+   color: #666;
+   max-width: 600px;
+   margin-left: auto;
+   margin-right: auto;
 }
 
 .form-group textarea {
   min-height: 120px;
   resize: vertical;
+}
+
+.contact-decoration {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.contact-circle {
+  position: absolute;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  opacity: 0.1;
+}
+
+.circle-1 {
+  width: 60vh;
+  height: 60vh;
+  top: -20vh;
+  right: -20vh;
+  animation: rotateFloat 20s infinite linear;
+}
+
+.circle-2 {
+  width: 40vh;
+  height: 40vh;
+  top: -10vh;
+  right: -10vh;
+  animation: rotateFloat 15s infinite linear reverse;
+}
+
+.circle-3 {
+  width: 20vh;
+  height: 20vh;
+  top: 0;
+  right: 0;
+  animation: rotateFloat 10s infinite linear;
+}
+
+.contact-kanji {
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-family: 'Noto Serif JP', serif;
+  font-size: 12rem;
+  color: var(--accent);
+  opacity: 0.02;
+  writing-mode: vertical-rl;
+  animation: floatKanji 8s ease-in-out infinite;
+}
+
+@keyframes rotateFloat {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  50% {
+    transform: rotate(180deg) translateY(-20px);
+  }
+  100% {
+    transform: rotate(360deg) translateY(0);
+  }
+}
+
+@keyframes floatKanji {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.02;
+  }
+  50% {
+    transform: translateY(-20px);
+    opacity: 0.04;
+  }
 }

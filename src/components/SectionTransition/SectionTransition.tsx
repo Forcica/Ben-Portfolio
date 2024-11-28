@@ -1,7 +1,13 @@
 import { motion } from "framer-motion";
 import "./SectionTransition.css";
 
-export const SectionTransition = ({ children, isVisible }) => {
+export const SectionTransition = ({ 
+	children, 
+	isVisible 
+}: { 
+	children: React.ReactNode;
+	isVisible: boolean;
+}) => {
 	const sectionVariants = {
 		hidden: {
 			opacity: 0,

@@ -1,4 +1,3 @@
-import React from "react";
 import { motion } from "framer-motion";
 import { TypeAnimation } from "react-type-animation";
 import "./HeroSection.css";

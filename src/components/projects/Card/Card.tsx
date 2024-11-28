@@ -1,7 +1,13 @@
-import React from "react";
 import { ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import "./Card.css";
+import { Project } from '../../../pages/WebDev/WebDev';
+
+interface ProjectCardProps {
+	project: Project;
+	onSelect: (project: Project) => void;
+	index: number;
+}
 
 const cardVariants = {
 	hidden: {
@@ -9,7 +15,7 @@ const cardVariants = {
 		y: 50,
 		rotateX: -5,
 	},
-	visible: (i) => ({
+	visible: (i: number) => ({
 		opacity: 1,
 		y: 0,
 		rotateX: 0,
@@ -21,12 +27,13 @@ const cardVariants = {
 	}),
 };
 
-const ProjectCard = ({ project, onSelect, index }) => {
+const ProjectCard = ({ project, onSelect, index }: ProjectCardProps) => {
 	return (
 		<motion.div
 			className="project-card"
 			custom={index}
 			initial="hidden"
+			
 			animate="visible"
 			variants={cardVariants}
 			whileHover={{

@@ -72,21 +72,21 @@ const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded = true }) => {
 				<meshStandardMaterial color="#a3d5d8" opacity={0.5} transparent />
 			</mesh>
 			<Suspense fallback={null}>
-				<ambientLight intensity={0.15} />
+				<ambientLight intensity={0.5} />
 				<directionalLight 
 					position={[2, 8, 4]} 
-					intensity={0.8} 
+					intensity={1.2} 
 					castShadow
 					shadow-mapSize={[2048, 2048]}
 				/>
 				<pointLight 
 					position={[-2, 2, -1]} 
-					intensity={0.2} 
+					intensity={0.4} 
 					color="#f8e3ff" 
 				/>
 				<spotLight
 					position={[0, 4, 2]}
-					intensity={0.3}
+					intensity={0.6}
 					angle={0.6}
 					penumbra={1}
 					color="#ffffff"

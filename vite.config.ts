@@ -12,9 +12,31 @@ export default defineConfig({
          '@styles': path.resolve(__dirname, './src/styles'),
          '@hooks': path.resolve(__dirname, './src/hooks'),
          '@utils': path.resolve(__dirname, './src/utils'),
-         '@assets': path.resolve(__dirname, './src/assets')
-      },
-      extensions: ['.js', '.jsx', '.ts', '.tsx']
+         '@assets': path.resolve(__dirname, './src/assets'),
+         'three': 'three'
+      }
    },
-   base: './'
+   build: {
+      minify: 'terser',
+      sourcemap: false,
+      rollupOptions: {
+         output: {
+            manualChunks: {
+               vendor: ['react', 'react-dom'],
+               animations: ['framer-motion', 'gsap'],
+               three: ['three', '@react-three/fiber', '@react-three/drei']
+            }
+         }
+      },
+      chunkSizeWarningLimit: 1000
+   },
+   server: {
+      port: 3000,
+      strictPort: true,
+      headers: {
+         'X-Frame-Options': 'DENY',
+         'X-Content-Type-Options': 'nosniff',
+         'Referrer-Policy': 'strict-origin-when-cross-origin'
+      }
+   }
 })

@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, RefObject } from "react";
 
-export const useIntersectionObserver = (ref, options = {}) => {
+export const useIntersectionObserver = (ref: RefObject<Element>, options = {}) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
