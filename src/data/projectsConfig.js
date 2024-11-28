@@ -15,9 +15,9 @@ export const projects = [
       tags: ['HTML', 'CSS'],
       technologies: ['HTML', 'CSS'],
       images: [
-         'assets/images/ohmyfood1.png',
-         'assets/images/ohmyfood2.png',
-         'assets/images/ohmyfood3.png'
+         '/assets/images/ohmyfood1.png',
+         '/assets/images/ohmyfood2.png',
+         '/assets/images/ohmyfood3.png'
       ]
    },
    {
