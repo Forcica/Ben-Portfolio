@@ -1,32 +1,65 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+import { TextureLoader } from 'three';
 
 export const preloadAssets = async (setProgress) => {
-  const assets = [
-    '/assets/models/scene.gltf'
-  ];
+  let totalProgress = 0;
   
-  let loaded = 0;
-  const totalAssets = assets.length;
-  
-  const promises = assets.map(asset => {
+  const updateProgress = (value) => {
+    totalProgress = Math.min(totalProgress + value, 100);
+    setProgress(Math.floor(totalProgress));
+  };
+
+  const loadGLTF = () => {
     return new Promise((resolve, reject) => {
       const loader = new GLTFLoader();
       loader.load(
-        asset,
+        '/assets/models/scene.gltf',
         (gltf) => {
-          loaded++;
-          setProgress((loaded / totalAssets) * 100);
-          resolve(gltf);
+          if (gltf.animations) {
+            gltf.animations.forEach(animation => {
+              animation.play && animation.play();
+            });
+          }
+          setTimeout(() => {
+            updateProgress(60);
+            resolve(gltf);
+          }, 300);
         },
         (xhr) => {
-          const progress = (xhr.loaded / xhr.total) * 100;
-          setProgress((progress / totalAssets) + ((loaded / totalAssets) * 100));
+          if (xhr.lengthComputable) {
+            const progress = (xhr.loaded / xhr.total) * 60;
+            setProgress(Math.floor(progress));
+          }
         },
         reject
       );
     });
-  });
+  };
 
-  await Promise.all(promises);
-  return true;
-}; 
+  const preloadThreeJSScene = () => {
+    return new Promise(resolve => {
+      updateProgress(20);
+      resolve();
+    });
+  };
+
+  const preloadDOMElements = () => {
+    return new Promise(resolve => {
+      updateProgress(20);
+      resolve();
+    });
+  };
+
+  try {
+    await Promise.all([
+      loadGLTF(),
+      preloadThreeJSScene(),
+      preloadDOMElements()
+    ]);
+    
+    return true;
+  } catch (error) {
+    console.error('Erreur de chargement:', error);
+    throw error;
+  }
+};

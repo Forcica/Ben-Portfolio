@@ -5,8 +5,8 @@
    --primary: #2D2A24;
    --accent: #BC002D;
    --light: #F7F3EB;
-   --secondary: #766C5B;
-   --tertiary: #D3C4A2;
+   --secondary: #5b6a76;
+   --tertiary: #a2d1d3;
 }
 
 * {
@@ -30,7 +30,7 @@ body,
 
 body {
    font-family: 'Noto Sans JP', sans-serif;
-   background: var(--light);
+   background: #f5f3f0;
    color: var(--primary);
    overflow-y: auto;
 }

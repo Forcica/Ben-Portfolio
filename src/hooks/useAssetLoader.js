@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { preloadAssets } from '../utils/preloader';
 
 const useAssetLoader = () => {
    const [loadingState, setLoadingState] = useState({
@@ -9,20 +10,22 @@ const useAssetLoader = () => {
 
    useEffect(() => {
       const loadEverything = async () => {
-         // Simuler un chargement progressif
-         for (let i = 0; i <= 100; i += 1) {
-            await new Promise(resolve => setTimeout(resolve, 20));
-            setLoadingState(prev => ({ ...prev, progress: i }));
-         }
+         try {
+            await preloadAssets((progress) => {
+               setLoadingState(prev => ({
+                  ...prev,
+                  progress: Math.floor(progress)
+               }));
+            });
 
-         // Attendre que le canvas soit initialisé
-         await new Promise(resolve => setTimeout(resolve, 1000));
-         
-         setLoadingState({
-            progress: 100,
-            isLoading: false,
-            assetsLoaded: true
-         });
+            setLoadingState({
+               progress: 100,
+               isLoading: false,
+               assetsLoaded: true
+            });
+         } catch (error) {
+            console.error('Erreur lors du chargement:', error);
+         }
       };
 
       loadEverything();

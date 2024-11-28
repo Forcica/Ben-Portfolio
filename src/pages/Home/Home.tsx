@@ -9,6 +9,8 @@ import LoadingScreen from "../../components/common/LoadingScreen/LoadingScreen";
 import useAssetLoader from "../../hooks/useAssetLoader";
 
 const ANIMATION_SEQUENCES = [
+	[2500],
+	[800],
 	["Bienvenue dans mon univers", 9000],
 	["ようこそ私の世界へ", 3000],
 	["Welcome to my world", 6000],
@@ -19,14 +21,14 @@ const Home = () => {
 	const { progress, isLoading, assetsLoaded } = useAssetLoader();
 
 	const handleNavigation = useCallback(
-		(path) => {
+		(path: string) => {
 			navigate(path);
 		},
 		[navigate]
 	);
 
 	const handleKeyPress = useCallback(
-		(e, path) => {
+		(e: React.KeyboardEvent<HTMLDivElement>, path: string) => {
 			if (e.key === "Enter") {
 				handleNavigation(path);
 			}
@@ -35,10 +37,10 @@ const Home = () => {
 	);
 
 	const handleParallax = useCallback(() => {
-		const scrolled = window.pageYOffset;
+		const scrolled = window.scrollY;
 		document.querySelectorAll(".parallax").forEach((element) => {
-			const speed = parseFloat(element.dataset.speed) || 0.5; // Fallback speed if not defined
-			element.style.transform = `translateY(${scrolled * speed}px)`;
+			const speed = parseFloat((element as HTMLElement).dataset.speed ?? "0.5");
+			(element as HTMLElement).style.transform = `translateY(${scrolled * speed}px)`;
 		});
 	}, []);
 
@@ -51,15 +53,16 @@ const Home = () => {
 	}, [throttledHandleParallax]);
 
 	const renderNavigationButton = (
-		path,
-		icon,
-		title,
-		subtitle,
-		isWebDev = false
+		path: string,
+		icon: string,
+		title: string,
+		subtitle: string,
+		isWebDev: boolean = false
 	) => (
 		<motion.div
 			className={`nav-button ${isWebDev ? "web-dev" : "level-design"}`}
 			role="button"
+			
 			aria-label={`Naviguer vers ${title}`}
 			tabIndex={0}
 			onKeyPress={(e) => handleKeyPress(e, path)}
@@ -86,61 +89,37 @@ const Home = () => {
 	);
 
 	return (
-		<motion.div
-			className="home-container"
-			initial={{ opacity: 0 }}
-			animate={{ opacity: 1 }}
-			exit={{ opacity: 0 }}
-			transition={{ duration: 0.8 }}
-		>
+		<motion.div className="home-container">
 			<div className="fog-overlay" />
 			<AnimatePresence mode="wait">
 				{isLoading || !assetsLoaded ? (
 					<LoadingScreen progress={progress} />
 				) : (
-					<div className="content-wrapper">
+					<>
 						<div className="canvas-container">
 							<Canvas3D />
 						</div>
 
 						<motion.div
-							className="home-content"
-							initial={{ opacity: 0 }}
-							animate={{ opacity: 1 }}
-							transition={{ duration: 1.5, delay: 1 }}
+							className="title-container"
+							initial={{ y: -50 }}
+							animate={{ y: 0 }}
+							transition={{ duration: 1, delay: 1.5 }}
 						>
-							<motion.div
-								className="title-container"
-								initial={{ y: -50 }}
-								animate={{ y: 0 }}
-								transition={{ duration: 1, delay: 1.5 }}
-							>
-								<motion.h2
-									className="author-name"
-									initial={{ opacity: 0 }}
-									animate={{ opacity: 1 }}
-									transition={{ delay: 2, duration: 0.8 }}
-								>
-									Benoît B.
-								</motion.h2>
-								<TypeAnimation
-									sequence={ANIMATION_SEQUENCES.flat()}
-									wrapper="h1"
-									speed={40}
-									className="title-text"
-									cursor={false}
-									repeat={Infinity}
-									delay={2500}
-								/>
-							</motion.div>
+							<motion.h2 className="author-name">
+								Benoît B.
+							</motion.h2>
+							<TypeAnimation
+								sequence={ANIMATION_SEQUENCES.flat()}
+								wrapper="h1"
+								speed={40}
+								className="title-text"
+								cursor={false}
+								repeat={Infinity}
+							/>
 						</motion.div>
 
-						<motion.div
-							className="choose-text-container"
-							initial={{ opacity: 0, y: 20 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 1, delay: 3 }}
-						>
+						<motion.div className="choose-text-container">
 							<span className="choose-text">Choisis ta destination</span>
 							<div className="arrows-container">
 								<div className="arrow"></div>
@@ -169,7 +148,7 @@ const Home = () => {
 								"Créations & Design"
 							)}
 						</motion.div>
-					</div>
+					</>
 				)}
 			</AnimatePresence>
 		</motion.div>
