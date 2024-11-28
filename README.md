@@ -1,98 +1,70 @@
-# Welcome to React Router!
+# Getting Started with Create React App
 
-A modern, production-ready template for building full-stack React applications using React Router.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Features
+## Available Scripts
 
-- 🚀 Server-side rendering
-- ⚡️ Hot Module Replacement (HMR)
-- 📦 Asset bundling and optimization
-- 🔄 Data loading and mutations
-- 🔒 TypeScript by default
-- 🎉 TailwindCSS for styling
-- 📖 [React Router docs](https://reactrouter.com/)
+In the project directory, you can run:
 
-## Getting Started
+### `npm start`
 
-### Installation
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-Install the dependencies:
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-```bash
-npm install
-```
+### `npm test`
 
-### Development
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-Start the development server with HMR:
+### `npm run build`
 
-```bash
-npm run dev
-```
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-Your application will be available at `http://localhost:5173`.
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-## Building for Production
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-Create a production build:
+### `npm run eject`
 
-```bash
-npm run build
-```
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-## Deployment
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-### Docker Deployment
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-This template includes three Dockerfiles optimized for different package managers:
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-- `Dockerfile` - for npm
-- `Dockerfile.pnpm` - for pnpm
-- `Dockerfile.bun` - for bun
+## Learn More
 
-To build and run using Docker:
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
-```bash
-# For npm
-docker build -t my-app .
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-# For pnpm
-docker build -f Dockerfile.pnpm -t my-app .
+### Code Splitting
 
-# For bun
-docker build -f Dockerfile.bun -t my-app .
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-# Run the container
-docker run -p 3000:3000 my-app
-```
+### Analyzing the Bundle Size
 
-The containerized application can be deployed to any platform that supports Docker, including:
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-- AWS ECS
-- Google Cloud Run
-- Azure Container Apps
-- Digital Ocean App Platform
-- Fly.io
-- Railway
+### Making a Progressive Web App
 
-### DIY Deployment
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-If you're familiar with deploying Node applications, the built-in app server is production-ready.
+### Advanced Configuration
 
-Make sure to deploy the output of `npm run build`
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-```
-├── package.json
-├── package-lock.json (or pnpm-lock.yaml, or bun.lockb)
-├── build/
-│   ├── client/    # Static assets
-│   └── server/    # Server-side code
-```
+### Deployment
 
-## Styling
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever CSS framework you prefer.
+### `npm run build` fails to minify
 
----
-
-Built with ❤️ using React Router.
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
