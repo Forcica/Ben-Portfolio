@@ -1,98 +1,70 @@
-# 🎨 Portfolio de Développeur Frontend & Level Designer | Benoît B.  
+# Getting Started with Create React App
 
-Bienvenue dans mon univers, où **créativité artistique** et **technologie moderne** s’unissent pour donner vie à des expériences numériques et interactives inoubliables. Mon approche mêle **rigueur technique** et **sens du détail**.
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
----
+## Available Scripts
 
-## 🌟 À propos de moi  
-Développeur web et **environment artist** basé en France, je crée des expériences numériques immersives et performantes. Passionné par le **design d'environnements 3D** et les **interfaces modernes**, je combine **technologie**, **design** et **game development** pour dépasser les attentes.
+In the project directory, you can run:
 
----
+### `npm start`
 
-## 💻 Expertise Technique  
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-### 🚀 Développement Web & Frontend  
-- **Frameworks** : React.js, Next.js, TypeScript  
-- **Gestion d'État** : Redux Toolkit, React Query  
-- **Qualité de Code** : Clean Code, Tests Unitaires, Accessibilité (a11y)  
-- **Performance** : Optimisation SEO & temps de chargement  
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-### 🎮 Level Design & 3D Interactive  
-- **Outils 3D** : Blender, Unreal Engine, Source SDK  
-- **Web 3D** : Three.js, React Three Fiber  
-- **Shaders** : GLSL pour des effets visuels immersifs  
-- **Expériences Ludiques** : Design d’environnements et gameplay immersif  
+### `npm test`
 
-### 🛒 E-commerce & Conversion  
-- **Plateformes** : Shopify, WooCommerce  
-- **Optimisation SEO** : Structure technique et contenu performant  
-- **Analytics** : Google Analytics, suivi des conversions  
-- **Responsive Design** : UX adaptée à tous les écrans  
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### 🔧 Outils & Processus de Développement  
-- **Versioning** : Git, GitHub, CI/CD  
-- **Automatisation** : Tests e2e avec Cypress, Jest  
-- **Design Systems** : Figma, Storybook  
-- **Collaboration** : Agile, Scrum  
+### `npm run build`
 
----
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
 
-## ✨ Projets Phares  
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
 
-### 🌐 **Nina Carducci - Optimisation SEO**  
-Refonte complète du référencement d’un site professionnel de photographie.  
-- **Impact** : +200% de trafic organique  
-- **Technos** : Google Analytics, Schema.org, WebP  
-- [Voir le projet](https://forcica.github.io/Nina-Carducci-Portfolio/)  
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### 🖌 **724Events - Site Événementiel Dynamique**  
-Site vitrine interactif avec animations et performances optimisées.  
-- **Focus** : UX moderne, Performance, Animations 3D  
-- **Technos** : React.js, Lighthouse  
-- [Voir le projet](https://forcica.github.io/724Events/)  
+### `npm run eject`
 
-### 🏡 **Kasa - Plateforme Immobilière Moderne**  
-Application réactive pour la recherche et location d’appartements.  
-- **Fonctionnalités** : Filtres dynamiques, Carrousels d’images  
-- **Technos** : React, JavaScript  
-- [Voir le projet](https://forcica.github.io/Kasa/)  
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-### 🏦 **ArgentBank - Application Bancaire Sécurisée**  
-Application pour la gestion de comptes avec authentification sécurisée.  
-- **Points Clés** : Sécurité avancée, Performance utilisateur  
-- **Technos** : React, API REST  
-- [Voir le projet](https://forcica.github.io/ArgentBank-website/)  
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
----
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-## 🎮 Contributions au Level Design  
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-### **Garry’s Mod** - **Maps Personnalisées & Systèmes de Jeu**  
-- Création d'environnements immersifs inspirées par des univers comme **Bleach**, **Star Wars** ou **Realiste**.  
-- Développement de mécaniques de jeu uniques.  
+## Learn More
 
-### **Unreal Engine** - Prototypage et Environnements 3D  
-- Création de mondes interactifs, équilibrant esthétique et gameplay.  
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
----
+To learn React, check out the [React documentation](https://reactjs.org/).
 
-## 📬 Contactez-moi  
+### Code Splitting
 
-Prêt à collaborer ? Parlons-en !  
-- **Email** : [contact@shinseidigital.fr]  
-- **LinkedIn** : [[Votre profil LinkedIn](https://www.linkedin.com/in/beno%C3%AEt-bchini-927985267/)]  
-- **GitHub** : [[Votre profil GitHub](https://github.com/Forcica)]  
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
----
+### Analyzing the Bundle Size
 
-## ⚙️ Installation & Démarrage  
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-```bash
-# Cloner le projet
-git clone [URL_DU_REPO]
+### Making a Progressive Web App
 
-# Installer les dépendances
-npm install
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-# Lancer le développement
-npm start
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
