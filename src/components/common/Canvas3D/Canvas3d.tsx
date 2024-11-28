@@ -5,6 +5,10 @@ import gsap from "gsap";
 import { useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 
+interface Canvas3DProps {
+	isLoaded: boolean;
+}
+
 const Model = () => {
 	const { scene, animations } = useGLTF("/assets/models/scene.gltf");
 	const { actions } = useAnimations(animations, scene);
@@ -46,54 +50,60 @@ function CameraAnimation() {
 	return null;
 }
 
-const Canvas3D: React.FC = () => {
+const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded }) => {
 	return (
-		<Canvas
-			shadows
-			camera={{ position: [0, 2, 8], fov: 60 }}
-			style={{ background: "transparent" }}
-			gl={{
-				antialias: true,
-				toneMapping: THREE.ACESFilmicToneMapping,
-				outputColorSpace: THREE.SRGBColorSpace,
-				preserveDrawingBuffer: true
-			}}
-		>
-			<color attach="background" args={["#d5e8ea"]} />
-			<fog attach="fog" args={["#d5e8ea", 10, 25]} />
-			<mesh position={[0, -5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-				<planeGeometry args={[100, 100]} />
-				<meshStandardMaterial color="#a3d5d8" opacity={0.5} transparent />
-			</mesh>
-			<Suspense fallback={null}>
-				<ambientLight intensity={0.5} />
-				<directionalLight 
-					position={[2, 8, 4]} 
-					intensity={1.2} 
-					castShadow
-					shadow-mapSize={[2048, 2048]}
-				/>
-				<pointLight 
-					position={[-2, 2, -1]} 
-					intensity={0.4} 
-					color="#f8e3ff" 
-				/>
-				<spotLight
-					position={[0, 4, 2]}
-					intensity={0.6}
-					angle={0.6}
-					penumbra={1}
-					color="#ffffff"
-				/>
-				<Model />
-				<CameraAnimation />
-				<OrbitControls
-					enableZoom={false}
-					enablePan={false}
-					enableRotate={false}
-				/>
-			</Suspense>
-		</Canvas>
+		<>
+			<Canvas
+				shadows
+				camera={{ position: [0, 2, 8], fov: 60 }}
+				style={{ 
+					background: "transparent",
+					opacity: isLoaded ? 1 : 0,
+					transition: "opacity 0.5s ease-in-out"
+				}}
+				gl={{
+					antialias: true,
+					toneMapping: THREE.ACESFilmicToneMapping,
+					outputColorSpace: THREE.SRGBColorSpace,
+					preserveDrawingBuffer: true
+				}}
+			>
+				<color attach="background" args={["#d5e8ea"]} />
+				<fog attach="fog" args={["#d5e8ea", 10, 25]} />
+				<mesh position={[0, -5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+					<planeGeometry args={[100, 100]} />
+					<meshStandardMaterial color="#a3d5d8" opacity={0.5} transparent />
+				</mesh>
+				<Suspense fallback={null}>
+					<ambientLight intensity={0.5} />
+					<directionalLight 
+						position={[2, 8, 4]} 
+						intensity={1.2} 
+						castShadow
+						shadow-mapSize={[2048, 2048]}
+					/>
+					<pointLight 
+						position={[-2, 2, -1]} 
+						intensity={0.4} 
+						color="#f8e3ff" 
+					/>
+					<spotLight
+						position={[0, 4, 2]}
+						intensity={0.6}
+						angle={0.6}
+						penumbra={1}
+						color="#ffffff"
+					/>
+					<Model />
+					<CameraAnimation />
+					<OrbitControls
+						enableZoom={false}
+						enablePan={false}
+						enableRotate={false}
+					/>
+				</Suspense>
+			</Canvas>
+		</>
 	);
 };
 

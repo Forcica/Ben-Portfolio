@@ -18,7 +18,7 @@ const ANIMATION_SEQUENCES = [
 
 const Home = () => {
 	const navigate = useNavigate();
-	const { progress, isLoading, assetsLoaded } = useAssetLoader();
+	const { progress, isLoading } = useAssetLoader();
 
 	const handleNavigation = useCallback(
 		(path: string) => {

@@ -4,6 +4,7 @@ import WebDev from "./pages/WebDev/WebDev";
 import Home from "./pages/Home/Home";
 import Cursor from "./components/common/Cursor/Cursor";
 import { ErrorBoundary } from 'react-error-boundary';
+import { Analytics } from "@vercel/analytics/react";
 
 function ErrorFallback({ error, resetErrorBoundary }: { error: Error; resetErrorBoundary: () => void }) {
 	return (
@@ -43,6 +44,7 @@ function App() {
 						<Route path="/404" element={<NotFound />} />
 						<Route path="*" element={<Navigate to="/404" replace />} />
 					</Routes>
+					<Analytics />
 				</div>
 			</Router>
 		</ErrorBoundary>
