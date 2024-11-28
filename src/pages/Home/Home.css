@@ -95,16 +95,20 @@
 
 .navigation-buttons {
    position: absolute;
-   top: 70%;
+   left: 50%;
+   bottom: 15%;
    transform: translateX(-50%);
    display: flex;
-   width: 40%;
+   gap: 2rem;
    justify-content: center;
-   gap: 8rem;
-   z-index: 10;
+   width: 100%;
+   max-width: 800px;
+   padding: 0 2rem;
 }
 
 .nav-button {
+   flex: 1;
+   max-width: 300px;
    position: relative;
    width: 60%;
    height: 25%;

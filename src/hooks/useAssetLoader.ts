@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { preloadAssets } from '../utils/preloader';
 
-const CACHE_KEY = 'model-cache-v1';
+const CACHE_KEY = 'model-cache-v2';
+const SESSION_KEY = 'initial-load-complete';
 
 const useAssetLoader = () => {
    const [loadingState, setLoadingState] = useState({
@@ -11,12 +12,22 @@ const useAssetLoader = () => {
    });
 
    useEffect(() => {
+      const isInitialLoadComplete = sessionStorage.getItem(SESSION_KEY);
+      
+      if (isInitialLoadComplete) {
+         setLoadingState({
+            progress: 100,
+            isLoading: false,
+            assetsLoaded: true
+         });
+         return;
+      }
+
       const loadEverything = async () => {
-         // Vérifier le cache d'abord
          const cached = localStorage.getItem(CACHE_KEY);
          if (cached) {
             const { timestamp, data } = JSON.parse(cached);
-            const isValid = Date.now() - timestamp < 24 * 60 * 60 * 1000; // 24h
+            const isValid = Date.now() - timestamp < 24 * 60 * 60 * 1000;
             
             if (isValid) {
                setLoadingState({
@@ -24,6 +35,7 @@ const useAssetLoader = () => {
                   isLoading: false,
                   assetsLoaded: true
                });
+               sessionStorage.setItem(SESSION_KEY, 'true');
                return data;
             }
          }
@@ -40,6 +52,7 @@ const useAssetLoader = () => {
                timestamp: Date.now(),
                data: result
             }));
+            sessionStorage.setItem(SESSION_KEY, 'true');
 
             setLoadingState({
                progress: 100,
@@ -51,7 +64,7 @@ const useAssetLoader = () => {
             setLoadingState(prev => ({
                ...prev,
                isLoading: false,
-               assetsLoaded: false
+               assetsLoaded: true
             }));
          }
       };
