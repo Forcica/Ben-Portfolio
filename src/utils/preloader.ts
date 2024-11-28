@@ -68,30 +68,9 @@ export const preloadAssets = async (setProgress: SetProgressFunction): Promise<b
     });
   };
 
-  const preloadThreeJSScene = (): Promise<void> => {
-    return new Promise((resolve) => {
-      const loader = new GLTFLoader();
-      loader.load(
-        '/assets/models/scene.gltf',
-        (_gltf) => {
-          updateProgress(40);
-          resolve();
-        },
-        (progress) => {
-          const percentage = (progress.loaded / progress.total) * 40;
-          updateProgress(percentage);
-        },
-        (error) => {
-          console.error('Erreur de chargement de la scène:', error);
-          resolve();
-        }
-      );
-    });
-  };
-
   const preloadDOMElements = (): Promise<void> => {
     return new Promise((resolve) => {
-      updateProgress(20);
+       updateProgress(20);
       resolve();
     });
   };
@@ -99,7 +78,6 @@ export const preloadAssets = async (setProgress: SetProgressFunction): Promise<b
   try {
     await Promise.all([
       loadGLTF(),
-      preloadThreeJSScene(),
       preloadDOMElements()
     ]);
     

@@ -36,12 +36,13 @@ const useAssetLoader = () => {
             // En cas d'erreur, on essaie de charger depuis le cache
             const cached = localStorage.getItem(CACHE_KEY);
             if (cached) {
-               JSON.parse(cached);
+               const parsedCache = JSON.parse(cached);
                setLoadingState({
                   progress: 100,
                   isLoading: false,
                   assetsLoaded: true
                });
+               return parsedCache.data;
             }
          }
       };
