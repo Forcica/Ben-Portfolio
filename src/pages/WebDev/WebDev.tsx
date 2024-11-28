@@ -15,6 +15,8 @@ import "./WebDev.css";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import { SectionTransition } from "../../components/SectionTransition/SectionTransition";
 import { useNavigate } from "react-router-dom";
+import { Navbar } from "../../components/Navbar/Navbar";
+import { Footer } from "../../components/Footer/Footer";
 
 export interface Project {
 	id: number;
@@ -57,6 +59,7 @@ const WebDev = () => {
 
 	return (
 		<div className="webdev-container">
+			<Navbar />
 			<motion.button
 				className="home-return-button"
 				onClick={() => navigate("/")}
@@ -148,6 +151,8 @@ const WebDev = () => {
 					</SectionTransition>
 				</div>
 			</div>
+
+			<Footer />
 
 			<AnimatePresence>
 				{selectedProject && (

@@ -13,9 +13,13 @@
   width: 100%;
   min-height: 100vh;
   overflow: hidden;
+  padding-top: 80px;
+  display: flex;
+  flex-direction: column;
 }
 
 .sections-wrapper {
+  flex: 1;
   position: relative;
   display: flex;
   flex-direction: column;

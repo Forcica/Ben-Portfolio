@@ -53,12 +53,6 @@ const Contact = () => {
 	return (
 		<motion.section className="contact-section">
 			<div className="contact-background">
-				<motion.div
-					className="zen-pattern"
-					initial={{ opacity: 0, scale: 0.95 }}
-					animate={{ opacity: 0.03, scale: 1 }}
-					transition={{ duration: 1.5 }}
-				/>
 				<motion.div 
 					className="wave-animation"
 					initial={{ opacity: 0 }}

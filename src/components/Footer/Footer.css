@@ -1,0 +1,106 @@
+.footer {
+   background: rgba(255, 255, 255, 0.97);
+   backdrop-filter: blur(10px);
+   border-top: 1px solid rgba(155, 44, 44, 0.08);
+   padding: 1.5rem 0;
+}
+
+.footer-content {
+   max-width: var(--container-width);
+   margin: 0 auto;
+   padding: 0 2rem;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+}
+
+.footer-left {
+   display: flex;
+   align-items: center;
+   gap: 1.5rem;
+}
+
+.footer-kanji {
+   font-family: 'Noto Serif JP', serif;
+   font-size: 1.8rem;
+   color: var(--accent);
+   opacity: 0.9;
+}
+
+.footer-text {
+   font-size: 0.9rem;
+   color: var(--primary);
+   opacity: 0.8;
+}
+
+.jp-text {
+   display: block;
+   font-size: 0.8rem;
+   margin-top: 0.2rem;
+   opacity: 0.6;
+}
+
+.footer-nav {
+   display: flex;
+   gap: 2rem;
+}
+
+.footer-nav a {
+   text-decoration: none;
+   color: var(--primary);
+   font-size: 0.9rem;
+   opacity: 0.7;
+   transition: all 0.2s ease;
+   position: relative;
+}
+
+.footer-nav a::after {
+   content: '';
+   position: absolute;
+   bottom: -4px;
+   left: 0;
+   width: 0;
+   height: 1px;
+   background-color: var(--accent);
+   transition: width 0.2s ease;
+}
+
+.footer-nav a:hover::after {
+   width: 100%;
+}
+
+.footer-copyright {
+   margin-top: 1rem;
+   font-size: 0.9rem;
+   color: var(--primary-light);
+   text-align: right;
+}
+
+.social-links {
+   display: flex;
+   gap: 1.5rem;
+   align-items: center;
+}
+
+.social-link {
+   display: flex;
+   align-items: center;
+   gap: 0.5rem;
+   text-decoration: none;
+   color: var(--primary);
+   font-size: 0.9rem;
+   padding: 0.5rem 0.8rem;
+   border-radius: 6px;
+   transition: all 0.2s ease;
+   opacity: 0.8;
+}
+
+.social-link:hover {
+   background: rgba(155, 44, 44, 0.05);
+   color: var(--accent);
+   opacity: 1;
+}
+
+.social-icon {
+   font-size: 1.1rem;
+}
