@@ -10,6 +10,9 @@ interface ProgressEvent {
   total: number;
 }
 
+const CACHE_KEY = 'model-cache-v1';
+const CACHE_DURATION = 24 * 60 * 60 * 1000; // 24 heures
+
 export const preloadAssets = async (setProgress: SetProgressFunction): Promise<boolean> => {
   let totalProgress = 0;
   
@@ -17,6 +20,16 @@ export const preloadAssets = async (setProgress: SetProgressFunction): Promise<b
     totalProgress = Math.min(totalProgress + value, 100);
     setProgress(Math.floor(totalProgress));
   };
+
+  // Vérifier le cache
+  const cached = localStorage.getItem(CACHE_KEY);
+  if (cached) {
+    const { timestamp, data } = JSON.parse(cached);
+    if (Date.now() - timestamp < CACHE_DURATION) {
+      updateProgress(100);
+      return data;
+    }
+  }
 
   const loadGLTF = (): Promise<GLTF> => {
     return new Promise((resolve, reject) => {
@@ -57,8 +70,22 @@ export const preloadAssets = async (setProgress: SetProgressFunction): Promise<b
 
   const preloadThreeJSScene = (): Promise<void> => {
     return new Promise((resolve) => {
-      updateProgress(20);
-      resolve();
+      const loader = new GLTFLoader();
+      loader.load(
+        '/assets/models/scene.gltf',
+        (_gltf) => {
+          updateProgress(40);
+          resolve();
+        },
+        (progress) => {
+          const percentage = (progress.loaded / progress.total) * 40;
+          updateProgress(percentage);
+        },
+        (error) => {
+          console.error('Erreur de chargement de la scène:', error);
+          resolve();
+        }
+      );
     });
   };
 

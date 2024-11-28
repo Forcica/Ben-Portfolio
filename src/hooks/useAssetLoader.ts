@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import { preloadAssets } from '../utils/preloader';
 
+const CACHE_KEY = 'model-cache-v1';
+
 const useAssetLoader = () => {
    const [loadingState, setLoadingState] = useState({
       progress: 0,
@@ -11,12 +13,18 @@ const useAssetLoader = () => {
    useEffect(() => {
       const loadEverything = async () => {
          try {
-            await preloadAssets((progress: number) => {
+            const result = await preloadAssets((progress: number) => {
                setLoadingState(prev => ({
                   ...prev,
                   progress: Math.floor(progress)
                }));
             });
+
+            // Sauvegarder dans le cache
+            localStorage.setItem(CACHE_KEY, JSON.stringify({
+               timestamp: Date.now(),
+               data: result
+            }));
 
             setLoadingState({
                progress: 100,
@@ -25,6 +33,16 @@ const useAssetLoader = () => {
             });
          } catch (error) {
             console.error('Erreur lors du chargement:', error);
+            // En cas d'erreur, on essaie de charger depuis le cache
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+               JSON.parse(cached);
+               setLoadingState({
+                  progress: 100,
+                  isLoading: false,
+                  assetsLoaded: true
+               });
+            }
          }
       };
 

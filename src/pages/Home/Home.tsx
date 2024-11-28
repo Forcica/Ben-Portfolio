@@ -89,6 +89,8 @@ const Home = () => {
 		</motion.div>
 	);
 
+	const Canvas = React.memo(Canvas3D);
+
 	return (
 		<motion.div className="home-container">
 			<div className="fog-overlay" />
@@ -97,9 +99,11 @@ const Home = () => {
 					<LoadingScreen progress={progress} />
 				) : (
 					<>
-						<div className="canvas-container">
-							<Canvas3D />
-						</div>
+						{!isLoading && assetsLoaded && (
+							<div className="canvas-container">
+								<Canvas />
+							</div>
+						)}
 
 						<motion.div
 							className="title-container"
