@@ -12,6 +12,22 @@ const useAssetLoader = () => {
 
    useEffect(() => {
       const loadEverything = async () => {
+         // Vérifier le cache d'abord
+         const cached = localStorage.getItem(CACHE_KEY);
+         if (cached) {
+            const { timestamp, data } = JSON.parse(cached);
+            const isValid = Date.now() - timestamp < 24 * 60 * 60 * 1000; // 24h
+            
+            if (isValid) {
+               setLoadingState({
+                  progress: 100,
+                  isLoading: false,
+                  assetsLoaded: true
+               });
+               return data;
+            }
+         }
+
          try {
             const result = await preloadAssets((progress: number) => {
                setLoadingState(prev => ({
@@ -20,7 +36,6 @@ const useAssetLoader = () => {
                }));
             });
 
-            // Sauvegarder dans le cache
             localStorage.setItem(CACHE_KEY, JSON.stringify({
                timestamp: Date.now(),
                data: result
@@ -33,17 +48,11 @@ const useAssetLoader = () => {
             });
          } catch (error) {
             console.error('Erreur lors du chargement:', error);
-            // En cas d'erreur, on essaie de charger depuis le cache
-            const cached = localStorage.getItem(CACHE_KEY);
-            if (cached) {
-               const parsedCache = JSON.parse(cached);
-               setLoadingState({
-                  progress: 100,
-                  isLoading: false,
-                  assetsLoaded: true
-               });
-               return parsedCache.data;
-            }
+            setLoadingState(prev => ({
+               ...prev,
+               isLoading: false,
+               assetsLoaded: false
+            }));
          }
       };
 

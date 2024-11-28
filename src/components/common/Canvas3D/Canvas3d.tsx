@@ -59,7 +59,8 @@ const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded }) => {
 				style={{ 
 					background: "transparent",
 					opacity: isLoaded ? 1 : 0,
-					transition: "opacity 0.5s ease-in-out"
+					transition: "opacity 0.8s ease-in-out",
+					willChange: "opacity"
 				}}
 				gl={{
 					antialias: true,

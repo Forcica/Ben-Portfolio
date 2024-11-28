@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Canvas3D from "../../components/common/Canvas3D/Canvas3d";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,7 +18,17 @@ const ANIMATION_SEQUENCES = [
 
 const Home = () => {
 	const navigate = useNavigate();
-	const { progress, isLoading } = useAssetLoader();
+	const { progress, isLoading, assetsLoaded } = useAssetLoader();
+	const [showContent, setShowContent] = useState(false);
+
+	useEffect(() => {
+		if (assetsLoaded) {
+			const timer = setTimeout(() => {
+				setShowContent(true);
+			}, 800); // Délai pour la transition
+			return () => clearTimeout(timer);
+		}
+	}, [assetsLoaded]);
 
 	const handleNavigation = useCallback(
 		(path: string) => {
@@ -98,9 +108,13 @@ const Home = () => {
 				{isLoading ? (
 					<LoadingScreen progress={progress} />
 				) : (
-					<>
+					<motion.div
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						transition={{ duration: 0.5 }}
+					>
 						<div className="canvas-container">
-							<Canvas isLoaded={true} />
+							<Canvas isLoaded={showContent} />
 						</div>
 
 						<motion.div
@@ -151,7 +165,7 @@ const Home = () => {
 								"Créations & Design"
 							)}
 						</motion.div>
-					</>
+					</motion.div>
 				)}
 			</AnimatePresence>
 		</motion.div>
