@@ -101,7 +101,7 @@ const Home = () => {
 					<>
 						{!isLoading && assetsLoaded && (
 							<div className="canvas-container">
-								<Canvas />
+								<Canvas isLoaded={assetsLoaded} />
 							</div>
 						)}
 
