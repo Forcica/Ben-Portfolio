@@ -95,15 +95,13 @@ const Home = () => {
 		<motion.div className="home-container">
 			<div className="fog-overlay" />
 			<AnimatePresence mode="wait">
-				{isLoading || !assetsLoaded ? (
+				{isLoading ? (
 					<LoadingScreen progress={progress} />
 				) : (
 					<>
-						{!isLoading && assetsLoaded && (
-							<div className="canvas-container">
-								<Canvas isLoaded={assetsLoaded} />
-							</div>
-						)}
+						<div className="canvas-container">
+							<Canvas isLoaded={true} />
+						</div>
 
 						<motion.div
 							className="title-container"

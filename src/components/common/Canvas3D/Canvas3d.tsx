@@ -5,10 +5,6 @@ import gsap from "gsap";
 import { useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 
-interface Canvas3DProps {
-	isLoaded?: boolean;
-}
-
 const Model = () => {
 	const { scene, animations } = useGLTF("/assets/models/scene.gltf");
 	const { actions } = useAnimations(animations, scene);
@@ -50,9 +46,7 @@ function CameraAnimation() {
 	return null;
 }
 
-const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded = true }) => {
-	if (!isLoaded) return null;
-	
+const Canvas3D: React.FC = () => {
 	return (
 		<Canvas
 			shadows
