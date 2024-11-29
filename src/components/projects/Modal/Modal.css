@@ -336,3 +336,160 @@
 .results-section::-webkit-scrollbar-thumb:hover {
   background: #822727;
 }
+
+@media (max-width: 1024px) {
+  .modal-content {
+    width: 95%;
+    height: 90vh;
+  }
+
+  .modal-image-container {
+    flex: 0 0 50%;
+  }
+
+  .modal-body {
+    flex: 0 0 50%;
+    padding: 1.2rem 1.8rem;
+    grid-template-columns: 1fr 240px;
+    gap: 1.5rem;
+  }
+
+  .modal-title {
+    font-size: 1.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .modal-overlay {
+    padding: 1rem;
+  }
+
+  .modal-content {
+    width: 100%;
+    height: 100vh;
+    border-radius: 12px;
+  }
+
+  .modal-image-container {
+    flex: 0 0 55%;
+  }
+
+  .modal-body {
+    flex: 0 0 45%;
+    padding: 1rem 1.5rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .modal-links {
+    flex-direction: row;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .modal-link {
+    flex: 1;
+    max-width: 160px;
+  }
+
+  .results-section {
+    max-height: 25vh;
+    overflow-y: auto;
+  }
+
+  .modal-sidebar {
+    border-top: 1px solid #e2e8f0;
+    padding-top: 1rem;
+  }
+
+  .modal-title {
+    font-size: 1.6rem;
+  }
+
+  .modal-subtitle {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+
+  .modal-close-button {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background: rgba(255, 255, 255, 0.9);
+    color: #2c1810;
+    width: 40px;
+    height: 40px;
+    z-index: 1100;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-overlay {
+    padding: 0;
+  }
+
+  .modal-content {
+    border-radius: 0;
+  }
+
+  .modal-image-container {
+    flex: 0 0 50%;
+  }
+
+  .modal-body {
+    flex: 0 0 50%;
+    padding: 0.8rem;
+  }
+
+  .modal-links {
+    padding: 0 0.5rem;
+  }
+
+  .modal-link {
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+  }
+
+  .modal-title {
+    font-size: 1.4rem;
+  }
+
+  .modal-subtitle {
+    font-size: 1rem;
+  }
+
+  .technologies-section,
+  .category-section {
+    padding: 0.8rem;
+  }
+
+  .technology-tag,
+  .category-tag {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .results-section {
+    max-height: 25vh;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 600px) {
+  .modal-content {
+    height: 98vh;
+  }
+
+  .modal-image-container {
+    flex: 0 0 45%;
+  }
+
+  .modal-body {
+    flex: 0 0 55%;
+  }
+
+  .results-section {
+    max-height: 25vh;
+  }
+}
