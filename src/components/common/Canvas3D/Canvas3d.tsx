@@ -9,6 +9,8 @@ interface Canvas3DProps {
 	isLoaded: boolean;
 }
 
+
+
 const Model = () => {
 	const { scene, animations } = useGLTF("/assets/models/scene.gltf");
 	const { actions } = useAnimations(animations, scene);
@@ -16,6 +18,15 @@ const Model = () => {
 	useEffect(() => {
 		if (scene) {
 			for (const action of Object.values(actions)) {
+
+
+
+
+
+
+
+
+
 				if (action) {
 					action.play();
 					action.setLoop(THREE.LoopRepeat, Infinity);
@@ -51,12 +62,25 @@ function CameraAnimation() {
 }
 
 const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded }) => {
+
+
+
+
 	return (
 		<>
+
+
+
+
+
+
+
 			<Canvas
 				shadows
 				camera={{ position: [0, 2, 8], fov: 60 }}
 				style={{ 
+
+
 					background: "transparent",
 					opacity: isLoaded ? 1 : 0,
 					transition: "opacity 0.8s ease-in-out",

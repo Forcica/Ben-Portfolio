@@ -22,6 +22,7 @@ const Home = () => {
 	const [showContent, setShowContent] = useState(false);
 
 	useEffect(() => {
+
 		if (assetsLoaded) {
 			setShowContent(true);
 		}
@@ -105,64 +106,71 @@ const Home = () => {
 				{isLoading ? (
 					<LoadingScreen progress={progress} />
 				) : (
-					<motion.div
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						transition={{ duration: 0.5 }}
-					>
+					<>
 						<div className="canvas-container">
 							<Canvas isLoaded={showContent} />
 						</div>
-
-						<motion.div
-							className="title-container"
-							initial={{ y: -50 }}
-							animate={{ y: 0 }}
-							transition={{ duration: 1, delay: 1.5 }}
+						
+						<motion.div 
+							className="content-wrapper"
+							initial={{ opacity: 0 }}
+							animate={{ opacity: 1 }}
+							transition={{ duration: 0.5 }}
 						>
-							<motion.h2 className="author-name">
-								Benoît B.
-							</motion.h2>
-							<TypeAnimation
-								sequence={ANIMATION_SEQUENCES.flat()}
-								wrapper="h1"
-								speed={40}
-								className="title-text"
-								cursor={false}
-								repeat={Infinity}
-							/>
-						</motion.div>
+							<motion.div
+								className="title-container"
+								initial={{ y: -50 }}
+								animate={{ y: 0 }}
+								transition={{ duration: 1, delay: 1.5 }}
+							>
+								<motion.h2 className="author-name">
+									Benoît B.
+								</motion.h2>
+								<TypeAnimation
+									sequence={ANIMATION_SEQUENCES.flat()}
+									wrapper="h1"
+									speed={40}
+									className="title-text"
+									cursor={false}
+									repeat={Infinity}
+								/>
+							</motion.div>
 
-						<motion.div className="choose-text-container">
-							<span className="choose-text">Choisis ta destination</span>
-							<div className="arrows-container">
-								<div className="arrow"></div>
-								<div className="arrow"></div>
-								<div className="arrow"></div>
-							</div>
-						</motion.div>
+							<motion.div className="choose-text-container">
+								<span className="choose-text">Choisis ta destination</span>
+								<div className="arrows-container">
+									<div className="arrow"></div>
+									<div className="arrow"></div>
+									<div className="arrow"></div>
+								</div>
+							</motion.div>
 
-						<motion.div
-							className="navigation-buttons"
-							initial={{ opacity: 0, y: 50 }}
-							animate={{ opacity: 1, y: 0 }}
-							transition={{ duration: 1, delay: 2.5 }}
-						>
-							{renderNavigationButton(
-								"/web-dev",
-								"⟨/⟩",
-								"Web Dev",
-								"Projets & Expériences",
-								true
-							)}
-							{renderNavigationButton(
-								"/level-design",
-								"◇",
-								"Level Design",
-								"Créations & Design"
-							)}
+							<motion.div
+								className="navigation-buttons"
+								initial={{ opacity: 0, y: 50 }}
+								animate={{ 
+									opacity: 1, 
+									y: 0,
+								}}
+								transition={{ duration: 1, delay: 2.5 }}
+							>
+								{renderNavigationButton(
+									"/web-dev",
+									"⟨/⟩",
+									"Web Developer",
+									"Sites Web & Applications",
+
+									true
+								)}
+								{renderNavigationButton(
+									"/level-design",
+									"◇",
+									"Game Developer",
+									"Jeux vidéos (Environment Art & Level Design)"
+								)}
+							</motion.div>
 						</motion.div>
-					</motion.div>
+					</>
 				)}
 			</AnimatePresence>
 		</motion.div>

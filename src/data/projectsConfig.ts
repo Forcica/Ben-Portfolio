@@ -60,11 +60,11 @@ export const projects = [
       tags: ['SEO', 'Bug Fixing', 'Performance', 'Responsive Design', 'React'],
       technologies: ['HTML5', 'CSS3', 'JavaScript', 'Google Analytics', 'Schema.org', 'WebP', 'Lighthouse'],
       images: [
-         'assets/images/724events1.png',
-         'assets/images/724events2.png',
-         'assets/images/724events3.png',
-         'assets/images/724events4.png',
-         'assets/images/724events5.png'
+         'assets/images/724Events1.png',
+         'assets/images/724Events2.png',
+         'assets/images/724Events3.png',
+         'assets/images/724Events4.png',
+         'assets/images/724Events5.png'
       ]
    },
    {

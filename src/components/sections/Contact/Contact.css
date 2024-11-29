@@ -17,19 +17,6 @@
    z-index: 0;
 }
 
-.zen-pattern {
-   position: absolute;
-   inset: 0;
-   background-image: 
-     linear-gradient(45deg, var(--accent) 1px, transparent 1px),
-     linear-gradient(-45deg, var(--accent) 1px, transparent 1px);
-   background-size: 50px 50px;
-   opacity: 0.02;
-   transform-origin: center;
-   animation: patternFloat 30s linear infinite;
-   mix-blend-mode: soft-light;
-}
-
 .kanji-background {
    position: absolute;
    top: 50%;
