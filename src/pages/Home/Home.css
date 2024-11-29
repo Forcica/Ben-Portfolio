@@ -11,11 +11,10 @@
    padding: 0;
    background: radial-gradient(circle, rgb(230, 237, 240) 0%, rgb(212, 233, 238) 100%);
    background-size: 400% 400%;
-   box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.2);
-   animation: gradientFlow 20s ease infinite;
-   will-change: background-position, transform, opacity;
-   transform: translateZ(0);
+   will-change: transform;
    backface-visibility: hidden;
+   -webkit-font-smoothing: antialiased;
+   transform: translateZ(0);
 }
 
 /* Content Layout */
@@ -49,23 +48,11 @@
 .author-name {
    font-size: 1.6rem;
    color: #ffffff;
-   font-family: 'Noto Sans JP', sans-serif;
-   font-weight: 400;
-   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+   font-family: 'Noto Serif JP', sans-serif;
+   text-shadow: 0 2px 8px rgba(0, 0, 0, .4), 0 0 30px rgba(139, 38, 53, .3);
    letter-spacing: 0.4em;
    padding-left: 2rem;
    position: relative;
-}
-
-.author-name::before {
-   content: '';
-   position: absolute;
-   left: 0;
-   top: 50%;
-   width: 1.5rem;
-   height: 1px;
-   background: #8B2635;
-   opacity: 0.6;
 }
 
 /* Title Styles */
@@ -78,7 +65,7 @@
 }
 
 .title-text {
-   font-family: 'Noto Serif JP', serif;
+   font-family: 'Noto Serif JP', sans-serif;
    font-size: clamp(2.5rem, 5vw, 4rem);
    color: rgba(255, 255, 255, 0.95);
    letter-spacing: 0.25em;
@@ -140,6 +127,10 @@
    transform: translateY(-3px);
 }
 
+.button-icon {
+   font-size: 1.8rem;
+}
+
 .web-dev {
    background: rgba(139, 38, 53, 0.15);
    border-color: rgba(139, 38, 53, 0.3);
@@ -167,14 +158,14 @@
    justify-content: center;
    color: #fafafa;
    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.8);
-   font-family: 'Noto Serif JP', serif;
+   font-family: 'Noto Serif JP', sans-serif;
    font-size: 0.9rem;
    letter-spacing: 0.08em;
    font-weight: 500;
 }
 
 .button-title {
-   font-family: 'Noto Serif JP', serif;
+   font-family: 'Noto Serif JP', sans-serif;
    font-size: 2.7rem;
    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
    color: rgba(255, 255, 255, 0.95);
@@ -199,7 +190,7 @@
 .choose-text {
    width: 100%;
    text-align: center;
-   font-family: 'Noto Serif JP', serif;
+   font-family: 'Noto Serif JP', sans-serif;
    font-size: 1.6rem;
    color: rgba(255, 255, 255, 0.9);
    letter-spacing: 0.2em;
@@ -219,39 +210,39 @@
    }
 }
 
+.arrows-container {
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 0.5rem;
+   margin-top: 1rem;
+}
+
 .arrow {
-   width: 10px;
-   height: 10px;
-   border-right: 2px solid #bba8a0;
-   border-bottom: 2px solid #a18d85;
+   width: 15px;
+   height: 15px;
+   border-right: 2px solid var(--accent);
+   border-bottom: 2px solid var(--accent);
    transform: rotate(45deg);
-   opacity: 0;
-   animation: arrowPulse 2s infinite;
-   transition: opacity 0.3s ease;
+   animation: arrow-animation 2s infinite;
 }
 
-.arrow:nth-child(2) {
-   animation-delay: 0.2s;
-}
+.arrow:nth-child(1) { animation-delay: 0s; }
+.arrow:nth-child(2) { animation-delay: 0.2s; }
+.arrow:nth-child(3) { animation-delay: 0.4s; }
 
-.arrow:nth-child(3) {
-   animation-delay: 0.4s;
-}
-
-@keyframes arrowPulse {
-   0% {
-      opacity: 0;
-      transform: rotate(45deg) translate(-5px, -5px);
-   }
-
-   50% {
-      opacity: 0.8;
-   }
-
-   100% {
-      opacity: 0;
-      transform: rotate(45deg) translate(5px, 5px);
-   }
+@keyframes arrow-animation {
+  0% {
+    opacity: 0;
+    transform: rotate(45deg) translate(-10px, -10px);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(45deg) translate(10px, 10px);
+  }
 }
 
 @media (max-width: 1024px) {

@@ -1,12 +1,16 @@
 .project-card {
    position: relative;
    border-radius: 20px;
+   border: 2px rgba(100, 1, 1, 0.144) solid;
+   box-shadow: rgba(1, 0, 1, 0.1) 1px 1px 5px 0px;
    background: rgba(255, 255, 255, 0.97);
    backdrop-filter: blur(10px);
    overflow: hidden;
-   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+   transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
    width: 100%;
    margin: 0 auto;
+   will-change: transform;
+   transform: translateZ(0);
 }
 
 .project-image {
@@ -31,7 +35,7 @@
    font-size: clamp(1.2rem, 4vw, 1.5rem);
    color: var(--primary);
    margin-bottom: 1rem;
-   font-family: 'Noto Serif JP', serif;
+   font-family: 'Noto Serif JP', sans-serif;
 }
 
 .project-tags {

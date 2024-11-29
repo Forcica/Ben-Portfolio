@@ -18,17 +18,40 @@ export default defineConfig({
    },
    build: {
       minify: 'terser',
-      sourcemap: false,
+      sourcemap: true,
+      terserOptions: {
+         compress: {
+            drop_console: true,
+            drop_debugger: true
+         }
+      },
       rollupOptions: {
          output: {
             manualChunks: {
                vendor: ['react', 'react-dom'],
                animations: ['framer-motion', 'gsap'],
-               three: ['three', '@react-three/fiber', '@react-three/drei']
+               three: ['three', '@react-three/fiber', '@react-three/drei'],
+               main: [
+                 './src/components/sections/HeroSection/HeroSection',
+                 './src/components/sections/About/About',
+                 './src/components/sections/Contact/Contact'
+               ]
+            },
+            chunkFileNames: (chunkInfo) => {
+              const id = chunkInfo.facadeModuleId || '';
+              if (id.includes('node_modules')) {
+                return 'vendor/[name]-[hash].js';
+              }
+              return 'modules/[name]-[hash].js';
             }
          }
       },
-      chunkSizeWarningLimit: 1000
+      chunkSizeWarningLimit: 1000,
+      assetsInlineLimit: 4096,
+      cssCodeSplit: true,
+      modulePreload: {
+         polyfill: true
+      }
    },
    server: {
       port: 3000,
@@ -38,5 +61,17 @@ export default defineConfig({
          'X-Content-Type-Options': 'nosniff',
          'Referrer-Policy': 'strict-origin-when-cross-origin'
       }
+   },
+   optimizeDeps: {
+      include: [
+         'react',
+         'react-dom',
+         'framer-motion',
+         'gsap',
+         'three',
+         '@react-three/fiber',
+         '@react-three/drei'
+      ],
+      exclude: ['@vercel/analytics']
    }
 })

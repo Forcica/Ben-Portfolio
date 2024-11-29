@@ -21,10 +21,11 @@
 }
 
 .hero-title {
-   font-size: clamp(4.5rem, 10vw, 8rem);
+   font-family: 'Noto Serif JP', sans-serif;
+   font-size: clamp(4rem, 10vw, 8rem);
    font-weight: 300;
    color: var(--primary);
-   line-height: 1;
+   line-height: 1.3;
    margin-bottom: 3rem;
 }
 
@@ -38,7 +39,7 @@
 .hero-subtitle {
    font-size: clamp(2.5rem, 5vw, 3.5rem);
    margin-bottom: 8rem;
-   color: #472c2c;
+   color: #520d0d;
 }
 
 .wave-container {
@@ -90,12 +91,16 @@
    backdrop-filter: blur(10px);
    border-radius: 16px;
    padding: 1.2rem;
-   cursor: pointer;
+   cursor: none;
    border: 1px solid rgba(155, 44, 44, 0.1);
    display: flex;
    align-items: center;
    gap: 1rem;
    transition: all 0.3s ease;
+   transform: translateZ(0);
+   will-change: transform;
+   animation: floatAnimation 3s ease-in-out infinite;
+   animation-delay: calc(var(--index) * 0.2s);
 }
 
 .skill-badge:hover {
@@ -105,6 +110,7 @@
    box-shadow: 
      0 10px 20px rgba(155, 44, 44, 0.1),
      0 15px 30px rgba(155, 44, 44, 0.05);
+   cursor: none;
 }
 
 .skill-icon {
@@ -127,6 +133,11 @@
    font-size: 0.9rem;
    color: var(--secondary);
    opacity: 0.8;
+}
+
+@keyframes floatAnimation {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -10px, 0); }
 }
 
 /* Ajout des media queries pour le responsive */

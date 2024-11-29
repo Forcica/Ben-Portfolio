@@ -1,32 +1,63 @@
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import './LoadingScreen.css';
 
 interface LoadingScreenProps {
 	progress: number;
 }
 
+const loadingMessages = [
+	"Création de l'univers...",
+	"Chargement des éléments 3D...",
+	"Configuration des shaders...",
+	"Préparation de l'expérience..."
+];
+
 const LoadingScreen = ({ progress }: LoadingScreenProps) => {
-	const [fadeOut, setFadeOut] = useState(false);
+	const [messageIndex, setMessageIndex] = useState(0);
 
 	useEffect(() => {
-		if (progress >= 100) {
-			setTimeout(() => setFadeOut(true), 500);
-		}
-	}, [progress]);
+		const interval = setInterval(() => {
+			setMessageIndex((prev) => (prev + 1) % loadingMessages.length);
+		}, 2000);
+		return () => clearInterval(interval);
+	}, []);
 
 	return (
-		<div className={`loading-screen ${fadeOut ? 'fade-out' : ''}`}>
+		<motion.div 
+			className="loading-screen"
+			initial={{ opacity: 0 }}
+			animate={{ opacity: 1 }}
+			exit={{ opacity: 0 }}
+			transition={{ duration: 0.5 }}
+		>
 			<div className="loading-content">
-				<div className="loading-icon">
-					<div className="circle"></div>
-					<div className="circle"></div>
-					<div className="circle"></div>
+				<h1 className="loading-title">創造中...</h1>
+				<div className="loading-progress-container">
+					<div className="loading-progress">
+						<motion.div 
+							className="progress-bar"
+							initial={{ scaleX: 0 }}
+							animate={{ scaleX: progress / 100 }}
+							transition={{ duration: 0.3 }}
+						/>
+					</div>
+					<span className="progress-text">{Math.floor(progress)}%</span>
 				</div>
-				<div className="loading-progress">
-					<div className="progress-bar" style={{ width: `${progress}%` }}></div>
-				</div>
+				<AnimatePresence mode="wait">
+					<motion.p
+						key={messageIndex}
+						className="loading-message"
+						initial={{ opacity: 0, y: 20 }}
+						animate={{ opacity: 1, y: 0 }}
+						exit={{ opacity: 0, y: -20 }}
+						transition={{ duration: 0.5 }}
+					>
+						{loadingMessages[messageIndex]}
+					</motion.p>
+				</AnimatePresence>
 			</div>
-		</div>
+		</motion.div>
 	);
 };
 

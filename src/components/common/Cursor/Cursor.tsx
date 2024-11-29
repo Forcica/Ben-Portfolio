@@ -1,12 +1,14 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import "./Cursor.css";
 
 const Cursor = () => {
-	const dotRef = useRef(null);
-	const outlineRef = useRef(null);
+	const dotRef = useRef<HTMLDivElement | null>(null);
+	const outlineRef = useRef<HTMLDivElement | null>(null);
 
 	useEffect(() => {
-		const updateCursor = (e) => {
+		document.body.style.cursor = 'none';
+
+		const updateCursor = (e: MouseEvent) => {
 			const { clientX, clientY } = e;
 
 			if (dotRef.current) {
@@ -30,8 +32,8 @@ const Cursor = () => {
 			outlineRef.current?.classList.remove("cursor-hover");
 		};
 
-		let rafId = null;
-		const smoothUpdateCursor = (e) => {
+		let rafId: number | null = null;
+		const smoothUpdateCursor = (e: MouseEvent) => {
 			if (rafId) {
 				cancelAnimationFrame(rafId);
 			}

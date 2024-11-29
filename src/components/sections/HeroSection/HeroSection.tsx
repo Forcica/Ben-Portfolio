@@ -48,15 +48,6 @@ const WaveAnimation = () => (
 export const HeroSection = () => {
 	return (
 		<motion.div className="hero-section">
-			<div className="hero-background">
-				<motion.div
-					className="zen-pattern"
-					initial={{ opacity: 0, scale: 0.95 }}
-					animate={{ opacity: 0.03, scale: 1 }}
-				/>
-				<motion.div className="kanji-overlay">創造</motion.div>
-			</div>
-
 			<motion.div
 				className="hero-content"
 				initial={{ opacity: 0, y: 30 }}
@@ -99,11 +90,6 @@ export const HeroSection = () => {
 							initial={{ opacity: 0, y: 20 }}
 							animate={{ opacity: 1, y: 0 }}
 							transition={{ delay: index * 0.2 }}
-							whileHover={{
-								y: -5,
-								scale: 1.02,
-								backgroundColor: `${skill.color}15`,
-							}}
 						>
 							<span className="skill-icon">{skill.icon}</span>
 							<div className="skill-content">

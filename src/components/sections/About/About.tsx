@@ -3,13 +3,14 @@ import "./About.css";
 
 const skillsData = [
 	{
-		category: "React Expertise",
+		category: "Expert React",
 		skills: [
 			"React.js",
 			"Next.js",
 			"TypeScript",
 			"Redux Toolkit",
 			"React Query",
+         "Vite React"
 		],
 	},
 	{
@@ -33,7 +34,7 @@ const skillsData = [
 		],
 	},
 	{
-		category: "Development Tools",
+		category: "Outils Dev",
 		skills: ["Git", "Testing", "CI/CD", "Clean Code", "Responsive Design"],
 	},
 ];
@@ -51,6 +52,10 @@ const About = () => {
 		{
 			kanji: "創造者",
 			text: "Mon objectif est de livrer des solutions fiables et performantes, avec une navigation fluide et un design soigné pour une meilleure expérience utilisateur.",
+		},
+		{
+			kanji: "情熱",
+			text: "Je suis passionné et essaye de le retranscrire dans mes créations web en restant à jour avec les dernières tendances et technologies.",
 		},
 	];
 
@@ -99,7 +104,7 @@ const About = () => {
 			variants={containerVariants}
 		>
 			<motion.h2 className="about-title" variants={textVariants}>
-				私について
+				概要
 				<span className="title-translation">À propos</span>
 			</motion.h2>
 

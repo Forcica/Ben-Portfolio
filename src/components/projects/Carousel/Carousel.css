@@ -50,7 +50,7 @@
    backdrop-filter: blur(4px);
    animation: fadeInOut 2s infinite;
    z-index: 5;
-   border: 1px solid rgba(255, 255, 255, 0.2);
+   border: 1px solid rgba(66, 23, 23, 0.2);
 }
 
 @keyframes fadeInOut {

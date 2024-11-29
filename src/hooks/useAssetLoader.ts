@@ -1,76 +1,90 @@
 import { useState, useEffect } from 'react';
-import { preloadAssets } from '../utils/preloader';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { GLTF } from 'three/addons/loaders/GLTFLoader.js';
+import { Mesh, Material } from 'three';
 
-
-const CACHE_KEY = 'model-cache-v2';
-
+const CACHE_KEY = 'portfolio-cache-v2';
+const CACHE_DURATION = 24 * 60 * 60 * 1000;
 
 const useAssetLoader = () => {
-   const [loadingState, setLoadingState] = useState({
-      progress: 0,
-      isLoading: true,
-      assetsLoaded: false
-   });
+  const [state, setState] = useState({
+    progress: 0,
+    isLoading: true,
+    assetsLoaded: false
+  });
 
-   useEffect(() => {
-      const hasLoadedBefore = localStorage.getItem(CACHE_KEY);
-      
-      if (hasLoadedBefore) {
-         setLoadingState({
-            progress: 100,
-            isLoading: false,
-            assetsLoaded: true
-         });
-         return;
-      }
+  useEffect(() => {
+    const loadAssets = async () => {
+      try {
+        // Vérification du cache
+        const cached = localStorage.getItem(CACHE_KEY);
+        if (cached) {
+          const { timestamp } = JSON.parse(cached);
+          if (Date.now() - timestamp < CACHE_DURATION) {
+            setState({ progress: 100, isLoading: false, assetsLoaded: true });
+            return;
+          }
+        }
 
-      const loadEverything = async () => {
-         try {
-            await preloadAssets((progress: number) => {
-
-
-
-
-
-
-
-
-
-
-
-
-
-               setLoadingState(prev => ({
+        // Chargement du modèle 3D
+        const loadGLTF = new Promise<GLTF>((resolve, reject) => {
+          const loader = new GLTFLoader();
+          loader.load(
+            '/assets/models/scene.gltf',
+            resolve,
+            (xhr) => {
+              if (xhr.lengthComputable) {
+                const progress = (xhr.loaded / xhr.total) * 100;
+                setState(prev => ({
                   ...prev,
                   progress: Math.floor(progress)
+                }));
+              }
+            },
+            reject
+          );
+        });
 
-               }));
-            });
+        const gltf = await loadGLTF;
 
-            localStorage.setItem(CACHE_KEY, 'loaded');
+        // Optimisation des matériaux
+        await Promise.all(gltf.scene.children.map(child => {
+          if ((child as Mesh).material) {
+            const material = (child as Mesh).material as Material;
+            if (Array.isArray(material)) {
+              material.forEach(m => m.needsUpdate = true);
+            } else {
+              material.needsUpdate = true;
+            }
+          }
+          return Promise.resolve();
+        }));
 
-            
-            setLoadingState({
-               progress: 100,
-               isLoading: false,
-               assetsLoaded: true
-            });
+        // Mise en cache
+        localStorage.setItem(CACHE_KEY, JSON.stringify({
+          timestamp: Date.now()
+        }));
 
+        setState({
+          progress: 100,
+          isLoading: false,
+          assetsLoaded: true
+        });
 
-         } catch (error) {
-            console.error('Erreur lors du chargement:', error);
-            setLoadingState({
-               progress: 100,
-               isLoading: false,
-               assetsLoaded: true
-            });
-         }
-      };
+      } catch (error) {
+        console.error('Erreur de chargement:', error);
+        setState({
+          progress: 100,
+          isLoading: false,
+          assetsLoaded: true
+        });
+      }
+    };
 
-      loadEverything();
-   }, []);
+    loadAssets();
+  }, []);
 
-   return loadingState;
+  return state;
 };
 
 export default useAssetLoader;

@@ -57,8 +57,9 @@
    left: 0;
    top: 0;
    height: 100%;
+   width: 100%;
    background: #8B2635;
-   transition: width 0.3s ease-out;
+   transform-origin: left;
 }
 
 @keyframes bounce {

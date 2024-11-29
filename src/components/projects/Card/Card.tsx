@@ -45,7 +45,12 @@ const ProjectCard = ({ project, onSelect, index }: ProjectCardProps) => {
 			onClick={() => onSelect(project)}
 		>
 			<div className="project-image">
-				<img src={project.images[0]} alt={project.title} />
+				<img 
+					src={project.images[0]} 
+					alt={project.title} 
+					loading="lazy"
+					decoding="async"
+				/>
 			</div>
 
 			<div className="project-content">

@@ -7,11 +7,12 @@
 }
 
 .about-title {
-   font-size: clamp(3rem, 6vw, 5rem);
+   font-size: clamp(2.5rem, 5vw, 4rem);
+   color: var(--accent);
    font-weight: 300;
-   color: var(--primary);
+   margin-bottom: 1rem;
    text-align: center;
-   margin-bottom: 6rem;
+   font-family: 'Noto Serif JP', sans-serif;
    position: relative;
 }
 
@@ -67,7 +68,7 @@
    position: absolute;
    top: -2rem;
    left: -3rem;
-   font-family: 'Noto Serif JP', serif;
+   font-family: 'Noto Serif JP', sans-serif;
    font-size: 10rem;
    opacity: 0.06;
    color: var(--accent);
@@ -131,6 +132,7 @@
 .skill-category-title {
    font-size: 1.2rem;
    color: var(--primary);
+   font-family: 'Noto Sans JP', sans-serif;
    margin-bottom: 2rem;
    font-weight: 400;
    display: flex;
@@ -140,7 +142,7 @@
 
 .skill-category-title::before {
    content: '技';
-   font-family: 'Noto Serif JP', serif;
+   font-family: 'Noto Serif JP', sans-serif;
    font-size: 0.8rem;
    opacity: 0.5;
 }

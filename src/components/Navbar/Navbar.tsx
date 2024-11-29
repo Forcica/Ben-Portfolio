@@ -16,6 +16,10 @@ export const Navbar = () => {
         top: targetPosition,
         behavior: 'smooth'
       });
+
+      // Mettre à jour l'état de la section active
+      const index = links.findIndex(link => link.ref === `${sectionClass}Ref`);
+      setActiveSection(index);
     }
   };
 
@@ -39,7 +43,7 @@ export const Navbar = () => {
             return;
           }
           
-          if (rect.top <= window.innerHeight * 0.3 && rect.bottom >= window.innerHeight * 0.3) {
+          if (rect.top <= window.innerHeight * 0.3 && rect.bottom >= 0) {
             setActiveSection(index);
           }
         }

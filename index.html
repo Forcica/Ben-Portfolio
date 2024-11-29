@@ -19,9 +19,22 @@
 			name="keywords"
 			content="développeur, web, level design, portfolio"
 		/>
+		<link
+			rel="preload"
+			as="font"
+			href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&display=swap"
+			crossorigin
+		/>
 	</head>
 	<body>
 		<div id="root"></div>
 		<script type="module" src="/src/main.tsx"></script>
+		<script>
+			performance.mark("app-start");
+			window.addEventListener("load", () => {
+				performance.mark("app-loaded");
+				performance.measure("app-loading", "app-start", "app-loaded");
+			});
+		</script>
 	</body>
 </html>

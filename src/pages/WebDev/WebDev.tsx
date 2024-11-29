@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, lazy, Suspense } from "react";
 import {
 	motion,
 	AnimatePresence,
@@ -6,11 +6,8 @@ import {
 	useTransform,
 } from "framer-motion";
 import ProjectCard from "../../components/projects/Card/Card";
-import ProjectModal from "../../components/projects/Modal/Modal";
 import { projects } from "../../data/projectsConfig";
 import { HeroSection } from "../../components/sections/HeroSection/HeroSection";
-import About from "../../components/sections/About/About";
-import Contact from "../../components/sections/Contact/Contact";
 import "./WebDev.css";
 import { useIntersectionObserver } from "../../hooks/useIntersectionObserver";
 import { SectionTransition } from "../../components/SectionTransition/SectionTransition";
@@ -56,6 +53,22 @@ const WebDev = () => {
 	};
 
 	const navigate = useNavigate();
+
+	const ProjectModal = lazy(() => import('../../components/projects/Modal/Modal'));
+	const About = lazy(() => import('../../components/sections/About/About'));
+	const Contact = lazy(() => import('../../components/sections/Contact/Contact'));
+
+	const sections = [
+		document.querySelector('.hero-section'),
+		document.querySelector('.projects-section'),
+		document.querySelector('.about-section'),
+		document.querySelector('.contact-section')
+	].filter(section => section !== null);
+
+	sections.forEach(section => {
+		if (section) {
+		}
+	});
 
 	return (
 		<div className="webdev-container">
@@ -140,13 +153,17 @@ const WebDev = () => {
 
 					<SectionTransition isVisible={isAboutVisible}>
 						<motion.div ref={aboutRef} className="section">
-							<About />
+							<Suspense fallback={<div>Loading...</div>}>
+								<About />
+							</Suspense>
 						</motion.div>
 					</SectionTransition>
 
 					<SectionTransition isVisible={isContactVisible}>
 						<motion.div ref={contactRef} className="section">
-							<Contact />
+							<Suspense fallback={<div>Loading...</div>}>
+								<Contact />
+							</Suspense>
 						</motion.div>
 					</SectionTransition>
 				</div>
@@ -156,11 +173,13 @@ const WebDev = () => {
 
 			<AnimatePresence>
 				{selectedProject && (
-					<ProjectModal
-						project={selectedProject}
-						isOpen={!!selectedProject}
-						onClose={() => setSelectedProject(null)}
-					/>
+					<Suspense fallback={<div>Loading...</div>}>
+						<ProjectModal
+							project={selectedProject}
+							isOpen={!!selectedProject}
+							onClose={() => setSelectedProject(null)}
+						/>
+					</Suspense>
 				)}
 			</AnimatePresence>
 		</div>

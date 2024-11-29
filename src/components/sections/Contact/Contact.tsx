@@ -72,7 +72,10 @@ const Contact = () => {
 					<span className="title-translation">Contact</span>
 				</h2>
 				<p className="contact-intro">
-					Vous avez un projet web ? Je serai ravi d'en discuter avec vous.
+					Vous avez un projet web ? <br />
+				</p>
+				<p className="contact-introDesc">
+					Je serai ravi d'en discuter avec vous ! <br />
 					Décrivez brièvement votre besoin et je vous répondrai dans les
 					24h.
 				</p>
