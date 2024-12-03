@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from "react";
+import { Suspense, useEffect, useState, useRef } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import gsap from "gsap";
@@ -6,10 +6,8 @@ import { useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 
 interface Canvas3DProps {
-	isLoaded: boolean;
+	isLoaded?: boolean;
 }
-
-
 
 const Model = () => {
 	const { scene, animations } = useGLTF("/assets/models/scene.gltf");
@@ -18,15 +16,6 @@ const Model = () => {
 	useEffect(() => {
 		if (scene) {
 			for (const action of Object.values(actions)) {
-
-
-
-
-
-
-
-
-
 				if (action) {
 					action.play();
 					action.setLoop(THREE.LoopRepeat, Infinity);
@@ -61,40 +50,63 @@ function CameraAnimation() {
 	return null;
 }
 
-const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded }) => {
+const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded = false }) => {
+	const [isVisible, setIsVisible] = useState(false);
+	const containerRef = useRef<HTMLDivElement>(null);
+	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+	const renderSettings = {
+		pixelRatio: isMobile ? Math.min(1.5, window.devicePixelRatio) : window.devicePixelRatio,
+		powerPreference: "high-performance" as WebGLPowerPreference,
+		antialias: !isMobile,
+	};
 
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			([entry]) => setIsVisible(entry.isIntersecting),
+			{ threshold: 0.1 }
+		);
+		
+		if (containerRef.current) {
+			observer.observe(containerRef.current);
+		}
+		
+		return () => observer.disconnect();
+	}, []);
 
+	useEffect(() => {
+		const cleanupGeometries = new Set<THREE.BufferGeometry>();
+		const cleanupTextures = new Set<THREE.Texture>();
+		const cleanupMaterials = new Set<THREE.Material>();
+
+		return () => {
+			cleanupGeometries.forEach(geometry => geometry.dispose());
+			cleanupTextures.forEach(texture => texture.dispose());
+			cleanupMaterials.forEach(material => material.dispose());
+			
+			// Forcer le garbage collector
+			if (typeof window.gc === 'function') {
+				window.gc();
+			}
+		};
+	}, []);
 
 	return (
-		<>
-
-
-
-
-
-
-
+		<div ref={containerRef} className="canvas-container">
 			<Canvas
-				shadows
-				camera={{ position: [0, 2, 8], fov: 60 }}
-				style={{ 
-
-
-					background: "transparent",
-					opacity: isLoaded ? 1 : 0,
-					transition: "opacity 0.8s ease-in-out",
-					willChange: "opacity"
+				shadows={!isMobile}
+				camera={{ position: [0, 2, 8], fov: isMobile ? 75 : 60 }}
+				
+				frameloop={isVisible ? 'always' : 'demand'}
+				performance={{ 
+					min: 0.5,
+					max: 1,
+					debounce: 200 
 				}}
-				gl={{
-					antialias: true,
-					toneMapping: THREE.ACESFilmicToneMapping,
-					outputColorSpace: THREE.SRGBColorSpace,
-					preserveDrawingBuffer: true
-				}}
+				gl={renderSettings}
 			>
 				<color attach="background" args={["#d5e8ea"]} />
-				<fog attach="fog" args={["#d5e8ea", 10, 25]} />
+				<fog attach="fog" args={["#d5e8ea", isMobile ? 5 : 10, isMobile ? 15 : 25]} />
 				<mesh position={[0, -5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
 					<planeGeometry args={[100, 100]} />
 					<meshStandardMaterial color="#a3d5d8" opacity={0.5} transparent />
@@ -128,7 +140,7 @@ const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded }) => {
 					/>
 				</Suspense>
 			</Canvas>
-		</>
+		</div>
 	);
 };
 
