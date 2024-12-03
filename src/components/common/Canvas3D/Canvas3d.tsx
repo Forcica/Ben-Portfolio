@@ -5,9 +5,7 @@ import gsap from "gsap";
 import { useAnimations } from "@react-three/drei";
 import * as THREE from "three";
 
-interface Canvas3DProps {
-	isLoaded?: boolean;
-}
+interface Canvas3DProps {}
 
 const Model = () => {
 	const { scene, animations } = useGLTF("/assets/models/scene.gltf");
@@ -50,7 +48,7 @@ function CameraAnimation() {
 	return null;
 }
 
-const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded = false }) => {
+const Canvas3D: React.FC<Canvas3DProps> = () => {
 	const [isVisible, setIsVisible] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
 	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);

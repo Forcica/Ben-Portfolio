@@ -257,17 +257,18 @@
 }
 
 @media (max-width: 768px) {
-   .content-wrapper {
-      padding: 2rem 1rem;
-   }
-
    .choose-text-container {
-      top: 40%;
+      top: 25%;
    }
 
    .name-container {
       top: 2rem;
       left: 2rem;
+   }
+
+   .button-text {
+      font-size: 0.8rem;
+      text-align: center;
    }
 
    .author-name {
@@ -276,14 +277,20 @@
    }
 
    .title-container {
-      margin-top: 10vh;
+      margin-top: 5vh;
+      position: absolute;
+      top: 0;
+   }
+
+   .choose-text {
+      font-size: 1.2rem;
    }
 
    .navigation-buttons {
       flex-direction: column;
-      padding-top: 15vh;
+      padding-top: 20vh;
       gap: 1.5rem;
-
+      height: 65%;
    }
 
    .nav-button {
