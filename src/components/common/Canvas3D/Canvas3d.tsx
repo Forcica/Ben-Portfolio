@@ -101,20 +101,12 @@ function CameraAnimation() {
 }
 
 const Canvas3D = () => {
+	const isMobileCheck = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
+					(navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
+
+	const isMobile = isMobileCheck();
 	const [isVisible, setIsVisible] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
-	const isMobile = () => {
-		return (
-			/Android/i.test(navigator.userAgent) ||
-			/webOS/i.test(navigator.userAgent) ||
-			/iPhone/i.test(navigator.userAgent) ||
-			/iPad/i.test(navigator.userAgent) ||
-			/iPod/i.test(navigator.userAgent) ||
-			/BlackBerry/i.test(navigator.userAgent) ||
-			/Windows Phone/i.test(navigator.userAgent) ||
-			(navigator.maxTouchPoints && navigator.maxTouchPoints > 2)
-		);
-	};
 
 	const handleCapture = async () => {
 		try {
@@ -182,28 +174,53 @@ const Canvas3D = () => {
 	}, []);
 
 	const renderSettings = {
-		pixelRatio: isMobile() ? 1 : window.devicePixelRatio,
+		pixelRatio: isMobile ? 1 : window.devicePixelRatio,
 		powerPreference: "high-performance" as WebGLPowerPreference,
-		antialias: !isMobile(),
+		antialias: !isMobile,
 	};
 
+	// Rendu mobile avec image statique
+	if (isMobile) {
+		return (
+			<div className="mobile-fallback" style={{
+				width: '100%',
+				height: '100%',
+				position: 'relative'
+			}}>
+				<img 
+					src="/assets/models/scene-static.webp" 
+					alt="Scene 3D"
+					loading="lazy"
+					style={{
+						width: '100%',
+						height: '100%',
+						objectFit: 'cover',
+						borderRadius: '12px',
+						display: 'block'
+					}}
+				/>
+			</div>
+		);
+	}
+
+	// Rendu desktop avec Canvas3D
 	return (
 		<div ref={containerRef} className="canvas-container">
 			<Canvas
 				shadows={false}
 				camera={{ 
 					position: [0, 2, 8], 
-					fov: isMobile() ? 65 : 60 
+					fov: 60 
 				}}
 				frameloop={isVisible ? 'always' : 'never'}
 				gl={renderSettings}
 			>
 				<color attach="background" args={["#d5e8ea"]} />
-				<fog attach="fog" args={["#d5e8ea", isMobile() ? 3 : 10, isMobile() ? 10 : 25]} />
+				<fog attach="fog" args={["#d5e8ea", isMobile ? 3 : 10, isMobile ? 10 : 25]} />
 				
 				<Suspense fallback={null}>
-					<ambientLight intensity={isMobile() ? 0.3 : 0.5} />
-					{!isMobile() && (
+					<ambientLight intensity={isMobile ? 0.3 : 0.5} />
+					{!isMobile && (
 						<>
 							<directionalLight position={[2, 8, 4]} intensity={1.2} />
 							<pointLight position={[-2, 2, -1]} intensity={0.4} color="#f8e3ff" />
