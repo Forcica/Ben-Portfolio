@@ -5,30 +5,35 @@ import * as THREE from "three";
 import gsap from "gsap";
 
 const Model = () => {
-	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-	const [isLoading, setIsLoading] = useState(true);
-	const [hasError, setHasError] = useState(false);
-	console.log('Device:', isMobile ? 'Mobile' : 'Desktop');
+	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
+					(navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
 
 	if (isMobile) {
+		console.log('Mode mobile détecté - Affichage image statique');
 		return (
-			<div className="mobile-fallback">
+			<div className="mobile-fallback" style={{
+				width: '100%',
+				height: '100%',
+				position: 'relative'
+			}}>
 				<img 
 					src="/assets/models/scene-static.webp" 
 					alt="Scene 3D"
 					loading="lazy"
+					onError={(e) => console.error('Erreur chargement image:', e)}
+					onLoad={() => console.log('Image statique chargée')}
 					style={{
 						width: '100%',
 						height: '100%',
 						objectFit: 'cover',
-						borderRadius: '12px'
+						borderRadius: '12px',
+						display: 'block'
 					}}
 				/>
 			</div>
 		);
 	}
 
-	// Version desktop avec le modèle 3D
 	const { scene } = useGLTF("/assets/models/scene.gltf");
 
 	useEffect(() => {
@@ -39,27 +44,13 @@ const Model = () => {
 						child.frustumCulled = true;
 						child.matrixAutoUpdate = false;
 						child.updateMatrix();
-						if (isMobile && child.material) {
-							child.material.precision = "lowp";
-						}
 					}
 				});
-				setIsLoading(false);
 			} catch (error) {
 				console.error('Erreur lors de l\'initialisation:', error);
-				setHasError(true);
 			}
 		}
-	}, [scene, isMobile]);
-
-	if (isLoading) {
-		return <mesh><boxGeometry args={[0, 0, 0]} /></mesh>;
-	}
-
-	if (hasError) {
-		console.log('Erreur de rendu du modèle');
-		return null;
-	}
+	}, [scene]);
 
 	return (
 		<primitive
@@ -73,11 +64,22 @@ const Model = () => {
 
 function CameraAnimation() {
 	const { camera } = useThree();
-	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 	const hasAnimated = useRef(false);
+	const isMobile = () => {
+		return (
+			/Android/i.test(navigator.userAgent) ||
+			/webOS/i.test(navigator.userAgent) ||
+			/iPhone/i.test(navigator.userAgent) ||
+			/iPad/i.test(navigator.userAgent) ||
+			/iPod/i.test(navigator.userAgent) ||
+			/BlackBerry/i.test(navigator.userAgent) ||
+			/Windows Phone/i.test(navigator.userAgent) ||
+			(navigator.maxTouchPoints && navigator.maxTouchPoints > 2)
+		);
+	};
 
 	useEffect(() => {
-		if (!isMobile && !hasAnimated.current) {
+		if (!isMobile() && !hasAnimated.current) {
 			hasAnimated.current = true;
 			gsap.fromTo(
 				camera.position,
@@ -90,10 +92,10 @@ function CameraAnimation() {
 					ease: "power2.out",
 				}
 			);
-		} else if (isMobile) {
+		} else if (isMobile()) {
 			camera.position.set(0, 0.5, 6);
 		}
-	}, [camera, isMobile]);
+	}, [camera]);
 
 	return null;
 }
@@ -101,12 +103,17 @@ function CameraAnimation() {
 const Canvas3D = () => {
 	const [isVisible, setIsVisible] = useState(false);
 	const containerRef = useRef<HTMLDivElement>(null);
-	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-
-	const renderSettings = {
-		pixelRatio: isMobile ? 1 : window.devicePixelRatio,
-		powerPreference: "high-performance" as WebGLPowerPreference,
-		antialias: !isMobile,
+	const isMobile = () => {
+		return (
+			/Android/i.test(navigator.userAgent) ||
+			/webOS/i.test(navigator.userAgent) ||
+			/iPhone/i.test(navigator.userAgent) ||
+			/iPad/i.test(navigator.userAgent) ||
+			/iPod/i.test(navigator.userAgent) ||
+			/BlackBerry/i.test(navigator.userAgent) ||
+			/Windows Phone/i.test(navigator.userAgent) ||
+			(navigator.maxTouchPoints && navigator.maxTouchPoints > 2)
+		);
 	};
 
 	const handleCapture = async () => {
@@ -117,10 +124,7 @@ const Canvas3D = () => {
 				return;
 			}
 
-			// Attendre le prochain frame
 			await new Promise(resolve => requestAnimationFrame(resolve));
-
-			// Capture
 			const dataUrl = (canvas as HTMLCanvasElement).toDataURL('image/png');
 			const link = document.createElement('a');
 			link.href = dataUrl;
@@ -134,20 +138,6 @@ const Canvas3D = () => {
 	};
 
 	useEffect(() => {
-		const observer = new IntersectionObserver(
-			([entry]) => setIsVisible(entry.isIntersecting),
-			{ threshold: 0.1 }
-		);
-		
-		if (containerRef.current) {
-			observer.observe(containerRef.current);
-		}
-		
-		return () => observer.disconnect();
-	}, []);
-
-	useEffect(() => {
-		// N'afficher le bouton qu'en développement
 		if (process.env.NODE_ENV === 'development') {
 			const buttonContainer = document.createElement('div');
 			buttonContainer.style.cssText = `
@@ -178,23 +168,42 @@ const Canvas3D = () => {
 		}
 	}, []);
 
+	useEffect(() => {
+		const observer = new IntersectionObserver(
+			([entry]) => setIsVisible(entry.isIntersecting),
+			{ threshold: 0.1 }
+		);
+		
+		if (containerRef.current) {
+			observer.observe(containerRef.current);
+		}
+		
+		return () => observer.disconnect();
+	}, []);
+
+	const renderSettings = {
+		pixelRatio: isMobile() ? 1 : window.devicePixelRatio,
+		powerPreference: "high-performance" as WebGLPowerPreference,
+		antialias: !isMobile(),
+	};
+
 	return (
 		<div ref={containerRef} className="canvas-container">
 			<Canvas
 				shadows={false}
 				camera={{ 
 					position: [0, 2, 8], 
-					fov: isMobile ? 65 : 60 
+					fov: isMobile() ? 65 : 60 
 				}}
 				frameloop={isVisible ? 'always' : 'never'}
 				gl={renderSettings}
 			>
 				<color attach="background" args={["#d5e8ea"]} />
-				<fog attach="fog" args={["#d5e8ea", isMobile ? 3 : 10, isMobile ? 10 : 25]} />
+				<fog attach="fog" args={["#d5e8ea", isMobile() ? 3 : 10, isMobile() ? 10 : 25]} />
 				
 				<Suspense fallback={null}>
-					<ambientLight intensity={isMobile ? 0.3 : 0.5} />
-					{!isMobile && (
+					<ambientLight intensity={isMobile() ? 0.3 : 0.5} />
+					{!isMobile() && (
 						<>
 							<directionalLight position={[2, 8, 4]} intensity={1.2} />
 							<pointLight position={[-2, 2, -1]} intensity={0.4} color="#f8e3ff" />
