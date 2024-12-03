@@ -1,25 +1,46 @@
 import { Suspense, useEffect, useState, useRef } from "react";
 import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
-import gsap from "gsap";
-import { useAnimations } from "@react-three/drei";
 import * as THREE from "three";
+import gsap from "gsap";
 
 const Model = () => {
 	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-	const { scene, animations } = useGLTF("/assets/models/scene.gltf");
-	const { actions } = useAnimations(animations, scene);
+	const [isLoading, setIsLoading] = useState(true);
+	const [hasError, setHasError] = useState(false);
+	
+	const modelPath = isMobile ? "/assets/models/scene-mobile.gltf" : "/assets/models/scene.gltf";
+	const { scene } = useGLTF(modelPath);
 
 	useEffect(() => {
-		if (!isMobile && scene) {
-			Object.values(actions).forEach(action => {
-				if (action) {
-					action.play();
-					action.setLoop(THREE.LoopRepeat, Infinity);
-				}
-			});
+		if (scene) {
+			try {
+				scene.traverse((child) => {
+					if (child instanceof THREE.Mesh) {
+						child.frustumCulled = true;
+						child.matrixAutoUpdate = false;
+						child.updateMatrix();
+						if (isMobile && child.material) {
+							child.material.precision = "lowp";
+						}
+					}
+				});
+				setIsLoading(false);
+			} catch (error) {
+				console.error('Erreur lors de l\'initialisation:', error);
+				setHasError(true);
+			}
 		}
-	}, [scene, actions, isMobile]);
+	}, [scene, isMobile]);
+
+	if (isLoading) {
+		return <mesh><boxGeometry args={[0, 0, 0]} /></mesh>;
+	}
+
+	if (hasError) {
+		console.log('Erreur de rendu du modèle');
+		return null;
+	}
 
 	return (
 		<primitive
@@ -85,42 +106,23 @@ const Canvas3D = () => {
 	return (
 		<div ref={containerRef} className="canvas-container">
 			<Canvas
-				shadows={!isMobile}
+				shadows={false}
 				camera={{ 
 					position: [0, 2, 8], 
 					fov: isMobile ? 65 : 60 
 				}}
-				frameloop={isVisible ? 'always' : 'demand'}
-				performance={{ 
-					min: 0.5,
-					max: isMobile ? 0.7 : 1,
-					debounce: 200 
-				}}
+				frameloop={isVisible ? 'always' : 'never'}
 				gl={renderSettings}
 			>
 				<color attach="background" args={["#d5e8ea"]} />
 				<fog attach="fog" args={["#d5e8ea", isMobile ? 3 : 10, isMobile ? 10 : 25]} />
 				
-				{!isMobile && (
-					<mesh position={[0, -5, 0]} rotation={[-Math.PI / 2, 0, 0]}>
-						<planeGeometry args={[100, 100]} />
-						<meshStandardMaterial color="#a3d5d8" opacity={0.5} transparent />
-					</mesh>
-				)}
-
 				<Suspense fallback={null}>
 					<ambientLight intensity={isMobile ? 0.3 : 0.5} />
 					{!isMobile && (
 						<>
 							<directionalLight position={[2, 8, 4]} intensity={1.2} />
 							<pointLight position={[-2, 2, -1]} intensity={0.4} color="#f8e3ff" />
-							<spotLight
-								position={[0, 4, 2]}
-								intensity={0.6}
-								angle={0.6}
-								penumbra={1}
-								color="#ffffff"
-							/>
 						</>
 					)}
 					<Model />
