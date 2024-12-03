@@ -60,14 +60,12 @@ const About = () => {
 	];
 
 	const containerVariants = {
-		hidden: { opacity: 0 },
+		hidden: { opacity: 0, y: 20 },
 		visible: {
 			opacity: 1,
-			transition: {
-				staggerChildren: 0.2,
-				delayChildren: 0.3,
-			},
-		},
+			y: 0,
+			transition: { duration: 0.6, ease: "easeOut" }
+		}
 	};
 
 	const textVariants = {
@@ -99,8 +97,7 @@ const About = () => {
 		<motion.section
 			className="about-section"
 			initial="hidden"
-			whileInView="visible"
-			viewport={{ once: true, margin: "-100px" }}
+			animate="visible"
 			variants={containerVariants}
 		>
 			<motion.h2 className="about-title" variants={textVariants}>

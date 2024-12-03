@@ -172,21 +172,22 @@
 }
 
 .modal-close-button {
-   position: absolute;
+   position: fixed;
    top: 1rem;
    right: 1rem;
-   background: rgba(255, 255, 255, 0.2);
+   background: rgba(255, 255, 255, 0.9);
    border: none;
    border-radius: 50%;
-   width: 36px;
-   height: 36px;
+   width: 40px;
+   height: 40px;
    display: flex;
    align-items: center;
    justify-content: center;
-   color: white;
+   color: #2c1810;
    cursor: pointer;
    transition: all 0.2s ease;
-   backdrop-filter: blur(4px);
+   z-index: 1100;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .modal-close-button:hover {
@@ -365,124 +366,88 @@
 
 @media (max-width: 768px) {
   .modal-overlay {
-    padding: 1rem;
+    padding: 0;
   }
 
   .modal-content {
     width: 100%;
     height: 100vh;
-    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
   }
 
   .modal-image-container {
-    flex: 0 0 55%;
+    flex: 0 0 35%;
   }
 
   .modal-body {
-    flex: 0 0 45%;
-    padding: 1rem 1.5rem;
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
-
-  .modal-links {
-    flex-direction: row;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
-  }
-
-  .modal-link {
     flex: 1;
-    max-width: 160px;
-  }
-
-  .results-section {
-    max-height: 25vh;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
     overflow-y: auto;
   }
 
-  .modal-sidebar {
-    border-top: 1px solid #e2e8f0;
-    padding-top: 1rem;
-  }
-
-  .modal-title {
-    font-size: 1.6rem;
-  }
-
-  .modal-subtitle {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
-
-  .modal-close-button {
-    position: fixed;
-    top: 1rem;
-    right: 1rem;
-    background: rgba(255, 255, 255, 0.9);
-    color: #2c1810;
-    width: 40px;
-    height: 40px;
-    z-index: 1100;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  }
-}
-
-@media (max-width: 480px) {
-  .modal-overlay {
-    padding: 0;
-  }
-
-  .modal-content {
-    border-radius: 0;
-  }
-
-  .modal-image-container {
-    flex: 0 0 50%;
-  }
-
-  .modal-body {
-    flex: 0 0 50%;
-    padding: 0.8rem;
-  }
-
-  .modal-links {
-    padding: 0 0.5rem;
-  }
-
-  .modal-link {
-    padding: 0.6rem 1rem;
-    font-size: 0.9rem;
+  .modal-main-content {
+    position: relative;
+    min-height: min-content;
   }
 
   .modal-title {
     font-size: 1.4rem;
+    margin-bottom: 0.5rem;
   }
 
   .modal-subtitle {
-    font-size: 1rem;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+  }
+
+  .results-section {
+    margin-bottom: 1rem;
+  }
+
+  .modal-sidebar {
+    position: relative;
+    min-height: min-content;
+    padding-top: 1rem;
+    margin-top: auto;
+    border-top: 1px solid #e2e8f0;
   }
 
   .technologies-section,
   .category-section {
+    margin-bottom: 1rem;
+  }
+
+  .modal-links {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .modal-image-container {
+    flex: 0 0 30%;
+  }
+
+  .modal-body {
     padding: 0.8rem;
   }
 
-  .technology-tag,
-  .category-tag {
-    font-size: 0.8rem;
-    padding: 0.4rem 0.8rem;
+  .modal-title {
+    font-size: 1.2rem;
   }
 
-  .results-section {
-    max-height: 25vh;
+  .modal-subtitle {
+    font-size: 0.85rem;
   }
 }
 
 @media (orientation: landscape) and (max-height: 600px) {
   .modal-content {
-    height: 98vh;
+    height: 100vh;
   }
 
   .modal-image-container {
@@ -490,10 +455,21 @@
   }
 
   .modal-body {
-    flex: 0 0 55%;
+    flex-direction: row;
+    gap: 1.5rem;
   }
 
-  .results-section {
-    max-height: 25vh;
+  .modal-main-content {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 1rem;
+  }
+
+  .modal-sidebar {
+    width: 250px;
+    margin-top: 0;
+    border-top: none;
+    border-left: 1px solid #e2e8f0;
+    padding-left: 1rem;
   }
 }

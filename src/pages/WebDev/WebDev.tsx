@@ -1,10 +1,5 @@
-import { useState, useRef, lazy, Suspense } from "react";
-import {
-	motion,
-	AnimatePresence,
-	useScroll,
-	useTransform,
-} from "framer-motion";
+import { useState, useEffect, useRef, lazy, Suspense } from "react";
+import { motion, useAnimation, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import ProjectCard from "../../components/projects/Card/Card";
 import { projects } from "../../data/projectsConfig";
 import { HeroSection } from "../../components/sections/HeroSection/HeroSection";
@@ -14,6 +9,8 @@ import { SectionTransition } from "../../components/SectionTransition/SectionTra
 import { useNavigate } from "react-router-dom";
 import { Navbar } from "../../components/Navbar/Navbar";
 import { Footer } from "../../components/Footer/Footer";
+import About from '../../components/sections/About/About';
+import Contact from '../../components/sections/Contact/Contact';
 
 export interface Project {
 	id: number;
@@ -30,6 +27,8 @@ export interface Project {
 const WebDev = () => {
 	const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 	const [activeFilter, setActiveFilter] = useState("Tous");
+	const controls = useAnimation();
+
 	const { scrollYProgress } = useScroll();
 	const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
 
@@ -43,6 +42,28 @@ const WebDev = () => {
 	const isAboutVisible = useIntersectionObserver(aboutRef);
 	const isContactVisible = useIntersectionObserver(contactRef);
 
+	const [sectionsVisible, setSectionsVisible] = useState({
+		about: false,
+		contact: false
+	});
+
+	useEffect(() => {
+		if (isHeroVisible) {
+			controls.start("visible");
+		}
+		if (isProjectsVisible) {
+			controls.start("visible");
+		}
+		if (isAboutVisible) {
+			setSectionsVisible(prev => ({ ...prev, about: true }));
+			controls.start("visible");
+		}
+		if (isContactVisible) {
+			setSectionsVisible(prev => ({ ...prev, contact: true }));
+			controls.start("visible");
+		}
+	}, [isHeroVisible, isProjectsVisible, isAboutVisible, isContactVisible, controls]);
+
 	const filteredProjects = projects.filter((project) => {
 		if (activeFilter === "Tous") return true;
 		return project.categories.includes(activeFilter);
@@ -55,23 +76,26 @@ const WebDev = () => {
 	const navigate = useNavigate();
 
 	const ProjectModal = lazy(() => import('../../components/projects/Modal/Modal'));
-	const About = lazy(() => import('../../components/sections/About/About'));
-	const Contact = lazy(() => import('../../components/sections/Contact/Contact'));
 
-	const sections = [
-		document.querySelector('.hero-section'),
-		document.querySelector('.projects-section'),
-		document.querySelector('.about-section'),
-		document.querySelector('.contact-section')
-	].filter(section => section !== null);
-
-	sections.forEach(section => {
-		if (section) {
+	const containerVariants = {
+		hidden: { opacity: 0 },
+		visible: {
+			opacity: 1,
+			transition: {
+				duration: 0.5,
+				when: "beforeChildren",
+				staggerChildren: 0.1
+			}
 		}
-	});
+	};
 
 	return (
-		<div className="webdev-container">
+		<motion.div 
+			className="webdev-container"
+			initial="hidden"
+			animate={controls}
+			variants={containerVariants}
+		>
 			<Navbar />
 			<motion.button
 				className="home-return-button"
@@ -153,17 +177,13 @@ const WebDev = () => {
 
 					<SectionTransition isVisible={isAboutVisible}>
 						<motion.div ref={aboutRef} className="section">
-							<Suspense fallback={<div>Loading...</div>}>
-								<About />
-							</Suspense>
+							{sectionsVisible.about && <About />}
 						</motion.div>
 					</SectionTransition>
 
 					<SectionTransition isVisible={isContactVisible}>
 						<motion.div ref={contactRef} className="section">
-							<Suspense fallback={<div>Loading...</div>}>
-								<Contact />
-							</Suspense>
+							{sectionsVisible.contact && <Contact />}
 						</motion.div>
 					</SectionTransition>
 				</div>
@@ -173,7 +193,11 @@ const WebDev = () => {
 
 			<AnimatePresence>
 				{selectedProject && (
-					<Suspense fallback={<div>Loading...</div>}>
+					<Suspense fallback={
+						<div className="section-loading">
+							<div className="loading-spinner"></div>
+						</div>
+					}>
 						<ProjectModal
 							project={selectedProject}
 							isOpen={!!selectedProject}
@@ -182,7 +206,7 @@ const WebDev = () => {
 					</Suspense>
 				)}
 			</AnimatePresence>
-		</div>
+		</motion.div>
 	);
 };
 

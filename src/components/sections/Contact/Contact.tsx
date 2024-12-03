@@ -10,7 +10,7 @@ const Contact = () => {
 		message: "",
 		project: "",
 		budget: "",
-		deadline: "",
+			deadline: "",
 	});
 	const [status, setStatus] = useState("");
 	const [error, setError] = useState("");
@@ -50,8 +50,22 @@ const Contact = () => {
 		}
 	};
 
+	const containerVariants = {
+		hidden: { opacity: 0, y: 20 },
+		visible: {
+			opacity: 1,
+			y: 0,
+			transition: { duration: 0.6, ease: "easeOut" }
+		}
+	};
+
 	return (
-		<motion.section className="contact-section">
+		<motion.section
+			className="contact-section"
+			initial="hidden"
+			animate="visible"
+			variants={containerVariants}
+		>
 			<div className="contact-background">
 				<motion.div 
 					className="wave-animation"

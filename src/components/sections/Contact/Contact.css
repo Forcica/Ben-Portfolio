@@ -8,6 +8,14 @@
    min-height: 85vh;
    display: flex;
    align-items: center;
+   opacity: 0;
+   will-change: opacity, transform;
+   transform: translateZ(0);
+}
+
+.contact-section.visible {
+   opacity: 1;
+   transition: opacity 0.5s ease-out;
 }
 
 .decorative-elements {

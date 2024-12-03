@@ -23,6 +23,11 @@
   flex-direction: column;
 }
 
+.webdev-container.loaded {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
 .sections-wrapper {
   flex: 1;
   position: relative;
@@ -335,4 +340,9 @@
 .home-return-button:hover {
   background: rgba(155, 44, 44, 0.2);
   border-color: rgba(155, 44, 44, 0.3);
+}
+
+.webdev-container.loaded {
+   opacity: 1 !important;
+   visibility: visible !important;
 }
