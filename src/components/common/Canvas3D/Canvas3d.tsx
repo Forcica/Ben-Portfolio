@@ -147,33 +147,35 @@ const Canvas3D = () => {
 	}, []);
 
 	useEffect(() => {
-		// Créer un conteneur pour le bouton
-		const buttonContainer = document.createElement('div');
-		buttonContainer.style.cssText = `
-			position: fixed;
-			top: 20px;
-			right: 20px;
-			z-index: 999999;
-			pointer-events: all;
-		`;
-		
-		const captureButton = document.createElement('button');
-		captureButton.textContent = 'Capture';
-		captureButton.style.cssText = `
-			padding: 10px 20px;
-			background: #fff;
-			border: 2px solid #000;
-			cursor: pointer;
-			box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-		`;
-		
-		captureButton.onclick = handleCapture;
-		buttonContainer.appendChild(captureButton);
-		document.body.appendChild(buttonContainer);
-		
-		return () => {
-			document.body.removeChild(buttonContainer);
-		};
+		// N'afficher le bouton qu'en développement
+		if (process.env.NODE_ENV === 'development') {
+			const buttonContainer = document.createElement('div');
+			buttonContainer.style.cssText = `
+				position: fixed;
+				top: 20px;
+				right: 20px;
+				z-index: 999999;
+				pointer-events: all;
+			`;
+			
+			const captureButton = document.createElement('button');
+			captureButton.textContent = 'Capture';
+			captureButton.style.cssText = `
+				padding: 10px 20px;
+				background: #fff;
+				border: 2px solid #000;
+				cursor: pointer;
+				box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+			`;
+			
+			captureButton.onclick = handleCapture;
+			buttonContainer.appendChild(captureButton);
+			document.body.appendChild(buttonContainer);
+			
+			return () => {
+				document.body.removeChild(buttonContainer);
+			};
+		}
 	}, []);
 
 	return (
