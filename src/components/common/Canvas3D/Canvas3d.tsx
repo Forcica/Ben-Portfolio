@@ -3,14 +3,34 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import gsap from "gsap";
+import { captureScene } from '../../../utils/captureScene';
 
 const Model = () => {
 	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 	const [isLoading, setIsLoading] = useState(true);
 	const [hasError, setHasError] = useState(false);
-	
-	const modelPath = isMobile ? "/assets/models/scene-mobile.gltf" : "/assets/models/scene.gltf";
-	const { scene } = useGLTF(modelPath);
+	console.log('Device:', isMobile ? 'Mobile' : 'Desktop');
+
+	if (isMobile) {
+		return (
+			<div className="mobile-fallback">
+				<img 
+					src="/assets/images/scene-static.webp" 
+					alt="Scene 3D"
+					loading="lazy"
+					style={{
+						width: '100%',
+						height: '100%',
+						objectFit: 'cover',
+						borderRadius: '12px'
+					}}
+				/>
+			</div>
+		);
+	}
+
+	// Version desktop avec le modèle 3D
+	const { scene } = useGLTF("/assets/models/scene.gltf");
 
 	useEffect(() => {
 		if (scene) {
@@ -105,6 +125,17 @@ const Canvas3D = () => {
 
 	return (
 		<div ref={containerRef} className="canvas-container">
+			<button 
+				onClick={captureScene}
+				style={{
+					position: 'fixed',
+					top: '20px',
+					right: '20px',
+					zIndex: 1000
+				}}
+			>
+				Capture Scene
+			</button>
 			<Canvas
 				shadows={false}
 				camera={{ 
