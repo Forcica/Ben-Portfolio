@@ -2,6 +2,13 @@ import { useEffect, useRef } from "react";
 import "./Cursor.css";
 
 const Cursor = () => {
+	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
+					(navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
+
+	if (isMobile) {
+		return null;
+	}
+
 	const dotRef = useRef<HTMLDivElement | null>(null);
 	const outlineRef = useRef<HTMLDivElement | null>(null);
 
@@ -64,10 +71,10 @@ const Cursor = () => {
 	}, []);
 
 	return (
-		<>
+		<div className="cursor-wrapper">
 			<div ref={dotRef} className="cursor-dot" />
 			<div ref={outlineRef} className="cursor-outline" />
-		</>
+		</div>
 	);
 };
 
