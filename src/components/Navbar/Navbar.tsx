@@ -84,15 +84,7 @@ export const Navbar = () => {
             initial={{ height: "8px" }}
             animate={{ 
               height: "8px",
-              top: (() => {
-                const activeLink = document.querySelector('.nav-link.active');
-                if (!activeLink) return '20px';
-                
-                const index = Array.from(document.querySelectorAll('.nav-link'))
-                                  .indexOf(activeLink);
-                
-                return `${24 + (index * (40 + 19.2)) + 20}px`;
-              })()
+              top: `${24 + (activeSection * (40 + 19.2)) + 20}px`
             }}
             transition={{
               type: "spring",
