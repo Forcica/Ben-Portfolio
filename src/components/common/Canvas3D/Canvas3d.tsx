@@ -3,7 +3,6 @@ import { Canvas, useThree } from "@react-three/fiber";
 import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import gsap from "gsap";
-import { captureScene } from '../../../utils/captureScene';
 
 const Model = () => {
 	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
@@ -15,7 +14,7 @@ const Model = () => {
 		return (
 			<div className="mobile-fallback">
 				<img 
-					src="/assets/images/scene-static.webp" 
+					src="/assets/models/scene-static.webp" 
 					alt="Scene 3D"
 					loading="lazy"
 					style={{
@@ -110,6 +109,30 @@ const Canvas3D = () => {
 		antialias: !isMobile,
 	};
 
+	const handleCapture = async () => {
+		try {
+			const canvas = document.querySelector('.canvas-container canvas');
+			if (!canvas) {
+				console.error('Canvas non trouvé');
+				return;
+			}
+
+			// Attendre le prochain frame
+			await new Promise(resolve => requestAnimationFrame(resolve));
+
+			// Capture
+			const dataUrl = (canvas as HTMLCanvasElement).toDataURL('image/png');
+			const link = document.createElement('a');
+			link.href = dataUrl;
+			link.download = 'scene-static.png';
+			link.click();
+			
+			console.log('Capture réussie');
+		} catch (error) {
+			console.error('Erreur:', error);
+		}
+	};
+
 	useEffect(() => {
 		const observer = new IntersectionObserver(
 			([entry]) => setIsVisible(entry.isIntersecting),
@@ -123,19 +146,38 @@ const Canvas3D = () => {
 		return () => observer.disconnect();
 	}, []);
 
+	useEffect(() => {
+		// Créer un conteneur pour le bouton
+		const buttonContainer = document.createElement('div');
+		buttonContainer.style.cssText = `
+			position: fixed;
+			top: 20px;
+			right: 20px;
+			z-index: 999999;
+			pointer-events: all;
+		`;
+		
+		const captureButton = document.createElement('button');
+		captureButton.textContent = 'Capture';
+		captureButton.style.cssText = `
+			padding: 10px 20px;
+			background: #fff;
+			border: 2px solid #000;
+			cursor: pointer;
+			box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+		`;
+		
+		captureButton.onclick = handleCapture;
+		buttonContainer.appendChild(captureButton);
+		document.body.appendChild(buttonContainer);
+		
+		return () => {
+			document.body.removeChild(buttonContainer);
+		};
+	}, []);
+
 	return (
 		<div ref={containerRef} className="canvas-container">
-			<button 
-				onClick={captureScene}
-				style={{
-					position: 'fixed',
-					top: '20px',
-					right: '20px',
-					zIndex: 1000
-				}}
-			>
-				Capture Scene
-			</button>
 			<Canvas
 				shadows={false}
 				camera={{ 
