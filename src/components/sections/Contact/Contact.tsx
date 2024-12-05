@@ -150,9 +150,9 @@ const Contact = () => {
 							required
 						>
 							<option value="">Budget envisagé</option>
-							<option value="< 5k">Moins de 5 000 €</option>
-							<option value="5k-10k">5 000 € - 10 000 €</option>
-							<option value="10k+">Plus de 10 000 €</option>
+							<option value="< 1k">Moins de 1 000 €</option>
+							<option value="1k-5k">1 000 € - 5 000 €</option>
+							<option value="5k+">Plus de 5 000 €</option>
 							<option value="à définir">À définir ensemble</option>
 						</select>
 					</div>

@@ -127,10 +127,15 @@
    transform: translateY(-3px);
 }
 
-.button-icon {
-   font-size: 1.8rem;
+.nav-button:first-child .button-icon {
+   font-size: 2.5rem;
+   position: relative;
 }
 
+.nav-button:last-child .button-icon {
+   font-size: 3.5rem;
+   position: relative;
+}
 .web-dev {
    background: rgba(139, 38, 53, 0.15);
    border-color: rgba(139, 38, 53, 0.3);
@@ -149,6 +154,14 @@
    align-items: center;
    padding: 2rem;
    height: 100%;
+}
+
+.icon-container {
+   height: 60px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   margin-bottom: 1rem;
 }
 
 .button-text {

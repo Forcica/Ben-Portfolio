@@ -88,7 +88,9 @@ const Home = () => {
 			onClick={() => handleNavigation(path)}
 		>
 			<div className="button-content">
-				<span className="button-icon">{icon}</span>
+				<div className="icon-container">
+					<div className="button-icon">{icon}</div>
+				</div>
 				<div className="button-text">
 					<span className="button-title">{title}</span>
 					<span className="button-subtitle">{subtitle}</span>

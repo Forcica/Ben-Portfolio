@@ -140,7 +140,7 @@
    border: 1px solid rgba(155, 44, 44, 0.1);
    border-radius: 2px;
    font-size: 1rem;
-   font-family: 'Noto Sans JP', sans-serif;
+   font-family: 'Noto Serif JP', sans-serif;
    color: var(--primary);
    transition: all 0.4s var(--transition-bezier);
 }
@@ -161,7 +161,7 @@
 .form-group textarea::placeholder,
 .form-group select::placeholder {
    color: rgba(44, 24, 16, 0.4);
-   font-family: 'Noto Sans JP', sans-serif;
+   font-family: 'Noto Serif JP', sans-serif;
 }
 
 .form-group select {
@@ -187,7 +187,7 @@
    border-radius: 2px;
    font-size: 1rem;
    font-weight: 500;
-   font-family: 'Noto Sans JP', sans-serif;
+   font-family: 'Noto Serif JP', sans-serif;
    letter-spacing: 0.5px;
    cursor: pointer;
    transition: all 0.4s var(--transition-bezier);

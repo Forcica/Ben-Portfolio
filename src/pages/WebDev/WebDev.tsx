@@ -145,7 +145,7 @@ const WebDev = () => {
 								>
 									Tous
 								</motion.button>
-								{["Frontend", "3D", "Creative", "Landing Page"].map(
+								{["Frontend", "Creative", "Landing Page"].map(
 									(filter) => (
 										<motion.button
 											key={filter}
