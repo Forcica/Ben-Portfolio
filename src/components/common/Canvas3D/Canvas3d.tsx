@@ -4,6 +4,10 @@ import { OrbitControls, useGLTF } from "@react-three/drei";
 import * as THREE from "three";
 import gsap from "gsap";
 
+interface Canvas3DProps {
+	isLoaded?: boolean;
+}
+
 const Model = () => {
 	const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
 					(navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
@@ -100,7 +104,7 @@ function CameraAnimation() {
 	return null;
 }
 
-const Canvas3D = () => {
+const Canvas3D: React.FC<Canvas3DProps> = ({ isLoaded }) => {
 	const isMobileCheck = () => /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
 					(navigator.maxTouchPoints && navigator.maxTouchPoints > 2);
 
@@ -180,7 +184,7 @@ const Canvas3D = () => {
 	};
 
 	// Rendu mobile avec image statique
-	if (isMobile) {
+	if (isMobile || !isLoaded) {
 		return (
 			<div className="mobile-fallback" style={{
 				width: '100%',
